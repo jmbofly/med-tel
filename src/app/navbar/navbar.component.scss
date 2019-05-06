@@ -1,0 +1,35 @@
+/*
+* =====================================================
+*     NAVBAR
+* =====================================================
+*/
+nav.navbar {
+  -webkit-transition: all 0.4s;
+  transition: all 0.4s;
+}
+
+nav.navbar.active {
+  background: #fff;
+  -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.08);
+}
+
+nav.navbar .dropdown-menu {
+  margin-top: 1.4rem;
+}
+
+/* NAVBAR MEDIAQUERY */
+@media (max-width: 991.98px) {
+  nav.navbar {
+    background: #fff;
+    -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.08);
+  }
+
+  nav.navbar .dropdown-menu {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    margin-top: 0;
+    margin-bottom: 1rem;
+  }
+}
