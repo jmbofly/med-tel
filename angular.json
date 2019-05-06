@@ -17,14 +17,13 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "docs/med-tel",
+            "outputPath": "docs",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
             "assets": ["src/favicon.ico", "src/assets"],
-            "styles": [
-              "src/styles/styles.scss"],
+            "styles": ["src/styles/styles.scss"],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/aos/dist/aos.js"
@@ -61,7 +60,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "med-tel:build"
+            "browserTarget": "med-tel:build",
+            "baseHref": "https://jmbofly.github.io/med-tel/"
           },
           "configurations": {
             "production": {
