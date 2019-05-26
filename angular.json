@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "docs",
+            "outputPath": "dist",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -65,7 +65,7 @@
           "configurations": {
             "production": {
               "browserTarget": "med-tel:build:production",
-              "baseHref": "https://jmbofly.github.io/med-tel/"
+              "baseHref": "/"
             }
           }
         },

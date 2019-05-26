@@ -1,6 +1,7 @@
 @import 'fonts';
 @import '~bootstrap/scss/bootstrap';
 @import '~bootstrap/scss/variables';
+@import '~font-awesome/css/font-awesome.css';
 @import '~aos/dist/aos.css';
 @import '~ngx-owl-carousel-o/lib/styles/scss/owl.carousel';
 @import '~ngx-owl-carousel-o/lib/styles/scss/owl.theme.default';
@@ -265,20 +266,19 @@ STYLE SWITCHER FOR DEMO
 * =====================================================
 */
 .hero {
-  padding: 12.5rem 0;
-  background: url('../assets/img/hero-bg.svg') no-repeat;
+  padding: 8.5rem 0;
+  background: url('../assets/img/hero-bg.png') no-repeat;
   background-size: cover;
-  background-position: bottom left;
+  background-position: top center;
+  width: 100%;
 
-  .hero-background {
-    background: url('../assets/img/hero_0.png');
-    height: 660px;
-    width: 100%;
-    position: absolute;
-    top: 74px;
-    opacity: 0.075;
-    background-position: bottom right;
-    // background-attachment: fixed;
+  .hero-heading,
+  .lead {
+    color: $white;
+  }
+
+  @media all and (min-width: 1200px) {
+    height: 860px;
   }
 }
 
@@ -319,7 +319,7 @@ STYLE SWITCHER FOR DEMO
 @media (max-width: 991.98px) {
   .hero {
     padding: 5rem 0 7rem;
-    padding-top: 8rem;
+    padding-top: 1.6rem !important;
   }
 
   .subscription-form .form-group {
@@ -330,6 +330,16 @@ STYLE SWITCHER FOR DEMO
     position: static;
     width: 100%;
     margin-top: 0.5rem;
+  }
+}
+
+.intro-section {
+  .card {
+    border: none;
+    .card-img-top {
+      margin: 0 auto;
+      max-width: 75%;
+    }
   }
 }
 

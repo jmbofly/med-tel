@@ -1,7 +1,58 @@
 <header class="header">
-  <app-navbar></app-navbar>
+  <app-navbar>
+    <ul class="navbar-nav ml-auto">
+      <!-- Link-->
+      <li class="nav-item">
+        <a routerLink="/home" routerLinkActive="active" href="" class="nav-link"
+          >Home</a
+        >
+      </li>
+      <!-- Link-->
+      <li class="nav-item">
+        <a href="" routerLink="/faq" routerLinkActive="active" class="nav-link"
+          >FAQ</a
+        >
+      </li>
+      <!-- Link-->
+      <li class="nav-item">
+        <a
+          href=""
+          routerLink="/contact"
+          routerLinkActive="active"
+          class="nav-link"
+          >Contact</a
+        >
+      </li>
+      <!-- Link-->
+      <li class="nav-item">
+        <a
+          href=""
+          routerLink="/about"
+          routerLinkActive="active"
+          class="nav-link"
+          >About</a
+        >
+      </li>
+      <li class="nav-item dropdown">
+        <a
+          id="pages"
+          href=""
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+          class="nav-link dropdown-toggle"
+          >Shop</a
+        >
+        <div class="dropdown-menu">
+          <a href="#" class="dropdown-item">911HelpNow</a
+          ><a href="#" class="dropdown-item">Hearing Aids</a
+          ><a href="#" class="dropdown-item">Other</a>
+        </div>
+      </li>
+    </ul>
+  </app-navbar>
 </header>
-<app-home></app-home>
-<!-- TODO: Make divider component with dynamic content => ng-content -->
-<!-- <app-divider></app-divider> -->
+
+<router-outlet></router-outlet>
+
 <app-footer class="pt-4"></app-footer>

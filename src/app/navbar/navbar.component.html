@@ -1,7 +1,21 @@
+<!-- FIXME: menu collapses depending on screen width -->
+<!-- TODO: sticky navbar?? change between fixed and absolute on scroll -->
+<!-- TODO: login/registration modal -->
+
 <!-- navbar-->
-<nav class="navbar navbar-expand-lg fixed-top">
+<nav class="navbar navbar-expand-lg bg-light">
   <div class="container">
-    <a href="#" class="navbar-brand">MED-TEL</a>
+    <a href="#" class="navbar-brand">
+      <img
+        src="assets/img/cross_logo.png"
+        width="25"
+        height="25"
+        style=""
+        class="img-thumbnail bg-warning"
+        alt=""
+      />
+      MedTelPlus
+    </a>
     <button
       type="button"
       data-toggle="collapse"
@@ -11,35 +25,10 @@
       aria-label="Toggle navigation"
       class="navbar-toggler navbar-toggler-right"
     >
-      Menu<i class="fa fa-bars ml-2"></i>
+      <i class="fa fa-bars fa-2x ml-2"></i>
     </button>
     <div id="navbarSupportedContent" class="collapse navbar-collapse">
-      <ul class="navbar-nav ml-auto">
-        <!-- Link-->
-        <li class="nav-item"><a href="#" class="nav-link active">Home</a></li>
-        <!-- Link-->
-        <li class="nav-item"><a href="#" class="nav-link">FAQ</a></li>
-        <!-- Link-->
-        <li class="nav-item"><a href="#" class="nav-link">Contact</a></li>
-        <!-- Link-->
-        <li class="nav-item"><a href="#" class="nav-link">About</a></li>
-        <li class="nav-item dropdown">
-          <a
-            id="pages"
-            href="#"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-            class="nav-link dropdown-toggle"
-            >Shop</a
-          >
-          <div class="dropdown-menu">
-            <a href="#" class="dropdown-item">911HelpNow</a
-            ><a href="#" class="dropdown-item">Hearing Aids</a
-            ><a href="#" class="dropdown-item">Other</a>
-          </div>
-        </li>
-      </ul>
+      <ng-content></ng-content>
       <a
         href="#"
         data-toggle="modal"
