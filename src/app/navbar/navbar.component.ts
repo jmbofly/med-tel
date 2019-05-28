@@ -7,9 +7,13 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
   @ViewChild('navbar') nav;
+  mobileMenu = true;
   constructor() {}
 
+  toggleMobileMenu() {
+    this.mobileMenu = !this.mobileMenu;
+  }
   ngOnInit() {
-    console.log('nav', this.nav);
+    // console.log('nav', this.nav);
   }
 }
