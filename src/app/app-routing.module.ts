@@ -4,10 +4,11 @@ import { HomeComponent } from './home/home.component';
 import { ContactComponent } from './contact/contact.component';
 import { FaqComponent } from './faq/faq.component';
 import { AboutComponent } from './about/about.component';
+import { StoreComponent } from './store/store.component';
 
 const routes: Routes = [
   {
-    path: 'home',
+    path: '',
     component: HomeComponent,
   },
   {
@@ -23,9 +24,13 @@ const routes: Routes = [
     component: ContactComponent,
   },
   {
-    path: '',
+    path: 'store',
+    component: StoreComponent
+  },
+  {
+    path: 'home',
     pathMatch: 'full',
-    redirectTo: 'home',
+    redirectTo: '',
   },
 ];
 
