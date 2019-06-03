@@ -1,17 +1,24 @@
 <!-- Hero Section-->
+<!-- TODO: Hero Slider ??? -->
 <section class="hero" style="background-image: url(assets/img/hero-bg.png);">
   <div class="container mb-5">
     <div class="row align-items-center justify-content-center">
       <div class="col-lg-6">
-        <h1 class="hero-heading text-uppercase text-center mb-0">
-          We have you <br />
-          covered
+        <h1
+          class="hero-heading text-uppercase text-center mb-0 animated"
+          data-aos="fade-up"
+        >
+          TeleCare.<br />
+          <small>ReInvented.</small>
         </h1>
         <div class="row">
-          <div class="col-lg-10">
-            <p class="lead text-center mt-4 mb-4">
-              Get the most reliable and customizable medical tele-care on the
-              market.
+          <div class="col-lg-12">
+            <p
+              class="lead text-center mt-4 mb-4 animated"
+              data-aos="fade-right"
+              data-aos-delay=".5"
+            >
+              Want to Learn more about MedTelPlus products?
             </p>
           </div>
         </div>
@@ -23,17 +30,12 @@
               placeholder="Enter your email"
               class="form-control"
             />
-            <button type="submit" class="btn border-light btn-primary">Learn More</button>
+            <button type="submit" class="btn border-light btn-primary">
+              Learn More
+            </button>
           </div>
         </form>
       </div>
-      <!-- <div class="col-lg-6">
-        <img
-          src="assets/img/illustration-hero.svg"
-          alt="..."
-          class="hero-image img-fluid d-none d-lg-block"
-        />
-      </div> -->
     </div>
   </div>
 </section>
@@ -43,33 +45,67 @@
 <section class="intro-section">
   <div class="container">
     <div class="text-center">
-      <h2>One Provider, Multiple Services</h2>
+      <h2>
+        Why We're the Best!
+      </h2>
       <p class="lead text-muted mt-2">
-        With more packages to choose from, MedTel gives you what you need,
-        period.
+        With more packages to choose from, MedTelPlus gives you what you
+        need.<br />
+        No fees. No tricks.<br />Period.
       </p>
-      <a href="#" class="btn btn-primary btn-outline-light">Learn More</a>
+      <a href="#" class="btn btn-primary btn-outline-dark">Learn More</a>
     </div>
     <div class="row">
-      <div class="card col-lg-4 col-md-12 mt-5 card">
-        <img class="card-img-top" src="assets/images/doctor.png" width="80" alt="">
+      <div
+        class="card col-lg-4 col-md-12 mt-5 card animated"
+        data-aos="fade-up"
+      >
+        <img
+          class="card-img-top"
+          src="assets/images/doctor.png"
+          width="50"
+          alt=""
+        />
         <div class="card-body text-center">
-          <h4 class="card-title">Trusted Health Providers</h4>
-          <p class="card-text">Find all the services that you need</p>
+          <h4 class="card-title">Trusted Providers</h4>
+          <p class="card-text">
+            Customized Telemedicine that offers the best care from licensed Doctors and Nurses.
+          </p>
         </div>
       </div>
-      <div class="card col-lg-4 col-md-12 mt-5 card">
-        <img class="card-img-top" src="assets/images/police.png" width="80" alt="">
+      <div
+        class="card col-lg-4 col-md-12 mt-5 card animated"
+        data-aos="fade-up"
+      >
+        <img
+          class="card-img-top"
+          src="assets/images/police.png"
+          width="50"
+          alt=""
+        />
         <div class="card-body text-center">
-          <h4 class="card-title">We Keep You Safe</h4>
-          <p class="card-text">911 Help Now alert devices keep you in contact with law enforcement.</p>
+          <h4 class="card-title">Peace of Mind</h4>
+          <p class="card-text">
+            Get direct contact with a 911 dispatcher.<br/> No call centers.<br/> No transfering calls.<br/> No wasting precious time.
+          </p>
         </div>
       </div>
-      <div class="card col-lg-4 col-md-12 mt-5 card">
-        <img class="card-img-top" src="assets/images/agent.png" width="80" alt="">
+      <div
+        class="card col-lg-4 col-md-12 mt-5 card animated"
+        data-aos="fade-up"
+      >
+        <img
+          class="card-img-top"
+          src="assets/images/agent.png"
+          width="50"
+          alt=""
+        />
         <div class="card-body text-center">
-          <h4 class="card-title">24/7 Friendly Support</h4>
-          <p class="card-text">MedTelPlus offers several ways to contact us so you're never on your own.</p>
+          <h4 class="card-title">24/7 Support</h4>
+          <p class="card-text">
+            Our trained agents are always available, so you're never on your
+            own.
+          </p>
         </div>
       </div>
     </div>
@@ -78,7 +114,7 @@
 <!-- end Intro -->
 
 <!-- Page divider 0 -->
-<app-divider [content]="dividers[0]"> </app-divider>
+<app-divider [content]="dividers[0]"></app-divider>
 <!-- end Divider-->
 
 <!-- Portfolio Section-->
@@ -94,56 +130,74 @@
       <div class="row">
         <div class="col-lg-4 p-0">
           <a
-            href="#"
-            data-lightbox="image-1"
-            data-title="Some footer information"
+            href=""
+            routerLink="/store"
+            routerLinkActive="active"
             class="portfolio-item"
-            ><img src="assets/images/pendant_green.png" alt="image" class="img-fluid"
+            ><img
+              src="assets/images/911HN_01_500x500.jpg"
+              alt="image"
+              class="img-fluid"
           /></a>
         </div>
         <div class="col-lg-4 p-0">
           <a
-            href="#"
-            data-lightbox="image-1"
-            data-title="Some footer information"
+            href=""
+            routerLink="/store"
+            routerLinkActive="active"
             class="portfolio-item"
-            ><img src="assets/images/pendant_grey.png" alt="image" class="img-fluid"
+            ><img
+              src="assets/images/911HN_01_500x500.jpg"
+              alt="image"
+              class="img-fluid"
           /></a>
         </div>
         <div class="col-lg-4 p-0">
           <a
-            href="#"
-            data-lightbox="image-1"
-            data-title="Some footer information"
+            href=""
+            routerLink="/store"
+            routerLinkActive="active"
             class="portfolio-item"
-            ><img src="assets/images/pendant_gun-grey.png" alt="image" class="img-fluid"
+            ><img
+              src="assets/images/911HN_01_500x500.jpg"
+              alt="image"
+              class="img-fluid"
           /></a>
         </div>
         <div class="col-lg-4 p-0">
           <a
-            href="#"
-            data-lightbox="image-1"
-            data-title="Some footer information"
+            href=""
+            routerLink="/store"
+            routerLinkActive="active"
             class="portfolio-item"
-            ><img src="assets/images/pendant_yellow.png" alt="image" class="img-fluid"
+            ><img
+              src="assets/images/911HN_01_500x500.jpg"
+              alt="image"
+              class="img-fluid"
           /></a>
         </div>
         <div class="col-lg-4 p-0">
           <a
-            href="#"
-            data-lightbox="image-1"
-            data-title="Some footer information"
+            href=""
+            routerLink="/store"
+            routerLinkActive="active"
             class="portfolio-item"
-            ><img src="assets/images/pendant_pink.png" alt="image" class="img-fluid"
+            ><img
+              src="assets/images/911HN_01_500x500.jpg"
+              alt="image"
+              class="img-fluid"
           /></a>
         </div>
         <div class="col-lg-4 p-0">
           <a
-            href="#"
-            data-lightbox="image-1"
-            data-title="Some footer information"
+            href=""
+            routerLink="/store"
+            routerLinkActive="active"
             class="portfolio-item"
-            ><img src="assets/images/pendant_white.png" alt="image" class="img-fluid"
+            ><img
+              src="assets/images/911HN_01_500x500.jpg"
+              alt="image"
+              class="img-fluid"
           /></a>
         </div>
       </div>

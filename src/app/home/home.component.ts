@@ -12,9 +12,9 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.dividers = [
       {
-        title: `Don't Lose Time`,
+        title: `Don't wait till it's too late!`,
         icon: 'fa-clock-o',
-        text: `Emergency alert devices bring help right away. Fire, EMS and Police dispatched to you with just the push of a button`,
+        text: `911 Help Now devices bring first responders right away. <br/>Fire, EMS and Police dispatched to you with just the push of a button`,
         ctaLink: null,
         colors: {
           bgColor: 'bg-primary',
@@ -24,9 +24,9 @@ export class HomeComponent implements OnInit {
         },
       },
       {
-        title: 'Peace of Mind',
+        title: 'Just the push of a button away',
         icon: 'fa-ambulance',
-        text: `Get life-saving 911 HelpNow alert devices, and quality health care providers connected to you anywhere, anytime.`,
+        text: `Get life-saving 911 Help Now devices, and find out what fast and reliable really means.`,
         ctaLink: null,
         colors: {
           bgColor: 'bg-default',
