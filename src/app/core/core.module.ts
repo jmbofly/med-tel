@@ -6,12 +6,13 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 import { AuthService } from './auth.service';
 import { UserService } from './user.service';
+import { environment } from '../../environments/environment';
 
 @NgModule({
   declarations: [],
   imports: [
     SharedModule,
-    AngularFireModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     AngularFirestoreModule,
   ],
