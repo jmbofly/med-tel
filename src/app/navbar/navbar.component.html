@@ -2,9 +2,9 @@
 <!-- TODO: login/registration modal -->
 
 <!-- navbar-->
-<nav #navbar class="navbar navbar-expand-lg">
+<nav class="navbar navbar-expand-md">
   <div class="container">
-    <a href="#" class="navbar-brand">
+    <a href="" class="navbar-brand">
       <img
         src="assets/images/logo_full.svg"
         width="120"
@@ -29,13 +29,147 @@
       [ngClass]="mobileMenu ? 'collapse' : ''"
     >
       <ng-content></ng-content>
-      <a
-        href="#"
-        data-toggle="modal"
-        data-target="#login"
+
+      <div class="dropdown ml-md-2" *ngIf="!(loggedIn | async)">
+        <button (click)="toggleLoginMenu()" class="ml-0 btn btn-sm" type="button">
+              <i class="fa fa-user-circle fa-2x text-primary"></i><i class="fa fa-caret-down"></i>
+            </button>
+        <div class="dropdown-menu" [style.display]="loginMenu ? 'inherit': 'none'" aria-labelledby="triggerId">
+          <button class="dropdown-item" (click)="openLoginModal(content, 'login')"><i class="fa fa-lock"></i> SignIn</button>
+          <button class="dropdown-item" (click)="openLoginModal(content, 'register')"><i class="fa fa-user-plus"></i> SignUp</button>
+        </div>
+      </div>
+      <!-- Signout button -->
+      <button
+        *ngIf="loggedIn | async"
+        (click)="signOut()"
         class="btn btn-primary navbar-btn ml-0 ml-lg-3"
-        >Login
-      </a>
+      >
+        SignOut
+      </button>
     </div>
   </div>
 </nav>
+
+<ng-template #content let-modal>
+  <div [ngSwitch]="status">
+    <div *ngSwitchCase="'login'">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-login-title">Login</h4>
+        <button
+          type="button"
+          class="close"
+          aria-label="Close"
+          (click)="modal.dismiss('Cross click')"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Please login with email and password</p>
+        <form class="text-left">
+          <div class="form-group mb-4">
+            <label>Email<sup class="text-primary">&#10033;</sup></label>
+            <input
+              #email
+              type="email"
+              name="email"
+              placeholder="Email"
+              class="form-control"
+            />
+          </div>
+          <div class="form-group mb-4">
+            <label>Password<sup class="text-primary">&#10033;</sup></label>
+            <input
+              #password
+              type="password"
+              name="password"
+              placeholder="Password"
+              class="form-control"
+            />
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-link"
+          (click)="modal.close('Close click')"
+        >
+          Cancel
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline-primary"
+          (click)="login(email.value, password.value)"
+        >
+          SignIn
+        </button>
+      </div>
+    </div>
+    <div *ngSwitchDefault>
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-login-title">Register</h4>
+        <button
+          type="button"
+          class="close"
+          aria-label="Close"
+          (click)="modal.dismiss('Cross click')"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Please register with email and password</p>
+        <form class="text-left">
+          <div class="form-group mb-4">
+            <label>Name<sup class="text-primary">&#10033;</sup></label>
+            <input
+              #name
+              type="text"
+              name="name"
+              placeholder="e.g. John Smith"
+              class="form-control"
+            />
+          </div>
+          <div class="form-group mb-4">
+            <label>Email<sup class="text-primary">&#10033;</sup></label>
+            <input
+              #email
+              type="email"
+              name="email"
+              placeholder="Email"
+              class="form-control"
+            />
+          </div>
+          <div class="form-group mb-4">
+            <label>Password<sup class="text-primary">&#10033;</sup></label>
+            <input
+              #password
+              type="password"
+              name="password"
+              placeholder="Password"
+              class="form-control"
+            />
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-link"
+          (click)="modal.close('Close click')"
+        >
+          Cancel
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline-primary"
+          (click)="createAccount(name.value, email.value, password.value)"
+        >
+          SignUp
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>
