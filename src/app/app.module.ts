@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
 import { AppRoutingModule } from './app-routing.module';
@@ -11,11 +12,15 @@ import { FaqModule } from './faq/faq.module';
 import { AboutModule } from './about/about.module';
 import { FooterModule } from './footer/footer.module';
 import { StoreModule } from './store/store.module';
+import { CheckoutModule } from './checkout/checkout.module';
+import { CartModule } from './cart/cart.module';
+import { AccountModule } from './account/account.module';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
+    NgbModule,
     SharedModule,
     CoreModule,
     AppRoutingModule,
@@ -26,6 +31,9 @@ import { StoreModule } from './store/store.module';
     AboutModule,
     FooterModule,
     StoreModule,
+    CheckoutModule,
+    CartModule,
+    AccountModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

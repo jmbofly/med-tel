@@ -5,6 +5,10 @@ import { ContactComponent } from './contact/contact.component';
 import { FaqComponent } from './faq/faq.component';
 import { AboutComponent } from './about/about.component';
 import { StoreComponent } from './store/store.component';
+import { CheckoutComponent } from './checkout/checkout.component';
+import { CartComponent } from './cart/cart.component';
+import { AccountComponent } from './account/account.component';
+import { AuthGuard } from './core/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -25,7 +29,21 @@ const routes: Routes = [
   },
   {
     path: 'store',
-    component: StoreComponent
+    component: StoreComponent,
+  },
+  {
+    path: 'account',
+    component: AccountComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'checkout',
+    component: CheckoutComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'cart',
+    component: CartComponent,
   },
   {
     path: 'home',
