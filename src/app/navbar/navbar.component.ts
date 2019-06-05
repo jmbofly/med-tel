@@ -12,6 +12,7 @@ import { Observable } from 'rxjs';
 export class NavbarComponent implements OnInit {
   mobileMenu = true;
   loginMenu = false;
+  userMenu = false;
   loggedIn: Observable<boolean>;
   status: string;
   constructor(
@@ -44,6 +45,10 @@ export class NavbarComponent implements OnInit {
       .catch(err => console.log('error logging in', err));
   }
 
+  navigateTo(url: string, urlTree?: any[]) {
+    this.router.navigateByUrl(url);
+  }
+
   openLoginModal(content: TemplateRef<any>, setStatus: string) {
     this.status = setStatus;
     const modalRef = this.modalService.open(content, {
@@ -63,6 +68,10 @@ export class NavbarComponent implements OnInit {
 
   toggleLoginMenu() {
     this.loginMenu = !this.loginMenu;
+  }
+
+  toggleUserMenu() {
+    this.userMenu = !this.userMenu;
   }
 
   toggleMobileMenu() {

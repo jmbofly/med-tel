@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ParallaxModule } from 'ngx-parallax';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
 import { AppRoutingModule } from './app-routing.module';
@@ -21,6 +22,7 @@ import { AccountModule } from './account/account.module';
   imports: [
     BrowserModule,
     NgbModule,
+    ParallaxModule,
     SharedModule,
     CoreModule,
     AppRoutingModule,

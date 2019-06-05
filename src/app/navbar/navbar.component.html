@@ -1,52 +1,69 @@
-<!-- TODO: sticky navbar?? change between fixed and absolute on scroll -->
-<!-- TODO: login/registration modal -->
-
 <!-- navbar-->
-<nav class="navbar navbar-expand-md">
+<nav class="navbar navbar-expand-md animate fadeInDown" data-aos="fixed-header" data-aos-offset="1200">
   <div class="container">
     <a href="" class="navbar-brand">
-      <img
-        src="assets/images/logo_full.svg"
-        width="120"
-        style=""
-        class=""
-        alt=""
-      />
+      <img src="assets/images/logo_full.svg" width="120" style="" class="" alt="" />
     </a>
-    <button
-      type="button"
-      (click)="toggleMobileMenu()"
-      aria-controls="navbarSupportedContent"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-      class="navbar-toggler navbar-toggler-right"
-    >
+    <button type="button" (click)="toggleMobileMenu()" aria-controls="navbarSupportedContent" aria-expanded="false"
+      aria-label="Toggle navigation" class="navbar-toggler navbar-toggler-right">
       <i style="font-size: 1.25em" class="fa fa-bars ml-2"></i>
     </button>
-    <div
-      id="navbarSupportedContent"
-      class="navbar-collapse"
-      [ngClass]="mobileMenu ? 'collapse' : ''"
-    >
-      <ng-content></ng-content>
+    <div id="navbarSupportedContent" class="navbar-collapse" [ngClass]="mobileMenu ? 'collapse' : ''">
+      <ul class="navbar-nav ml-auto">
+        <!-- Link-->
+        <li class="nav-item">
+          <button (click)="navigateTo('home')" class="btn btn-link nav-link">Home</button>
+        </li>
+        <!-- Link-->
+        <li class="nav-item">
+          <button (click)="navigateTo('faq')" class="btn btn-link nav-link">Faq</button>
+        </li>
+        <!-- Link-->
+        <li class="nav-item">
+          <button (click)="navigateTo('contact')" class="btn btn-link nav-link">Contact</button>
+        </li>
+        <!-- Link-->
+        <li class="nav-item">
+          <button (click)="navigateTo('about')" class="btn btn-link nav-link">About</button>
+        </li>
+        <li class="nav-item">
+          <button (click)="navigateTo('store')" class="btn btn-link nav-link">Store</button>
+        </li>
+      </ul>
 
       <div class="dropdown ml-md-2" *ngIf="!(loggedIn | async)">
         <button (click)="toggleLoginMenu()" class="ml-0 btn btn-sm" type="button">
-              <i class="fa fa-user-circle fa-2x text-primary"></i><i class="fa fa-caret-down"></i>
-            </button>
-        <div class="dropdown-menu" [style.display]="loginMenu ? 'inherit': 'none'" aria-labelledby="triggerId">
-          <button class="dropdown-item" (click)="openLoginModal(content, 'login')"><i class="fa fa-lock"></i> SignIn</button>
-          <button class="dropdown-item" (click)="openLoginModal(content, 'register')"><i class="fa fa-user-plus"></i> SignUp</button>
+          <img src="assets/images/icons/icon-header-01.png" alt="" class="header-icon1">
+        </button>
+        <div class="dropdown-menu" [style.display]="loginMenu ? 'inherit' : 'none'" aria-labelledby="triggerId">
+          <button class="dropdown-item" (click)="openLoginModal(content, 'login')">
+            <i class="fa fa-lock"></i> SignIn
+          </button>
+          <button class="dropdown-item" (click)="openLoginModal(content, 'register')">
+            <i class="fa fa-user-plus"></i> SignUp
+          </button>
         </div>
       </div>
       <!-- Signout button -->
-      <button
-        *ngIf="loggedIn | async"
-        (click)="signOut()"
-        class="btn btn-primary navbar-btn ml-0 ml-lg-3"
-      >
-        SignOut
-      </button>
+      <div *ngIf="loggedIn | async" class="">
+        <div class="dropdown ml-md-2 d-inline-block">
+          <button (click)="toggleUserMenu()" class="ml-0 btn btn-link p-1" type="button">
+            <img src="assets/images/icons/icon-gear.png" width="30" alt="" class="header-icon1">
+          </button>
+          <div class="dropdown-menu" [style.display]="userMenu ? 'inherit' : 'none'">
+            <button class="dropdown-item" (click)="signOut()">
+              <i class="fa fa-sign-out"></i> SignOut
+            </button>
+            <button class="dropdown-item" (click)="navigateTo('/account')">
+              <i class="fa fa-lock"></i> Account Settings
+            </button>
+          </div>
+        </div>
+        <button class="btn btn-link p-1" (click)="navigateTo('/cart')">
+          <span class="header-icons-noti">2</span>
+          <img src="assets/images/icons/icon-header-02.png" alt="" class="header-icon1">
+        </button>
+      </div>
     </div>
   </div>
 </nav>
@@ -56,12 +73,7 @@
     <div *ngSwitchCase="'login'">
       <div class="modal-header">
         <h4 class="modal-title" id="modal-login-title">Login</h4>
-        <button
-          type="button"
-          class="close"
-          aria-label="Close"
-          (click)="modal.dismiss('Cross click')"
-        >
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -70,39 +82,19 @@
         <form class="text-left">
           <div class="form-group mb-4">
             <label>Email<sup class="text-primary">&#10033;</sup></label>
-            <input
-              #email
-              type="email"
-              name="email"
-              placeholder="Email"
-              class="form-control"
-            />
+            <input #email type="email" name="email" placeholder="Email" class="form-control" />
           </div>
           <div class="form-group mb-4">
             <label>Password<sup class="text-primary">&#10033;</sup></label>
-            <input
-              #password
-              type="password"
-              name="password"
-              placeholder="Password"
-              class="form-control"
-            />
+            <input #password type="password" name="password" placeholder="Password" class="form-control" />
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button
-          type="button"
-          class="btn btn-link"
-          (click)="modal.close('Close click')"
-        >
+        <button type="button" class="btn btn-link" (click)="modal.close('Close click')">
           Cancel
         </button>
-        <button
-          type="button"
-          class="btn btn-outline-primary"
-          (click)="login(email.value, password.value)"
-        >
+        <button type="button" class="btn btn-outline-primary" (click)="login(email.value, password.value)">
           SignIn
         </button>
       </div>
@@ -110,12 +102,7 @@
     <div *ngSwitchDefault>
       <div class="modal-header">
         <h4 class="modal-title" id="modal-login-title">Register</h4>
-        <button
-          type="button"
-          class="close"
-          aria-label="Close"
-          (click)="modal.dismiss('Cross click')"
-        >
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -124,49 +111,24 @@
         <form class="text-left">
           <div class="form-group mb-4">
             <label>Name<sup class="text-primary">&#10033;</sup></label>
-            <input
-              #name
-              type="text"
-              name="name"
-              placeholder="e.g. John Smith"
-              class="form-control"
-            />
+            <input #name type="text" name="name" placeholder="e.g. John Smith" class="form-control" />
           </div>
           <div class="form-group mb-4">
             <label>Email<sup class="text-primary">&#10033;</sup></label>
-            <input
-              #email
-              type="email"
-              name="email"
-              placeholder="Email"
-              class="form-control"
-            />
+            <input #email type="email" name="email" placeholder="Email" class="form-control" />
           </div>
           <div class="form-group mb-4">
             <label>Password<sup class="text-primary">&#10033;</sup></label>
-            <input
-              #password
-              type="password"
-              name="password"
-              placeholder="Password"
-              class="form-control"
-            />
+            <input #password type="password" name="password" placeholder="Password" class="form-control" />
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button
-          type="button"
-          class="btn btn-link"
-          (click)="modal.close('Close click')"
-        >
+        <button type="button" class="btn btn-link" (click)="modal.close('Close click')">
           Cancel
         </button>
-        <button
-          type="button"
-          class="btn btn-outline-primary"
-          (click)="createAccount(name.value, email.value, password.value)"
-        >
+        <button type="button" class="btn btn-outline-primary"
+          (click)="createAccount(name.value, email.value, password.value)">
           SignUp
         </button>
       </div>
