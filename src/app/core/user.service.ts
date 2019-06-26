@@ -13,24 +13,24 @@ import { Observable } from 'rxjs';
 export class UserService {
   private userCollection: AngularFirestoreCollection<UserModel>;
   users: Observable<UserModel[]>;
-  constructor(private afs: AngularFirestore) {
+  constructor(public afs: AngularFirestore) {
     this.userCollection = afs.collection<UserModel>('users');
     this.users = this.userCollection.valueChanges();
   }
 
   getUserById(userId: string) {
-    return this.userCollection.doc<UserModel>(userId);
+    return this.afs.doc<UserModel>(`users/${userId}`);
   }
 
   setUser(userId: string, data: UserModel) {
-    return this.userCollection.add(data);
+    return this.afs.doc(`users/${userId}`).set(data);
   }
 
   updateUser(userId: string, data: any) {
-    return this.userCollection.doc(userId).update(data);
+    return this.afs.doc(`users/${userId}`).update(data);
   }
 
   deleteUser(userId: string) {
-    return this.userCollection.doc(userId).delete();
+    return this.afs.doc(`users/${userId}`).delete();
   }
 }

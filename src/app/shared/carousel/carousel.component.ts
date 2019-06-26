@@ -1,10 +1,15 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  ViewChild,
+} from '@angular/core';
 import { SlidesOutputData, CarouselComponent as Owl } from 'ngx-owl-carousel-o';
 import { Carousel } from './carousel.interface';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-
-
 
 @Component({
   selector: 'app-carousel',
@@ -13,23 +18,18 @@ import { map } from 'rxjs/operators';
 })
 export class CarouselComponent implements OnInit {
   @ViewChild('carousel') carousel;
-  @Input() section: 'home'|'testimonial';
+  @Input() section: 'home' | 'testimonial';
   @Input() classes: string[];
   @Input() options: Owl['options'];
   @Input() slides: any[];
   defaultOptions: Owl['options'];
-  mockImageList: string[] = [
-    'assets/images/bg_1',
-    'assets/images/bg_2',
-    'assets/images/bg_3',
-  ];
   activeSlides: SlidesOutputData;
 
   slidesStore: any[];
 
   constructor() {}
 
-  getPassedData(data: SlidesOutputData) {
+  getData(data: SlidesOutputData) {
     this.activeSlides = data;
     console.log(this.activeSlides);
   }
@@ -43,18 +43,21 @@ export class CarouselComponent implements OnInit {
       margin: 30,
       stagePadding: 0,
       nav: false,
-      navText: ['<span class="ion-ios-arrow-back">', '<span class="ion-ios-arrow-forward">'],
+      navText: [
+        '<span class="ion-ios-arrow-back">',
+        '<span class="ion-ios-arrow-forward">',
+      ],
       responsive: {
         0: {
-          items: 1
+          items: 1,
         },
         600: {
-          items: 1
+          items: 1,
         },
         1000: {
-          items: 1
-        }
-      }
+          items: 1,
+        },
+      },
     };
   }
 }

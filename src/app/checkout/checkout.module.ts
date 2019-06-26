@@ -1,11 +1,9 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { SharedModule } from '../shared/shared.module';
 import { CheckoutComponent } from './checkout.component';
 
 @NgModule({
   declarations: [CheckoutComponent],
-  imports: [
-    CommonModule
-  ]
+  imports: [SharedModule],
 })
-export class CheckoutModule { }
+export class CheckoutModule {}

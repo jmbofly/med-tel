@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModalModule, NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { ParallaxModule } from 'ngx-parallax';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
@@ -21,7 +22,9 @@ import { AccountModule } from './account/account.module';
   declarations: [AppComponent],
   imports: [
     BrowserModule,
-    NgbModule,
+    BrowserAnimationsModule,
+    NgbModalModule,
+    NgbCollapseModule,
     ParallaxModule,
     SharedModule,
     CoreModule,

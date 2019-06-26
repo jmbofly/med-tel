@@ -1,0 +1,86 @@
+<div
+  *ngIf="loggedIn"
+  class="card slideInLeft animated"
+  [hidden]="!showToaster"
+  style="position: fixed; top: 75vh; right: 32px; z-index: 2000;"
+>
+  <div class="card-header bg-primary">
+    New
+    <button
+      class="btn btn-link pull-right text-light pr-0"
+      (click)="toggleToaster()"
+    >
+      <i class="fa fa-times"></i>
+    </button>
+  </div>
+  <div class="card-body">
+    <h4 class="card-title">Item Added To Cart!</h4>
+    <p class="card-text">
+      Click on the shopping bag in the navbar to see your cart
+    </p>
+  </div>
+</div>
+<div class="row">
+  <div
+    class="col-sm-12 col-md-6 col-lg-4 p-b-50"
+    *ngFor="let item of productList"
+  >
+    <!-- Block2 -->
+    <div class="block2 border-bottom pb-3">
+      <div
+        class="block2-img wrap-pic-w of-hidden pos-relative border-bottom pb-3"
+        [ngClass]="getItemTagClass(item.tags[0])"
+      >
+        <img [src]="item.imgUrl" alt="IMG-PRODUCT" class="img-fluid" />
+        <span
+          class="badge badge-default m-auto pr-2"
+          *ngFor="let cat of item.category"
+          >{{ cat }}</span
+        >
+        <div class="block2-overlay trans-0-4" [hidden]="!loggedIn">
+          <button
+            class="block2-btn-addwishlist trans-0-4"
+            (click)="addToWishList(item.productId)"
+          >
+            <i class="fa fa-heart icon_heart_alt" aria-hidden="true"></i>
+            <i class="fa fa-heart-o icon_heart dis-none" aria-hidden="true"></i>
+          </button>
+
+          <div class="block2-btn-addcart w-size1 trans-0-4">
+            <!-- Button -->
+            <button
+              (click)="addToCart(item.productId)"
+              class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4"
+            >
+              Add to Cart
+            </button>
+          </div>
+        </div>
+        <div class="block2-overlay trans-0-4" [hidden]="loggedIn">
+          <div class="block2-btn-addcart w-size1 trans-0-4">
+            <!-- Button -->
+            <button class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4">
+              Create Account
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="block2-txt p-t-20 text-center">
+        <button
+          (click)="selectProduct(item.productId)"
+          class="btn btn-link m-auto block2-name dis-block s-text3 p-b-5"
+        >
+          {{ item.caption }}
+        </button>
+        <span
+          class="badge badge-primary"
+          (click)="addToCart(item.productId)"
+          style="font-size: 1.5rem;"
+        >
+          ${{ item.price }}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

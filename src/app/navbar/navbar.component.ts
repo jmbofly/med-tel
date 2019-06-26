@@ -1,8 +1,24 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import {
+  Component,
+  OnInit,
+  Input,
+  TemplateRef,
+  ViewChild,
+} from '@angular/core';
+import {
+  Router,
+  ActivatedRoute,
+  NavigationStart,
+  Navigation,
+  NavigationError,
+  ActivatedRouteSnapshot,
+  NavigationEnd,
+} from '@angular/router';
 import { NgbModal, NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../core/auth.service';
-import { Observable } from 'rxjs';
+import { UserService } from '../core/user.service';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { map, filter, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-navbar',
@@ -10,43 +26,70 @@ import { Observable } from 'rxjs';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
-  mobileMenu = true;
-  loginMenu = false;
+  hideMobileMenu = true;
+  hideLoginMenu: BehaviorSubject<boolean>;
   userMenu = false;
   loggedIn: Observable<boolean>;
   status: string;
+  loading: Observable<boolean>;
+  navStart: Observable<NavigationStart>;
+  navAuthError: Observable<any>;
+  navCart: any;
   constructor(
     private authService: AuthService,
+    private userService: UserService,
     private modalService: NgbModal,
-    private router: Router
-  ) {}
+    private router: Router,
+    public route: ActivatedRoute
+  ) {
+    this.hideLoginMenu = new BehaviorSubject(true);
+    this.navStart = router.events.pipe(
+      filter(evt => evt instanceof NavigationStart)
+    ) as Observable<NavigationStart>;
+    this.navAuthError = router.events
+      .pipe(map(evt => console.log(evt)))
+      ;
+  }
 
   async createAccount(name: string, email: string, password: string) {
-    return this.authService
+    await this.authService
       .createUserWithEmailAndPassword(name, email, password)
       .then(response => {
-        this.loginMenu = false;
-        this.modalService.dismissAll();
-        this.router.navigateByUrl('/store');
+        this.authStateHasChanged();
         console.log('registration response', response);
       })
       .catch(err => console.log('error creating new account', err));
   }
 
-  async login(email: string, password: string) {
-    return this.authService
+  login(email: string, password: string) {
+    this.authService
       .loginWithEmail(email, password)
       .then(response => {
-        this.loginMenu = false;
-        this.modalService.dismissAll();
-        this.router.navigateByUrl('/store');
-        console.log('login response', response);
+        this.authStateHasChanged();
+        // console.log('login response', response);
       })
       .catch(err => console.log('error logging in', err));
   }
 
+  googleLogin() {
+    this.authService
+      .googleLogin()
+      .then(user => {
+        // console.log('google user', user);
+        this.authStateHasChanged();
+      })
+      .catch(err => console.log('error logging in with Google', err));
+  }
+
+  authStateHasChanged(url = '/store') {
+    this.navigateTo(url);
+    this.modalService.dismissAll();
+  }
+
   navigateTo(url: string, urlTree?: any[]) {
-    this.router.navigateByUrl(url);
+    this.hideMobileMenu = true;
+    this.hideLoginMenu.next(true);
+    this.loader({ url });
   }
 
   openLoginModal(content: TemplateRef<any>, setStatus: string) {
@@ -57,17 +100,36 @@ export class NavbarComponent implements OnInit {
     modalRef.result.then(results => console.log('modal results', results));
   }
 
-  async signOut() {
-    if (this.mobileMenu) {
+  signOut() {
+    if (!this.hideMobileMenu) {
       this.toggleMobileMenu();
     }
-    return this.authService
-      .signOut()
-      .then(res => this.router.navigateByUrl('/'));
+    this.authService.signOut().then(res => this.navigateTo('/'));
+  }
+
+  loader(navigate = null) {
+    this.loading = new Observable(obs => {
+      obs.next(true);
+      if (navigate) {
+        setTimeout(() => {
+          this.router
+            .navigate([navigate.url], { relativeTo: this.route })
+            .then(() => {
+              window.scrollTo(0, 0);
+            });
+          obs.next(false);
+        }, 1000);
+      } else {
+        setTimeout(() => {
+          obs.next(false);
+        }, 1000);
+      }
+    });
   }
 
   toggleLoginMenu() {
-    this.loginMenu = !this.loginMenu;
+    const hidden = this.hideLoginMenu.getValue();
+    this.hideLoginMenu.next(!hidden);
   }
 
   toggleUserMenu() {
@@ -75,16 +137,27 @@ export class NavbarComponent implements OnInit {
   }
 
   toggleMobileMenu() {
-    this.mobileMenu = !this.mobileMenu;
+    this.hideMobileMenu = !this.hideMobileMenu;
   }
 
   ngOnInit() {
+    this.navStart.subscribe(evt => {
+      if (evt) {
+        this.loader();
+      }
+    });
     this.authService.loggedIn().subscribe(res => {
+      if (res) {
+        this.userService
+          .getUserById(res.uid)
+          .valueChanges()
+          .pipe(map(user => (this.navCart = user.cart)))
+          .subscribe();
+      }
       this.loggedIn = new Observable(obs => {
         obs.next(res !== null);
       });
     });
-
     // console.log('nav', this.nav);
   }
 }

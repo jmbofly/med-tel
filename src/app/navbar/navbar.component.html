@@ -1,41 +1,76 @@
 <!-- navbar-->
-<nav class="navbar navbar-expand-md animate fadeInDown" data-aos="fixed-header" data-aos-offset="1200">
+<nav #nav class="navbar navbar-expand-md animate fadeInDown" data-aos="fixed-header" data-aos-offset="1200">
   <div class="container">
     <a href="" class="navbar-brand">
       <img src="assets/images/logo_full.svg" width="120" style="" class="" alt="" />
     </a>
-    <button type="button" (click)="toggleMobileMenu()" aria-controls="navbarSupportedContent" aria-expanded="false"
-      aria-label="Toggle navigation" class="navbar-toggler navbar-toggler-right">
-      <i style="font-size: 1.25em" class="fa fa-bars ml-2"></i>
-    </button>
-    <div id="navbarSupportedContent" class="navbar-collapse" [ngClass]="mobileMenu ? 'collapse' : ''">
+    <div class="d-inline-flex">
+      <div *ngIf="loggedIn | async" [hidden]="nav.clientWidth > 760">
+          <div class="dropdown ml-2 d-inline-block">
+            <button #userMenuButton (click)="toggleUserMenu()" class="ml-0 btn btn-link p-1" type="button">
+              <img src="assets/images/icons/icon-gear.png" width="30" alt="" class="header-icon1" />
+            </button>
+            <div class="dropdown-menu mt-1" [style.display]="userMenu ? 'block' : 'none'">
+              <button class="dropdown-item" (click)="navigateTo('/account')">
+                <i class="fa fa-lock"></i> Account Settings
+              </button>
+              <button class="dropdown-item" (click)="navigateTo('/account')">
+                <i class="fa fa-shopping-cart"></i> Purchase History
+              </button>
+              <button class="dropdown-item" (click)="signOut()">
+                <i class="fa fa-sign-out"></i> SignOut
+              </button>
+            </div>
+          </div>
+          <button class="btn btn-link p-1" (click)="navigateTo('/cart')">
+            <span [hidden]="!navCart?.items.length" class="header-icons-noti">{{navCart?.items.length}}</span>
+            <img src="assets/images/icons/icon-header-02.png" alt="" class="header-icon1" />
+          </button>
+        </div>
+        <button type="button" (click)="toggleMobileMenu()" aria-controls="navbarSupportedContent" aria-expanded="false"
+        aria-label="Toggle navigation" class="navbar-toggler">
+        <i style="font-size: 1.25em" class="fa fa-bars ml-2"></i>
+      </button>
+
+    </div>
+    <div id="navbarSupportedContent" class="navbar-collapse" [ngClass]="hideMobileMenu ? 'collapse' : ''">
       <ul class="navbar-nav ml-auto">
         <!-- Link-->
         <li class="nav-item">
-          <button (click)="navigateTo('home')" class="btn btn-link nav-link">Home</button>
+          <button (click)="navigateTo('home')" class="btn btn-link nav-link">
+            Home
+          </button>
         </li>
         <!-- Link-->
         <li class="nav-item">
-          <button (click)="navigateTo('faq')" class="btn btn-link nav-link">Faq</button>
+          <button (click)="navigateTo('faq')" class="btn btn-link nav-link">
+            Faq
+          </button>
         </li>
         <!-- Link-->
         <li class="nav-item">
-          <button (click)="navigateTo('contact')" class="btn btn-link nav-link">Contact</button>
+          <button (click)="navigateTo('contact')" class="btn btn-link nav-link">
+            Contact
+          </button>
         </li>
         <!-- Link-->
         <li class="nav-item">
-          <button (click)="navigateTo('about')" class="btn btn-link nav-link">About</button>
+          <button (click)="navigateTo('about')" class="btn btn-link nav-link">
+            About
+          </button>
         </li>
         <li class="nav-item">
-          <button (click)="navigateTo('store')" class="btn btn-link nav-link">Store</button>
+          <button (click)="navigateTo('store')" class="btn btn-link nav-link">
+            Store
+          </button>
         </li>
       </ul>
 
       <div class="dropdown ml-md-2" *ngIf="!(loggedIn | async)">
         <button (click)="toggleLoginMenu()" class="ml-0 btn btn-sm" type="button">
-          <img src="assets/images/icons/icon-header-01.png" alt="" class="header-icon1">
+          <img src="assets/images/icons/icon-header-01.png" alt="" class="header-icon1" />
         </button>
-        <div class="dropdown-menu" [style.display]="loginMenu ? 'inherit' : 'none'" aria-labelledby="triggerId">
+        <div class="dropdown-menu" [style.display]="!(hideLoginMenu | async) ? 'inline-block' : 'none'" aria-labelledby="triggerId">
           <button class="dropdown-item" (click)="openLoginModal(content, 'login')">
             <i class="fa fa-lock"></i> SignIn
           </button>
@@ -45,23 +80,26 @@
         </div>
       </div>
       <!-- Signout button -->
-      <div *ngIf="loggedIn | async" class="">
-        <div class="dropdown ml-md-2 d-inline-block">
-          <button (click)="toggleUserMenu()" class="ml-0 btn btn-link p-1" type="button">
-            <img src="assets/images/icons/icon-gear.png" width="30" alt="" class="header-icon1">
+      <div *ngIf="loggedIn | async" [hidden]="nav.clientWidth < 760">
+        <div class="dropdown ml-2 d-inline-block">
+          <button #userMenuButton (click)="toggleUserMenu()" class="ml-0 btn btn-link p-1" type="button">
+            <img src="assets/images/icons/icon-gear.png" width="30" alt="" class="header-icon1" />
           </button>
-          <div class="dropdown-menu" [style.display]="userMenu ? 'inherit' : 'none'">
-            <button class="dropdown-item" (click)="signOut()">
-              <i class="fa fa-sign-out"></i> SignOut
-            </button>
+          <div class="dropdown-menu mt-1" [style.display]="userMenu ? 'block' : 'none'">
             <button class="dropdown-item" (click)="navigateTo('/account')">
               <i class="fa fa-lock"></i> Account Settings
+            </button>
+            <button class="dropdown-item" (click)="navigateTo('/account')">
+              <i class="fa fa-shopping-cart"></i> Purchase History
+            </button>
+            <button class="dropdown-item" (click)="signOut()">
+              <i class="fa fa-sign-out"></i> SignOut
             </button>
           </div>
         </div>
         <button class="btn btn-link p-1" (click)="navigateTo('/cart')">
-          <span class="header-icons-noti">2</span>
-          <img src="assets/images/icons/icon-header-02.png" alt="" class="header-icon1">
+          <span class="header-icons-noti">{{navCart?.items.length}}</span>
+          <img src="assets/images/icons/icon-header-02.png" alt="" class="header-icon1" />
         </button>
       </div>
     </div>
@@ -89,6 +127,27 @@
             <input #password type="password" name="password" placeholder="Password" class="form-control" />
           </div>
         </form>
+        <div class="container m-auto">
+          <div class="row">
+            <div class="col-12">
+              <h5 class="lead text-center text-black-50 m-3">
+                One click Login with <br/>
+              </h5>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6" title="Google Login">
+              <button class="btn btn-block btn-danger m-auto" (click)="googleLogin()">
+                <i class="fa fa-google">&nbsp; Google</i>
+              </button>
+            </div>
+            <div class="col-6" title="Facebook Login">
+              <button class="btn btn-block btn-info m-auto">
+                <i class="fa fa-facebook">&nbsp; Facebook</i>
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-link" (click)="modal.close('Close click')">
@@ -122,6 +181,17 @@
             <input #password type="password" name="password" placeholder="Password" class="form-control" />
           </div>
         </form>
+        <div class="container m-auto">
+          <h5 class="lead text-center text-black-50 m-3">
+            One click Login with <br/>
+          </h5>
+            <button class="btn btn-danger ml-3" (click)="googleLogin()">
+               <i class="fa fa-google"></i> Google
+            </button>
+            <button class="btn btn-info ml-3">
+               <i class="fa fa-facebook"></i> Facebook
+            </button>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-link" (click)="modal.close('Close click')">
@@ -135,3 +205,21 @@
     </div>
   </div>
 </ng-template>
+
+<!-- Loader -->
+<div class="loader-overlay" [hidden]="!(loading | async)">
+  <div class="loader">
+    <div class="loader-inner">
+      <div class="loading one"></div>
+    </div>
+    <div class="loader-inner">
+      <div class="loading two"></div>
+    </div>
+    <div class="loader-inner">
+      <div class="loading three"></div>
+    </div>
+    <div class="loader-inner">
+      <div class="loading four"></div>
+    </div>
+  </div>
+</div>

@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-divider',
@@ -9,7 +10,11 @@ export class DividerComponent implements OnInit {
   @Input() content: any;
   dividerContent: any;
   dividerColors: any;
-  constructor() {}
+  constructor(private router: Router, private route: ActivatedRoute) {}
+
+  navigateTo(url: string) {
+    this.router.navigateByUrl(url, {relativeTo: this.route});
+  }
 
   ngOnInit() {
     const content = this.content;

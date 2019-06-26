@@ -10,6 +10,7 @@ import { ContactComponent } from './contact/contact.component';
 import { PricingComponent } from './pricing/pricing.component';
 import { ModalComponent } from './modal/modal.component';
 import { DividerComponent } from './divider/divider.component';
+import { ParallaxDirective } from './directives/parallax.directive';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { DividerComponent } from './divider/divider.component';
     PricingComponent,
     ModalComponent,
     DividerComponent,
+    ParallaxDirective,
   ],
   imports: [CommonModule, FormsModule, CarouselModule],
   exports: [
@@ -32,6 +34,7 @@ import { DividerComponent } from './divider/divider.component';
     PricingComponent,
     ModalComponent,
     DividerComponent,
+    ParallaxDirective,
   ],
   entryComponents: [
     CarouselComponent,

@@ -2,6 +2,8 @@
   <app-navbar></app-navbar>
 </header>
 
-<router-outlet></router-outlet>
+<div [@routeAnimation]="getAnimationData(routerOutlet)"></div>
+<router-outlet #routerOutlet="outlet"></router-outlet>
 
 <app-footer class="pt-4"></app-footer>
+<!-- <button class="btn btn-back-to-top animate" data-aos="fade-right"></button> -->

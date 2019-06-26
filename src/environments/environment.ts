@@ -5,13 +5,13 @@
 export const environment = {
   production: false,
   firebaseConfig: {
-    apiKey: 'AIzaSyA3e2c4NkrH3xPq5evKdvddHYl2WOYbeIQ',
-    authDomain: 'medtelplus.firebaseapp.com',
-    databaseURL: 'https://medtelplus.firebaseio.com',
-    projectId: 'medtelplus',
-    storageBucket: 'medtelplus.appspot.com',
-    messagingSenderId: '1081302408278',
-    appId: '1:1081302408278:web:0cd5b9c47e7c90d0',
+    apiKey: 'AIzaSyCkD82bRWuiQXTIiY36ZhOCt8ECDPdzKV4',
+    authDomain: 'med-tel-plus.firebaseapp.com',
+    databaseURL: 'https://med-tel-plus.firebaseio.com',
+    projectId: 'med-tel-plus',
+    storageBucket: 'med-tel-plus.appspot.com',
+    messagingSenderId: '767947870810',
+    appId: '1:767947870810:web:e863a33bb9f39c59',
   },
 };
 

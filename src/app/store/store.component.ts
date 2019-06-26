@@ -1,4 +1,13 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { AuthService } from '../core/auth.service';
+import { ShopService } from '../core/shop.service';
+import { Products, Product } from '../core/products.data';
+import { UserModel } from '../core/user.model';
 
 @Component({
   selector: 'app-store',
@@ -6,7 +15,86 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
   styleUrls: ['./store.component.scss'],
 })
 export class StoreComponent implements OnInit {
-  constructor() {}
+  productList: any[];
+  wishList: string[];
+  selectedProduct: Product;
+  userId: string;
+  user: UserModel;
+  constructor(
+    private authService: AuthService,
+    private modalService: NgbModal,
+    private shopService: ShopService,
+    private router: Router,
+    public route: ActivatedRoute
+  ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.authService
+      .loggedIn()
+      .pipe(
+        map(user => user.uid),
+        map(id =>
+          this.shopService
+            .getCurrentShopper(id)
+            .valueChanges()
+            .pipe(map(user => (this.user = user)))
+            .subscribe()
+        )
+      )
+      .subscribe();
+
+    this.productList = this.shopService.availableProducts;
+    if (this.user) {
+      this.wishList = this.user.wishList;
+    }
+  }
+
+  addToWishList(productId: string, currentList: string[]) {
+    if (!this.user) {
+      return;
+    }
+    const wishList = this.user.wishList;
+    wishList.push(productId);
+    this.shopService.userService.updateUser(this.user.uid, { wishList });
+  }
+
+  removeFromWishList(currentList: string[], productId) {
+    const item = currentList.indexOf(productId);
+    currentList.splice(item);
+    this.shopService.userService.updateUser(this.user.uid, {
+      wishList: currentList,
+    });
+  }
+
+  sortProducts(category: string) {
+    if (category === 'all') {
+      this.productList = this.shopService.availableProducts;
+    } else {
+      this.productList.filter(item => {
+        for (const i of item.category) {
+          if (i === category) {
+            return item;
+          }
+        }
+      });
+    }
+  }
+
+  productSelected(event, content: TemplateRef<any>) {
+    console.log('selected product', event);
+    this.selectedProduct = this.shopService.getProductDetails(event);
+    this.openDetailsModal(content, this.selectedProduct);
+  }
+
+  openDetailsModal(content: TemplateRef<any>, product: Product) {
+    const modalRef = this.modalService.open(content, {
+      ariaLabelledBy: 'modal-product-title',
+    });
+    modalRef.result.then(results => console.log('modal results', results));
+  }
+
+  addToCart(productId: string) {
+    this.shopService.addToCart(this.user.uid, productId, this.user.cart);
+    this.modalService.dismissAll();
+  }
 }

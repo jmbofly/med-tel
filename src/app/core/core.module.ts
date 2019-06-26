@@ -6,6 +6,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 import { AuthService } from './auth.service';
 import { UserService } from './user.service';
+import { ShopService } from './shop.service';
 import { environment } from '../../environments/environment';
 
 @NgModule({
@@ -16,6 +17,6 @@ import { environment } from '../../environments/environment';
     AngularFireAuthModule,
     AngularFirestoreModule,
   ],
-  providers: [AuthService, UserService],
+  providers: [AuthService, UserService, ShopService],
 })
 export class CoreModule {}

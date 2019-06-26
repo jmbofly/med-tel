@@ -137,34 +137,6 @@ button {
   }
 }
 
-
-#style-switch-button {
-  position: fixed;
-  top: 120px;
-  left: 0px;
-  border-radius: 0;
-  z-index: 2;
-}
-
-#style-switch {
-  width: 300px;
-  padding: 20px;
-  position: fixed;
-  top: 160px;
-  left: 0;
-  background: #fff;
-  border: solid 1px #ced4da;
-  z-index: 2000;
-}
-
-#style-switch h4 {
-  color: #495057;
-}
-
-#style-switch select {
-  height: 50px;
-}
-
 /* =====================================================
 *     HERO SECTION
 * =====================================================
@@ -173,9 +145,11 @@ button {
   padding: 8.5rem 0;
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: center;
+  // background-attachment: fixed;
   width: 100%;
   max-height: 600px;
+  transition: all ease-in-out;
+  -moz-transition: all ease-in-out;
 
   .hero-heading,
   .lead {
@@ -2461,6 +2435,7 @@ code {
 }
 
 #storeSection,
+#homeBanner,
 #cartSection {
   a {
     font-family: Montserrat-Regular;
@@ -2578,107 +2553,6 @@ code {
 
   .slick-slide {
     outline: none !important;
-  }
-
-
-
-
-
-  /*[ LOADDING ]
-///////////////////////////////////////////////////////////
-*/
-  .animsition-loading-1 {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    -webkit-transform: translate(-50%, -50%);
-    -moz-transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    -o-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-  }
-
-  [data-loader='ball-scale'] {
-    width: 50px;
-    height: 50px;
-    -webkit-animation: ball-scale infinite linear .75s;
-    -moz-animation: ball-scale infinite linear .75s;
-    -o-animation: ball-scale infinite linear .75s;
-    animation: ball-scale infinite linear .75s;
-    border-radius: 100%;
-    background-color: #E7475E;
-  }
-
-  @-webkit-keyframes ball-scale {
-    0% {
-      -webkit-transform: scale(.1);
-      -ms-transform: scale(.1);
-      -o-transform: scale(.1);
-      transform: scale(.1);
-      opacity: 1;
-    }
-
-    100% {
-      -webkit-transform: scale(1);
-      -ms-transform: scale(1);
-      -o-transform: scale(1);
-      transform: scale(1);
-      opacity: 0;
-    }
-  }
-
-  @-moz-keyframes ball-scale {
-    0% {
-      -webkit-transform: scale(.1);
-      -ms-transform: scale(.1);
-      -o-transform: scale(.1);
-      transform: scale(.1);
-      opacity: 1;
-    }
-
-    100% {
-      -webkit-transform: scale(1);
-      -ms-transform: scale(1);
-      -o-transform: scale(1);
-      transform: scale(1);
-      opacity: 0;
-    }
-  }
-
-  @-o-keyframes ball-scale {
-    0% {
-      -webkit-transform: scale(.1);
-      -ms-transform: scale(.1);
-      -o-transform: scale(.1);
-      transform: scale(.1);
-      opacity: 1;
-    }
-
-    100% {
-      -webkit-transform: scale(1);
-      -ms-transform: scale(1);
-      -o-transform: scale(1);
-      transform: scale(1);
-      opacity: 0;
-    }
-  }
-
-  @keyframes ball-scale {
-    0% {
-      -webkit-transform: scale(.1);
-      -ms-transform: scale(.1);
-      -o-transform: scale(.1);
-      transform: scale(.1);
-      opacity: 1;
-    }
-
-    100% {
-      -webkit-transform: scale(1);
-      -ms-transform: scale(1);
-      -o-transform: scale(1);
-      transform: scale(1);
-      opacity: 0;
-    }
   }
 
   /*[ BACK TO TOP ]
@@ -4051,6 +3925,7 @@ code {
 ///////////////////////////////////////////////////////////
 */
   .block2-labelsale::before,
+  .block2-labelsoldout::before,
   .block2-labelnew::before {
     z-index: 100;
     font-family: Montserrat-Regular;
@@ -4081,6 +3956,11 @@ code {
     content: 'New';
   }
 
+  .block2-labelsoldout::before {
+    background-color: #131313;
+    content: 'Soldout';
+  }
+
   /* ------------------------------------ */
   .block2-overlay {
     position: absolute;
@@ -4088,8 +3968,13 @@ code {
     height: 100%;
     top: 0;
     left: 0;
-    background-color: rgba(0, 0, 0, 0.3);
-    opacity: 0;
+    background-color: rgba(0, 0, 0, 0);
+    opacity: 1;
+
+    @media all and (min-width: 760px) {
+      background-color: rgba(0, 0, 0, 0.3);
+      opacity: 0;
+    }
   }
 
   /* ------------------------------------ */
@@ -4102,6 +3987,11 @@ code {
     -o-transform: translateX(-50%);
     transform: translateX(-50%);
     bottom: -45px;
+
+    @media all and (max-width: 760px) {
+      bottom: 20px;
+    }
+
   }
 
   /* ------------------------------------ */
@@ -4109,11 +3999,20 @@ code {
   .block2-btn-addwishlist {
     display: block;
     position: absolute;
-    top: 26px;
+    top: 14px;
     right: 20px;
     font-size: 20px;
     color: white;
     line-height: 0;
+
+    @media all and (max-width: 760px) {
+      -webkit-transform: scale(1);
+      -moz-transform: scale(1);
+      -ms-transform: scale(1);
+      -o-transform: scale(1);
+      transform: scale(1);
+    }
+
     -webkit-transform: scale(0);
     -moz-transform: scale(0);
     -ms-transform: scale(0);
@@ -4300,6 +4199,18 @@ code {
   /*[ rs NoUI ]
 ///////////////////////////////////////////////////////////
 */
+  .leftbar[data-aos="page-nav-sticky"] {
+    position: relative;
+
+    &.aos-animate {
+      position: fixed;
+
+      @media all and (max-width: 760px) {
+        position: relative;
+      }
+    }
+  }
+
   .leftbar #filter-bar {
     margin-right: 6px;
     margin-left: 6px;
@@ -15880,4 +15791,3 @@ RESPONSIVE  RESPONSIVE  RESPONSIVE  RESPONSIVE   RESPONSIVE
     }
   }
 }
-
