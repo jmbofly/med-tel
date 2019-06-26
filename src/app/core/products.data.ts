@@ -65,7 +65,7 @@ export const COUPONS: Coupon[] = [
 
 export const Products: Product[] = [
          {
-           imgUrl: '../assets/images/911HN_buttonclipcover_01_540x.jpg',
+           imgUrl: 'assets/images/911HN_buttonclipcover_01_540x.jpg',
            caption: 'Replacement Clip Cover',
            price: 5.99,
            productId: '0001',
@@ -91,7 +91,7 @@ export const Products: Product[] = [
            category: ['accessories'],
          },
          {
-           imgUrl: '../assets/images/911HN_buttoncover_01_540x.jpg',
+           imgUrl: 'assets/images/911HN_buttoncover_01_540x.jpg',
            caption: 'Replacement Battery Cover',
            price: 5.99,
            productId: '0002',
@@ -117,7 +117,7 @@ export const Products: Product[] = [
            category: ['accessories', 'telemedicine'],
          },
          {
-           imgUrl: '../assets/images/911HN_01_500x500.jpg',
+           imgUrl: 'assets/images/911HN_01_500x500.jpg',
            caption: '911 Help Now Button',
            price: 79.99,
            productId: '0003',
@@ -143,7 +143,7 @@ export const Products: Product[] = [
            category: ['devices', 'telemedicine'],
          },
          {
-           imgUrl: '../assets/images/911helpnow_front2units_540x.jpg',
+           imgUrl: 'assets/images/911helpnow_front2units_540x.jpg',
            caption: '2 911 Help Now Buttons Package',
            price: 125.99,
            productId: '0004',
@@ -169,7 +169,7 @@ export const Products: Product[] = [
            category: ['devices', 'telemedicine'],
          },
          {
-           imgUrl: '../assets/images/911helpnow_lanyard_540x.jpg',
+           imgUrl: 'assets/images/911helpnow_lanyard_540x.jpg',
            caption: 'Replacement Lanyard',
            price: 5.99,
            productId: '0005',
@@ -195,7 +195,7 @@ export const Products: Product[] = [
            category: ['accessories', 'devices', 'telemedicine'],
          },
          {
-           imgUrl: '../assets/images/replacement_button_guard_540x.jpg',
+           imgUrl: 'assets/images/replacement_button_guard_540x.jpg',
            caption: 'Replacement Button Guard',
            price: 4.99,
            productId: '0006',
@@ -221,7 +221,7 @@ export const Products: Product[] = [
            category: ['accessories', 'devices', 'telemedicine'],
          },
          {
-           imgUrl: '../assets/images/smartgo_BLK_front_shadow_500x.png',
+           imgUrl: 'assets/images/smartgo_BLK_front_shadow_500x.png',
            caption: `SmartGo Personal Alert Device`,
            price: 45.99,
            productId: '0007',
@@ -248,8 +248,7 @@ export const Products: Product[] = [
            category: ['devices', 'telemedicine'],
          },
          {
-           imgUrl:
-             '../assets/images/smartgo_BLK_watersplash_large_cropped.png',
+           imgUrl: 'assets/images/smartgo_BLK_watersplash_large_cropped.png',
            caption: `2 SmartGo Personal Alert Devices`,
            price: 85.99,
            productId: '0008',
@@ -276,8 +275,7 @@ export const Products: Product[] = [
            category: ['devices', 'telemedicine'],
          },
          {
-           imgUrl:
-             '../assets/images/smartgo_BLUE_dock_large_cropped.png',
+           imgUrl: 'assets/images/smartgo_BLUE_dock_large_cropped.png',
            caption: `SmartGo Personal Alert Device Charging Dock`,
            price: 35.99,
            productId: '0009',

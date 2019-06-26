@@ -23,7 +23,7 @@
             </div>
           </div>
           <button class="btn btn-link p-1" (click)="navigateTo('/cart')">
-            <span [hidden]="!navCart?.items.length" class="header-icons-noti">{{navCart?.items.length}}</span>
+            <span [hidden]="!navCart?.items?.length" class="header-icons-noti">{{navCart?.items?.length || 0}}</span>
             <img src="assets/images/icons/icon-header-02.png" alt="" class="header-icon1" />
           </button>
         </div>
@@ -98,7 +98,7 @@
           </div>
         </div>
         <button class="btn btn-link p-1" (click)="navigateTo('/cart')">
-          <span class="header-icons-noti">{{navCart?.items.length}}</span>
+          <span class="header-icons-noti">{{navCart?.items?.length}}</span>
           <img src="assets/images/icons/icon-header-02.png" alt="" class="header-icon1" />
         </button>
       </div>
