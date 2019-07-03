@@ -24,9 +24,8 @@ export class AuthGuard implements CanActivate {
   }
 
   checkLogin(url: string): Observable<boolean> | Promise<boolean> | boolean {
-    return this.auth.afAuth.authState.pipe(
+    return this.auth.loggedIn().pipe(
       take(1),
-      map(user => !!user),
       tap(loggedIn => {
         if (!loggedIn) {
           console.log(`ACCESS DENIED: ${url} ===> Logged In?`, loggedIn);

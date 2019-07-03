@@ -18,9 +18,9 @@ export class ProductListComponent implements OnInit {
   addToCart(productId: string) {
     this.toggleToaster();
     setTimeout(() => {
-      this.addedToCart.emit(productId);
       this.toggleToaster();
-    }, 5000);
+    }, 2000);
+    this.addedToCart.emit(productId);
   }
 
   addToWishList(id: string) {

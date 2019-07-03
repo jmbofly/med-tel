@@ -12,6 +12,7 @@ import {
 import { UserService } from './user.service';
 import { Products, Cart, Coupon } from './products.data';
 import { UserModel } from './user.model';
+import { AuthService } from './auth.service';
 import { User } from 'firebase';
 
 @Injectable({
@@ -22,12 +23,18 @@ export class ShopService {
   inventorySize = Products.length;
   purchaseHistory: UserModel['purchaseHistory'];
   couponCollection: AngularFirestoreCollection<Coupon>;
-  constructor(public afs: AngularFirestore, public userService: UserService) {
+  constructor(
+    public afs: AngularFirestore,
+    public userService: UserService,
+    public authService: AuthService
+  ) {
     this.couponCollection = afs.collection<Coupon>('coupons');
   }
 
   getCurrentShopper(userId: string) {
-    return this.afs.doc(`users/${userId}`);
+    return this.afs
+      .doc<UserModel>(`users/${userId}`)
+      .valueChanges();
   }
 
   getProductDetails(productId: string) {
@@ -37,7 +44,7 @@ export class ShopService {
   }
 
   updateCart(userId, cart: Cart) {
-    this.userService.updateUser(userId, {cart});
+    this.userService.updateUser(userId, { cart });
   }
 
   addToCart(userId: string, productId: string, cart: Cart) {

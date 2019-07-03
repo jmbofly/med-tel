@@ -17,26 +17,29 @@
 
             <li class="p-t-4">
               <button (click)="sortProducts('devices')" class="s-text13">
-                All
+                Devices
               </button>
             </li>
 
             <li class="p-t-4">
-              <a href="#" class="s-text13">
+              <button
+                (click)="sortProducts('cancer-screening')"
+                class="s-text13"
+              >
                 CancerScreening
-              </a>
+              </button>
             </li>
 
             <li class="p-t-4">
-              <a href="#" class="s-text13">
+              <button (click)="sortProducts('telemedicine')" class="s-text13">
                 TeleMedicine
-              </a>
+              </button>
             </li>
 
             <li class="p-t-4">
-              <a href="#" class="s-text13">
+              <button (click)="sortProducts('accessories')" class="s-text13">
                 Accessories
-              </a>
+              </button>
             </li>
           </ul>
 
@@ -78,7 +81,7 @@
         <!-- Products Component -->
         <app-product-list
           [productList]="productList"
-          [loggedIn]="user ? true : false"
+          [loggedIn]="authService.loggedIn"
           (productSelected)="productSelected($event, product)"
           (addedToCart)="addToCart($event)"
           (addedToWishList)="addToWishList($event, user.wishList)"

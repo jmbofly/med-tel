@@ -14,7 +14,7 @@ import { UserModel } from '../core/user.model';
 export class AccountComponent implements OnInit {
   currentTab: BehaviorSubject<string>;
   user: UserModel;
-  userUpdates: UserModel = {};
+  userUpdates: UserModel;
   passwordsMatch: BehaviorSubject<boolean>;
   constructor(
     public userService: UserService,
@@ -40,18 +40,19 @@ export class AccountComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.userUpdates = {};
     this.authService
-      .loggedIn()
+      .getUserId()
       .pipe(
-        map(user => {
+        map(uid => {
           this.userService
-            .getUserById(user.uid)
+            .getUserById(uid)
             .valueChanges()
             .pipe(
-              map(u => {
-                console.log(u);
-                this.user = u;
-                this.userUpdates = u;
+              map(user => {
+                console.log('account: ', user);
+                this.user = user;
+                this.userUpdates = user;
               })
             )
             .subscribe();

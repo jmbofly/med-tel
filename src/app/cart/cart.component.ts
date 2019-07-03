@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable, BehaviorSubject } from 'rxjs';
@@ -15,10 +15,12 @@ import { UserModel } from '../core/user.model';
   styleUrls: ['./cart.component.scss'],
 })
 export class CartComponent implements OnInit {
+  @ViewChild('coupon') coupon: any;
   cart: Cart = {};
   items: Product[] = [];
   subtotal = 0;
   couponUsed = false;
+  couponValid = false;
   userId: string;
   constructor(
     private authService: AuthService,
@@ -29,9 +31,13 @@ export class CartComponent implements OnInit {
   ) {}
 
   getCartItem(productId: string) {
-    return Products.filter(
-      (product: Product) => product.productId === productId
-    )[0];
+    if (this.items.includes({ productId })) {
+      return;
+    } else {
+      return Products.filter(
+        (product: Product) => product.productId === productId
+      )[0];
+    }
   }
 
   getItemTotal(item: Product) {
@@ -56,7 +62,11 @@ export class CartComponent implements OnInit {
     if (coupon) {
       this.couponUsed = true;
       this.cart.coupon = coupon;
+      this.couponValid = true;
       return this.subtotal / coupon.discountAmount;
+    } else if (!COUPONS.includes({ couponCode })) {
+      this.couponValid = false;
+      this.couponUsed = true;
     }
   }
 
@@ -64,10 +74,12 @@ export class CartComponent implements OnInit {
     this.router.navigateByUrl(url);
   }
 
-  removeCoupon(couponCode) {
+  removeCoupon(coupon) {
     this.cart.coupon = null;
     this.couponUsed = false;
+    this.couponValid = false;
     this.cart.total = this.subtotal;
+    coupon.value = '';
   }
 
   getDiscountTotal(couponCode) {
@@ -98,7 +110,7 @@ export class CartComponent implements OnInit {
     this.cart.total = this.subtotal / tax;
     this.cart.items = this.items.map(item => item.productId);
     this.cart.readyForCheckout = this.subtotal !== 0;
-    this.updateCart(userId, {cart: this.cart});
+    this.updateCart(userId, { cart: this.cart });
   }
 
   updateCart(userId, cart) {
@@ -111,13 +123,11 @@ export class CartComponent implements OnInit {
 
   ngOnInit() {
     this.authService
-      .loggedIn()
+      .getUserId()
       .pipe(
-        map(user => user.uid),
         map(id =>
           this.shopService
             .getCurrentShopper(id)
-            .valueChanges()
             .subscribe((user: UserModel) => {
               this.userId = user.uid;
               this.cart = user.cart;

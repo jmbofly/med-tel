@@ -1,12 +1,10 @@
-/* TODO: make method for creating new account with user email and password
- */
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestoreDocument } from '@angular/fire/firestore';
 import { auth } from 'firebase/app';
 import { UserService } from '../core/user.service';
 import { UserModel } from '../core/user.model';
-import { map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -32,14 +30,16 @@ export class AuthService {
     });
   }
 
-  // Check if user is logged in and
-  // @returns user auth state as Observable
+  // Check if user is logged in
+  // @returns boolean
   loggedIn() {
-    return this.afAuth.authState;
+    return this.afAuth.authState.pipe(map(user => !!user));
   }
 
   getUserId() {
-    return this.loggedIn().pipe(map(user => user.uid));
+    return this.afAuth.authState.pipe(
+      map(fbUser => (fbUser ? fbUser.uid : null))
+    );
   }
 
   // Login with simple email and password

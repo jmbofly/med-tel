@@ -2,7 +2,7 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap, switchMap } from 'rxjs/operators';
 
 import { AuthService } from '../core/auth.service';
 import { ShopService } from '../core/shop.service';
@@ -19,9 +19,9 @@ export class StoreComponent implements OnInit {
   wishList: string[];
   selectedProduct: Product;
   userId: string;
-  user: UserModel;
+  user: UserModel = null;
   constructor(
-    private authService: AuthService,
+    public authService: AuthService,
     private modalService: NgbModal,
     private shopService: ShopService,
     private router: Router,
@@ -30,16 +30,16 @@ export class StoreComponent implements OnInit {
 
   ngOnInit() {
     this.authService
-      .loggedIn()
+      .getUserId()
       .pipe(
-        map(user => user.uid),
-        map(id =>
-          this.shopService
-            .getCurrentShopper(id)
-            .valueChanges()
-            .pipe(map(user => (this.user = user)))
-            .subscribe()
-        )
+        map(uid => {
+          if (uid) {
+            this.shopService
+              .getCurrentShopper(uid)
+              .subscribe(user => (this.user = user ? user : null));
+            console.log('user uid: ', uid);
+          }
+        })
       )
       .subscribe();
 
@@ -70,7 +70,7 @@ export class StoreComponent implements OnInit {
     if (category === 'all') {
       this.productList = this.shopService.availableProducts;
     } else {
-      this.productList.filter(item => {
+      this.productList = this.productList.filter(item => {
         for (const i of item.category) {
           if (i === category) {
             return item;
@@ -94,7 +94,9 @@ export class StoreComponent implements OnInit {
   }
 
   addToCart(productId: string) {
-    this.shopService.addToCart(this.user.uid, productId, this.user.cart);
-    this.modalService.dismissAll();
+    if (this.user) {
+      this.shopService.addToCart(this.user.uid, productId, this.user.cart);
+      this.modalService.dismissAll();
+    }
   }
 }

@@ -16,9 +16,10 @@ import {
 } from '@angular/router';
 import { NgbModal, NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../core/auth.service';
+import { UserModel } from '../core/user.model';
 import { UserService } from '../core/user.service';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { map, filter, tap } from 'rxjs/operators';
+import { map, filter, tap, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-navbar',
@@ -34,7 +35,7 @@ export class NavbarComponent implements OnInit {
   loading: Observable<boolean>;
   navStart: Observable<NavigationStart>;
   navAuthError: Observable<any>;
-  navCart: any;
+  navCart: UserModel['cart'];
   constructor(
     private authService: AuthService,
     private userService: UserService,
@@ -46,9 +47,7 @@ export class NavbarComponent implements OnInit {
     this.navStart = router.events.pipe(
       filter(evt => evt instanceof NavigationStart)
     ) as Observable<NavigationStart>;
-    this.navAuthError = router.events
-      .pipe(map(evt => console.log(evt)))
-      ;
+    this.navAuthError = router.events.pipe(map(evt => console.log(evt)));
   }
 
   async createAccount(name: string, email: string, password: string) {
@@ -115,6 +114,7 @@ export class NavbarComponent implements OnInit {
           this.router
             .navigate([navigate.url], { relativeTo: this.route })
             .then(() => {
+              this.userMenu = false;
               window.scrollTo(0, 0);
             });
           obs.next(false);
@@ -141,23 +141,30 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loggedIn = this.authService.loggedIn();
     this.navStart.subscribe(evt => {
       if (evt) {
         this.loader();
       }
     });
-    this.authService.loggedIn().subscribe(res => {
-      if (res) {
-        this.userService
-          .getUserById(res.uid)
-          .valueChanges()
-          .pipe(map(user => (this.navCart = user.cart)))
-          .subscribe();
-      }
-      this.loggedIn = new Observable(obs => {
-        obs.next(res !== null);
-      });
-    });
+    this.authService
+      .getUserId()
+      .pipe(
+        tap(uid => {
+          if (uid) {
+            this.userService
+              .getUserById(uid)
+              .valueChanges()
+              .pipe(map(user => {
+                if (user) {
+                  this.navCart = user.cart;
+                }
+              }))
+              .subscribe();
+          }
+        })
+      )
+      .subscribe();
     // console.log('nav', this.nav);
   }
 }

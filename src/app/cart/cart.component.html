@@ -57,15 +57,17 @@
 					</div>
 
 					<div class="size12 trans-0-4 m-t-10 m-b-10 m-r-10">
-						<button [hidden]="couponUsed" class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4" (click)="applyCoupon(coupon.value)">
+						<button [hidden]="couponUsed && couponValid" class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4" (click)="applyCoupon(coupon.value)">
 							Apply coupon
-						</button>
+            </button>
+            <div [hidden]="!couponUsed || couponUsed && couponValid" class="card-body text-center text-light bg-dark p-2 mt-1 fadeInDown animate">Invalid Coupon Code! Check spelling or enter a new code <br/>
+            <button class="btn btn-primary text-danger" (click)="removeCoupon(coupon)">Remove Coupon</button></div>
 					</div>
 				</div>
 
 				<div class="size10 trans-0-4 m-t-10 m-b-10">
-					<button [hidden]="!coupon.value" class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4" (click)="removeCoupon(coupon.value)">
-						Remove Coupon
+					<button [hidden]="!coupon.value" class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4" (click)="removeCoupon(coupon)">
+						Remove
 					</button>
 				</div>
 			</div>
@@ -83,8 +85,8 @@
 					<span [hidden]="couponUsed" class="m-text21 w-size20 w-full-sm">
 						{{getCartSubtotal(items) | currency}}
           </span>
-          <span [hidden]="!couponUsed" class="m-text21 w-size20 w-full-sm">
-						{{getDiscountTotal(coupon.value) | currency}}&nbsp; <i class="fa fa-dollar text-primary"></i> Coupon
+          <span [hidden]="!couponUsed && !couponValid" class="m-text21 w-size20 w-full-sm">
+						{{getDiscountTotal(coupon.value) | currency}}&nbsp; Discounted
 					</span>
 				</div>
 
