@@ -4,7 +4,7 @@ import {
   AngularFirestoreCollection,
   AngularFirestoreDocument,
 } from '@angular/fire/firestore';
-import { UserModel } from './user.model';
+import { UserModel, Contact } from './user.model';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -13,8 +13,10 @@ import { Observable } from 'rxjs';
 export class UserService {
   private userCollection: AngularFirestoreCollection<UserModel>;
   users: Observable<UserModel[]>;
+  contactCollection: AngularFirestoreCollection<Contact>;
   constructor(public afs: AngularFirestore) {
     this.userCollection = afs.collection<UserModel>('users');
+    this.contactCollection = afs.collection<UserModel>('contacts');
     this.users = this.userCollection.valueChanges();
   }
 
@@ -32,5 +34,10 @@ export class UserService {
 
   deleteUser(userId: string) {
     return this.afs.doc(`users/${userId}`).delete();
+  }
+
+  addNewContact(contact: Contact) {
+    contact.timestamp = new Date();
+    return this.contactCollection.add(contact);
   }
 }

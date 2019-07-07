@@ -126,6 +126,18 @@ button {
   color: #aaa !important;
 }
 
+.ng-valid[required],
+.ng-valid[pattern],
+.ng-valid.required {
+  border-left: 5px solid #42A948;
+  /* green */
+}
+
+.ng-invalid:not(form) {
+  border-left: 5px solid #a94442;
+  /* red */
+}
+
 .breadcrumb-item+.breadcrumb-item::before {
   font-size: 0.8rem;
 }
@@ -311,20 +323,20 @@ button {
 *     FAQ SECTION
 * =====================================================
 */
-.accordion-custom .card {
+.accordion .card {
   border-radius: 0;
   border: none;
   margin-bottom: 1.3rem;
   background: linear-gradient(45deg, #E7475E, #fc324f);
 }
 
-.accordion-custom .card-header {
+.accordion .card-header {
   border: none;
   padding: 0;
   background: none;
 }
 
-.accordion-custom .card-header button {
+.accordion .card-header button {
   color: #333;
   text-transform: none !important;
   background: none;
@@ -338,26 +350,26 @@ button {
   outline: none;
 }
 
-.accordion-custom .card-header button[aria-expanded='true'] {
+.accordion .card-header button[aria-expanded='true'] {
   background: none;
   color: #fff;
 }
 
-.accordion-custom .card-header button:hover,
-.accordion-custom .card-header button:focus {
+.accordion .card-header button:hover,
+.accordion .card-header button:focus {
   text-decoration: none;
 }
 
-.accordion-custom .accordion-heading {
+.accordion .accordion-heading {
   font-size: 1.05rem;
 }
 
-.accordion-custom .accordion-heading i {
+.accordion .accordion-heading i {
   font-size: 2.2rem;
   margin-right: 1.5rem;
 }
 
-.accordion-custom .card-body {
+.accordion .card-body {
   color: #fff;
   padding: 2rem 2.1rem;
   padding-top: 0.7rem;
@@ -612,6 +624,16 @@ button {
 /*
  * 2. BUTTONS
  */
+.round-btn-overlay {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  position: absolute;
+  top: 150px;
+  padding: 0;
+  left: 90px;
+}
+
 .btn {
   font-weight: 400;
   border: 1px solid transparent;

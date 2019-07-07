@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
 
@@ -16,7 +17,11 @@ export class AccountComponent implements OnInit {
   user: UserModel;
   userUpdates: UserModel;
   passwordsMatch: BehaviorSubject<boolean>;
+  hasPassword: boolean;
+  uploading: Observable<boolean>;
+  showAvatarEdit = false;
   constructor(
+    public router: Router,
     public userService: UserService,
     public authService: AuthService
   ) {
@@ -34,13 +39,12 @@ export class AccountComponent implements OnInit {
   }
 
   checkAgainstCurrentPassword(input, current) {
-    const match = current !== input;
-    console.log('no match', match, input);
+    const match = current === input;
     this.passwordsMatch.next(match);
   }
-
   ngOnInit() {
     this.userUpdates = {};
+    this.user = {};
     this.authService
       .getUserId()
       .pipe(
@@ -50,9 +54,9 @@ export class AccountComponent implements OnInit {
             .valueChanges()
             .pipe(
               map(user => {
-                console.log('account: ', user);
                 this.user = user;
                 this.userUpdates = user;
+                this.hasPassword = !!user.password;
               })
             )
             .subscribe();
@@ -62,12 +66,18 @@ export class AccountComponent implements OnInit {
     // this.currentTab.next('profile');
   }
 
+  editAvatar() {
+    this.showAvatarEdit = !this.showAvatarEdit;
+  }
+
   toggleTab(tab: string) {
     this.currentTab.next(tab);
   }
 
-  updateUserData(el: HTMLElement, newData: any) {
-    console.log('updating settings', el, newData);
-    return this.userService.updateUser(this.user.uid, newData);
+  updateUserData(loader, newData: any) {
+    if (newData) {
+      loader.load();
+      this.userService.updateUser(this.user.uid, newData);
+    }
   }
 }

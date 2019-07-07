@@ -1,75 +1,114 @@
-<section #hero
-  class="hero"
-  appParallax
-  #p="mouseParallax"
-  (mousemove)="p.mouseMoved($event, hero)" style="background-image: url(assets/images/phone-bg.jpg);">
-      <div class="container text-center">
-        <!-- breadcrumb-->
-        <nav aria-label="breadcrumb" class="d-flex justify-content-center">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="" class="animsition-link">Home</a></li>
-            <li aria-current="page" class="breadcrumb-item active">Contact </li>
-          </ol>
-        </nav>
-        <h1 class="hero-heading animated" data-aos="fade-up">Talk with our sales team</h1>
-        <div class="row">
-          <div class="col-lg-7 mx-auto">
-            <p class="lead mt-2 animted" data-aos="fade-right" data-aos-delay=".5">Have questions or comments? The form below is the best way to contact MedTelPlus for inquiries,One of our experienced and friendly staff will contact you within 48 hours of your message.</p>
+<section #hero class="hero" appParallax #p="mouseParallax" (mousemove)="p.mouseMoved($event, hero)"
+  style="background-image: url(assets/images/phone-bg.jpg);">
+  <div class="container text-center">
+    <!-- breadcrumb-->
+    <nav aria-label="breadcrumb" class="d-flex justify-content-center">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="" class="animsition-link">Home</a></li>
+        <li aria-current="page" class="breadcrumb-item active">Contact </li>
+      </ol>
+    </nav>
+    <h1 class="hero-heading animated" data-aos="fade-up">Talk with our sales team</h1>
+    <div class="row">
+      <div class="col-lg-7 mx-auto">
+        <p class="lead mt-2 animted" data-aos="fade-right" data-aos-delay=".5">Have questions or comments? The form
+          below is the best way to contact MedTelPlus for inquiries,One of our experienced and friendly staff will
+          contact you within 48 hours of your message.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Contact Section-->
+<section>
+  <div class="container">
+    <header class="section-header">
+      <h2 class="mb-2">Fill out the form</h2>
+      <p class="lead">Please submit your information and we will follow up with you as soon as possible. <br />
+        <small>(<sup class="text-primary">&#10033;</sup>) Indicates a required field</small></p>
+    </header>
+    <div class="row align-items-center mt-5">
+      <div class="col-lg-7">
+        <form #contactForm="ngForm" name="contactForm" class="contact-form text-left"
+          (change)="formStatus(contactForm)">
+          <div class="form-group mb-4">
+            <label>Name<sup class="text-primary">&#10033;</sup></label>
+            <input [(ngModel)]="contact.name" #name="ngModel" type="text" name="name" minLength="3" maxLength="30"
+              placeholder="e.g. John Smith" class="form-control" required>
+            <p class="form-text text-danger" *ngIf="name.errors && (name.touched || name.dirty)">
+              Your Full Name is Required
+            </p>
           </div>
+          <div class="form-group mb-4">
+            <label>Email<sup class="text-primary">&#10033;</sup></label>
+            <input [(ngModel)]="contact.email" #email="ngModel" type="email"
+              [pattern]="'[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+'" name="email" placeholder="you@email.com"
+              class="form-control" required>
+            <p class="form-text text-danger" *ngIf="email?.errors?.required && (email.touched || email.dirty)">
+              Your Email is Required
+            </p>
+            <p class="form-text text-danger" *ngIf="email?.errors?.pattern && (email.pristine || email.untouched)">
+              Your Email is Not Valid
+            </p>
+          </div>
+          <div class="form-group mb-4">
+            <label>Subject<sup class="text-primary">&#10033;</sup></label>
+            <input [(ngModel)]="contact.subject" #subject="ngModel" type="text" name="subject"
+              placeholder="Briefly describe your question" class="form-control" required>
+            <p class="form-text text-danger" [hidden]="!subject.errors && (subject.touched || subject.dirty)">
+              A Subject is Required
+            </p>
+          </div>
+          <div class="form-group mb-4">
+            <label>Now let's hear the details<sup class="text-primary">&#10033;</sup></label>
+            <textarea [(ngModel)]="contact.details" #details="ngModel" name="message"
+              placeholder="Let us know what you need" class="form-control" required maxLength="250"></textarea>
+            <p class="form-text text-danger" [hidden]="!details.errors?.required && (details.touched || details.dirty)">
+              Some Details Are Required
+            </p>
+          </div>
+          <div class="form-group">
+            <input type="button" value="Send message" class="btn btn-primary" (click)="addNewContact(contact)"
+              [disabled]="contactForm?.invalid || contactForm?.errors && (contactForm.touched || !contactForm.pristine)">
+          </div>
+        </form>
+      </div>
+      <div class="col-lg-5 contact-details mt-5 mt-lg-0">
+        <div class="box animated" data-aos="fade-left" data-aos-delay=".3">
+          <div class="icon d-flex align-items-end"><img src="assets/img/placeholder.svg" alt="" class="img-fluid"></div>
+          <h5>Address</h5>
+          <p class="text-small font-weight-light">1630 Turkey Run Drive, Newark, OH, 43055</p>
+        </div>
+        <div class="box animated" data-aos="fade-left" data-aos-delay=".3">
+          <div class="icon d-flex align-items-end"><img src="assets/img/technology.svg" alt="" class="img-fluid"></div>
+          <h5>Call center</h5>
+          <p class="text-small font-weight-light">This number is toll free for your convenience, but electronic
+            communication is preferred.</p><strong class="text-muted">+1 844 879 4788</strong>
+        </div>
+        <div class="box animated" data-aos="fade-left" data-aos-delay=".3">
+          <div class="icon d-flex align-items-end"><img src="assets/img/multimedia.svg" alt="" class="img-fluid"></div>
+          <h5>Electronic support</h5>
+          <p class="text-small font-weight-light">Please feel free to write us an email.</p>
+          <ul class="text-center">
+            <li><a href="mailto:info@medtelplus.com" class="text-small">info@medtelplus.com</a></li>
+          </ul>
         </div>
       </div>
-    </section>
-    <!-- Contact Section-->
-    <section>
-      <div class="container">
-        <header class="section-header">
-          <h2 class="mb-2">Fill out the form</h2>
-          <p class="lead">Please submit your information and we will follow up with you as soon as possible.</p>
-        </header>
-        <div class="row align-items-center mt-5">
-          <div class="col-lg-7">
-            <form action="#" class="contact-form text-left">
-              <div class="form-group mb-4">
-                <label>Name<sup class="text-primary">&#10033;</sup></label>
-                <input type="text" name="name" placeholder="e.g. John Smith" class="form-control">
-              </div>
-              <div class="form-group mb-4">
-                <label>Email<sup class="text-primary">&#10033;</sup></label>
-                <input type="text" name="email" placeholder="you@email.com" class="form-control">
-              </div>
-              <div class="form-group mb-4">
-                <label>Subject<sup class="text-primary">&#10033;</sup></label>
-                <input type="text" name="subject" placeholder="Briefly describe your question" class="form-control">
-              </div>
-              <div class="form-group mb-4">
-                <label>Now let's hear the details<sup class="text-primary">&#10033;</sup></label>
-                <textarea name="message" placeholder="Let us know what you need" class="form-control"></textarea>
-              </div>
-              <div class="form-group">
-                <input type="submit" value="Send message" class="btn btn-primary">
-              </div>
-            </form>
-          </div>
-          <div class="col-lg-5 contact-details mt-5 mt-lg-0">
-            <div class="box animated" data-aos="fade-left" data-aos-delay=".3">
-              <div class="icon d-flex align-items-end"><img src="assets/img/placeholder.svg" alt="" class="img-fluid"></div>
-              <h5>Address</h5>
-              <p class="text-small font-weight-light">1630 Turkey Run Drive, Newark, OH, 43055</p>
-            </div>
-            <div class="box animated" data-aos="fade-left" data-aos-delay=".3">
-              <div class="icon d-flex align-items-end"><img src="assets/img/technology.svg" alt="" class="img-fluid"></div>
-              <h5>Call center</h5>
-              <p class="text-small font-weight-light">This number is toll free for your convenience, but electronic communication is preferred.</p><strong class="text-muted">+1 844 879 4788</strong>
-            </div>
-            <div class="box animated" data-aos="fade-left" data-aos-delay=".3">
-              <div class="icon d-flex align-items-end"><img src="assets/img/multimedia.svg" alt="" class="img-fluid"></div>
-              <h5>Electronic support</h5>
-              <p class="text-small font-weight-light">Please feel free to write us an email.</p>
-              <ul class="text-center">
-                <li><a href="mailto:info@medtelplus.com" class="text-small">info@medtelplus.com</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    </div>
+  </div>
+  
+  <!-- <img class="card-img" src="assets/images/phones_2-bg.jpg" alt=""> -->
+  <div *ngIf="contactSaved" class="jumbotron text-xs-center bg-light m-auto animate slideInRight" style="position: fixed; height: 100%; width: 100%; top: 80px; left: 0;">
+    <button class="btn btn-sm pull-right" (click)="contactSaved === false">
+      <i class="fa fa-times"></i>
+    </button>
+    <h1 class="display-3">Thank You!</h1>
+    <p class="lead"><strong>Please check your email</strong> for a response from a MedTelPlus associate in the next 48 hours.</p>
+    <hr>
+    <p>
+      Having trouble? <a href="mailto:info@medtelplus.com" class="text-small">Contact Us</a>
+    </p>
+    <p class="lead">
+      <button class="btn btn-primary btn-sm" (click)="navigateTo('/')">Continue to homepage</button>
+    </p>
+  </div>
+</section>

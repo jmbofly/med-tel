@@ -1,10 +1,10 @@
 <div class="page-section container">
   <!-- grid row -->
-  <div class="row" style="padding-top: 140px;">
+  <div class="row" style="padding-top: 80px;">
     <!-- grid column -->
     <div class="col-lg-4">
       <!-- .card -->
-      <div class="card card-fluid border-primary">
+      <div class="card card-fluid">
         <h6 class="card-header"> Your Details </h6>
         <!-- .nav -->
         <div class="list-group text-center">
@@ -20,37 +20,39 @@
     <!-- grid column -->
     <div class="col-lg-8">
       <!-- .card -->
-      <div class="card card-fluid border-primary">
+      <div class="card card-fluid">
         <div [ngSwitch]="(currentTab | async)">
           <div *ngSwitchCase="'profile'">
             <h6 class="card-header">Public Profile</h6>
             <div class="card-body">
           <!-- .media -->
-          <div class="media mb-3">
+          <div class="mb-3 container">
             <!-- avatar -->
-            <div class="user-avatar user-avatar-xl fileinput-button">
-              <img [src]="user?.photoURL" width="75" alt="User Avatar" class="img-thumbnail">
-              <div class="fileinput-button-label"> Change photo </div>
-              <input id="fileupload-avatar" type="file" name="avatar"> </div>
-            <!-- /avatar -->
-            <!-- .media-body -->
-            <div class="media-body pl-3">
-              <h3 class="card-title"> Public avatar </h3>
-              <h6 class="card-subtitle text-muted"> Click the current avatar to change your photo. </h6>
+            <div class="media-body">
+              <h5 class="card-title"> Public avatar </h5>
+              <div class="user-avatar user-avatar-xl fileinput-button">
+                <img [src]="user?.photoURL" width="75" alt="User Avatar" class="img-thumbnail mb-1">
+                <div class="">
+                  <button class="round-btn-overlay bg-light text-primary"><i class="fa fa-pencil" (click)="editAvatar()"></i></button>
+                </div> 
+                <input *ngIf="showAvatarEdit" id="fileupload-avatar" type="file" name="avatar" class="animate fadeInLeft"> 
+              </div>
+                <!-- The avatar upload progress bar -->
+                <div id="progress-avatar" class="progress progress-xs fade" [hidden]="!(uploading | async)">
+                  <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <!-- /avatar upload progress bar -->
               <p class="card-text">
                 <small>JPG, GIF or PNG 400x400, &lt; 2 MB.</small>
               </p>
-              <!-- The avatar upload progress bar -->
-              <div id="progress-avatar" class="progress progress-xs fade">
-                <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-              <!-- /avatar upload progress bar -->
             </div>
+            <!-- /avatar -->
+            <!-- .media-body -->
             <!-- /.media-body -->
           </div>
           <!-- /.media -->
           <!-- form -->
-          <form #profile name="profileForm">
+          <form #profile="ngForm" name="profileForm">
             <!-- form row -->
             <div class="form-row">
               <!-- form column -->
@@ -58,7 +60,7 @@
               <!-- /form column -->
               <!-- form column -->
               <div class="col-md-9 mb-3">
-                <input type="text" [(ngModel)]="userUpdates.additionalUserInfo.comapnyName" name="company" class="form-control" id="input02" placeholder="Your Company Name"> </div>
+                <input type="text" [(ngModel)]="userUpdates.additionalUserInfo.comapnyName" name="company" class="form-control" #company="ngModel" id="input02" placeholder="Your Company Name" required> </div>
               <!-- /form column -->
             </div>
             <!-- /form row -->
@@ -69,7 +71,7 @@
               <!-- /form column -->
               <!-- form column -->
               <div class="col-md-9 mb-3">
-                <textarea type="text" [(ngModel)]="userUpdates.additionalUserInfo.bio" name="bio" class="form-control" id="input03" placeholder="Add a short bio..."></textarea>
+                <textarea type="text" [(ngModel)]="userUpdates.additionalUserInfo.bio" #bio="ngModel" name="bio" class="form-control" id="input03" placeholder="Add a short bio..." required></textarea>
                 <small class="text-muted">Appears on your profile page, 300 chars max.</small>
               </div>
               <!-- /form column -->
@@ -83,7 +85,7 @@
               <!-- form column -->
               <div class="col-md-9 mb-3">
                 <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input" [(ngModel)]="userUpdates.additionalUserInfo.subscribed" name="subscribed" id="input04" checked="">
+                  <input type="checkbox" class="custom-control-input" [(ngModel)]="userUpdates.additionalUserInfo.subscribed" #subscribed="ngModel" name="subscribed" id="input04" checked="">
                   <label class="custom-control-label" for="input04">Yes, Email newsletter to me</label>
                 </div>
               </div>
@@ -93,7 +95,7 @@
             <hr>
             <!-- .form-actions -->
             <div class="form-actions">
-              <button (click)="updateUserData(profile, userUpdates)" type="button" class="btn btn-primary ml-auto">Update Profile</button>
+              <button [disabled]="profile.invalid" (click)="updateUserData(loader, userUpdates)" type="button" class="btn btn-primary ml-auto">Update Profile</button>
             </div>
             <!-- /.form-actions -->
           </form>
@@ -124,7 +126,29 @@
               <!-- /form column -->
               <!-- form column -->
               <div class="col-md-9 mb-3">
-                <input type="text" [(ngModel)]="userUpdates.billing.lastName" name="lastname" class="form-control" id="input02" placeholder="" required=""> </div>
+                <input type="text" [(ngModel)]="userUpdates.billing.lastName" name="lastname" class="form-control" id="input02" required=""> </div>
+              <!-- /form column -->
+            </div>
+            <!-- /form row -->
+            <!-- form row -->
+            <div class="form-row">
+              <!-- form column -->
+              <label for="email" class="col-md-3 mb-3">Email</label>
+              <!-- /form column -->
+              <!-- form column -->
+              <div class="col-md-9 mb-3">
+                <input type="text" [(ngModel)]="userUpdates.billing.email" name="email" class="form-control" id="email" required=""> </div>
+              <!-- /form column -->
+            </div>
+            <!-- /form row -->
+            <!-- form row -->
+            <div class="form-row">
+              <!-- form column -->
+              <label for="phone" class="col-md-3 mb-3">Phone</label>
+              <!-- /form column -->
+              <!-- form column -->
+              <div class="col-md-9 mb-3">
+                <input type="phone" [(ngModel)]="userUpdates.billing.phone" name="lastname" class="form-control" id="phone" required=""> </div>
               <!-- /form column -->
             </div>
             <!-- /form row -->
@@ -201,7 +225,7 @@
             <hr>
             <!-- .form-actions -->
             <div class="form-actions">
-              <button type="submit" (click)="updateUserData(billing, userUpdates)" class="btn btn-primary ml-auto">Update Billing</button>
+              <button type="submit" (click)="updateUserData(loader, userUpdates)" class="btn btn-primary ml-auto">Update Billing</button>
             </div>
             <!-- /.form-actions -->
           </form>
@@ -214,18 +238,18 @@
             <!-- .card-body -->
             <div class="card-body">
               <!-- form -->
-              <form #account>
+              <form #account="ngForm">
                 <!-- form row -->
                 <div class="form-row">
                   <!-- form column -->
                   <div class="col-md-6 mb-3">
                     <label for="input01">First Name</label>
-                    <input type="text" [(ngModel)]="userUpdates.firstName" name="firstname" class="form-control" id="input01" placeholder=""> </div>
+                    <input type="text" [(ngModel)]="userUpdates.firstName" name="firstname" class="form-control" id="input01" placeholder="" required> </div>
                   <!-- /form column -->
                   <!-- form column -->
                   <div class="col-md-6 mb-3">
                     <label for="input02">Last Name</label>
-                    <input type="text" [(ngModel)]="userUpdates.lastName" name="lastname" class="form-control" id="input02" placeholder=""> </div>
+                    <input type="text" [(ngModel)]="userUpdates.lastName" name="lastname" class="form-control" id="input02" placeholder="" required> </div>
                   <!-- /form column -->
                 </div>
                 <!-- /form row -->
@@ -237,22 +261,23 @@
                 <!-- .form-group -->
                 <div class="form-group">
                   <label for="input04">Password</label>
-                  <input type="password" [(ngModel)]="userUpdates.password" name="password1" class="form-control" id="input04" placeholder="" required="" [disabled]="(passwordsMatch | async)">
+                  <input type="password" [(ngModel)]="userUpdates.password" name="password1" class="form-control" id="input04" placeholder="" required [disabled]="hasPassword && !(passwordsMatch | async)">
                 </div>
                 <!-- /.form-group -->
                 <!-- .form-group -->
                 <div class="form-group">
                   <label for="input05">Username</label>
-                  <input type="text" [(ngModel)]="userUpdates.username" name="username" class="form-control" id="input05" placeholder="">
-                  <small class="text-muted">Dolores reiciendis, eos accusamus nobis at omnis consequuntur culpa tempore saepe animi.</small>
+                  <input type="text" [(ngModel)]="userUpdates.username" name="username" class="form-control" id="input05" placeholder="" required>
+                  <small class="text-muted">Have a nickname or preffered name? Add a username. We like to keep things friendly</small>
                 </div>
                 <!-- /.form-group -->
                 <hr>
                 <!-- .form-actions -->
-                <div class="form-actions">
+                <div class="form-group form-actions">
+                  <label for="current">Enter Current Password to Change Password or to Save Changes</label>
                   <!-- enable submit btn when userUpdates type their current password -->
-                  <input #current type="password" (keypress)="checkAgainstCurrentPassword(current.value, user.password)" name="input06" class="form-control ml-auto mr-3" id="input06" placeholder="Enter Current Password">
-                  <button (click)="updateUserData(account, userUpdates)" type="button" class="btn btn-primary" [disabled]="(passwordsMatch | async)">Update Account</button>
+                  <input [hidden]="!hasPassword" #current type="password" (keyup)="checkAgainstCurrentPassword(current.value, user.password)" name="current" class="form-control ml-auto mr-3" id="current" placeholder="Current Password" required>
+                  <button (click)="updateUserData(loader, userUpdates)" type="button" class="btn btn-primary mt-2" [disabled]="hasPassword && !(passwordsMatch | async)">Update Account</button>
                 </div>
                 <!-- /.form-actions -->
               </form>
@@ -268,3 +293,4 @@
   </div>
   <!-- /grid row -->
 </div>
+<app-loader #loader></app-loader>

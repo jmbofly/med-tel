@@ -27,12 +27,12 @@ import { map, filter, tap, switchMap } from 'rxjs/operators';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
+  @ViewChild('loader') loader: any;
   hideMobileMenu = true;
   hideLoginMenu: BehaviorSubject<boolean>;
   userMenu = false;
   loggedIn: Observable<boolean>;
   status: string;
-  loading: Observable<boolean>;
   navStart: Observable<NavigationStart>;
   navAuthError: Observable<any>;
   navCart: UserModel['cart'];
@@ -88,7 +88,8 @@ export class NavbarComponent implements OnInit {
   navigateTo(url: string, urlTree?: any[]) {
     this.hideMobileMenu = true;
     this.hideLoginMenu.next(true);
-    this.loader({ url });
+    this.userMenu = false;
+    this.loader.load({ url });
   }
 
   openLoginModal(content: TemplateRef<any>, setStatus: string) {
@@ -104,27 +105,6 @@ export class NavbarComponent implements OnInit {
       this.toggleMobileMenu();
     }
     this.authService.signOut().then(res => this.navigateTo('/'));
-  }
-
-  loader(navigate = null) {
-    this.loading = new Observable(obs => {
-      obs.next(true);
-      if (navigate) {
-        setTimeout(() => {
-          this.router
-            .navigate([navigate.url], { relativeTo: this.route })
-            .then(() => {
-              this.userMenu = false;
-              window.scrollTo(0, 0);
-            });
-          obs.next(false);
-        }, 1000);
-      } else {
-        setTimeout(() => {
-          obs.next(false);
-        }, 1000);
-      }
-    });
   }
 
   toggleLoginMenu() {
@@ -144,7 +124,7 @@ export class NavbarComponent implements OnInit {
     this.loggedIn = this.authService.loggedIn();
     this.navStart.subscribe(evt => {
       if (evt) {
-        this.loader();
+        this.loader.load();
       }
     });
     this.authService

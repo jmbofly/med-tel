@@ -1,5 +1,13 @@
 import { Cart } from './products.data';
 
+export class Contact {
+  name?: string;
+  email?: string;
+  subject?: string;
+  details?: string;
+  timestamp?: Date;
+}
+
 export class BillingModel {
   username?: string;
   email?: string;

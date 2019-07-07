@@ -11,6 +11,8 @@ import { PricingComponent } from './pricing/pricing.component';
 import { ModalComponent } from './modal/modal.component';
 import { DividerComponent } from './divider/divider.component';
 import { ParallaxDirective } from './directives/parallax.directive';
+import { ThankYouComponent } from './thank-you/thank-you.component';
+import { LoaderComponent } from './loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,8 @@ import { ParallaxDirective } from './directives/parallax.directive';
     ModalComponent,
     DividerComponent,
     ParallaxDirective,
+    ThankYouComponent,
+    LoaderComponent,
   ],
   imports: [CommonModule, FormsModule, CarouselModule],
   exports: [
@@ -35,6 +39,8 @@ import { ParallaxDirective } from './directives/parallax.directive';
     ModalComponent,
     DividerComponent,
     ParallaxDirective,
+    ThankYouComponent,
+    LoaderComponent,
   ],
   entryComponents: [
     CarouselComponent,
@@ -43,6 +49,8 @@ import { ParallaxDirective } from './directives/parallax.directive';
     PricingComponent,
     ModalComponent,
     DividerComponent,
+    ThankYouComponent,
+    LoaderComponent,
   ],
 })
 export class SharedModule {}
