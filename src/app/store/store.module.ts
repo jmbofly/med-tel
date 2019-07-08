@@ -9,10 +9,23 @@ import { ProductFilterComponent } from './product-filter/product-filter.componen
 // import { StoreService } from './store.service';
 
 @NgModule({
-  declarations: [StoreComponent, ProductDetailsComponent, ProductListComponent, ProductFilterComponent],
-  imports: [SharedModule, StoreRoutingModule],
-  exports: [ProductDetailsComponent, ProductListComponent, ProductFilterComponent],
-  entryComponents: [ProductDetailsComponent, ProductListComponent, ProductFilterComponent],
+  declarations: [
+    StoreComponent,
+    ProductDetailsComponent,
+    ProductListComponent,
+    ProductFilterComponent,
+  ],
+  imports: [SharedModule],
+  exports: [
+    ProductDetailsComponent,
+    ProductListComponent,
+    ProductFilterComponent,
+  ],
+  entryComponents: [
+    ProductDetailsComponent,
+    ProductListComponent,
+    ProductFilterComponent,
+  ],
   // providers: [StoreService]
 })
 export class StoreModule {}

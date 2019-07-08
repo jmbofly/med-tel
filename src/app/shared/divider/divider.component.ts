@@ -8,12 +8,13 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class DividerComponent implements OnInit {
   @Input() content: any;
-  dividerContent: any;
-  dividerColors: any;
+  // @Input() gradientColors?: () => any;
+  dividerContent: any = {};
+  dividerColors: any = {};
   constructor(private router: Router, private route: ActivatedRoute) {}
 
   navigateTo(url: string) {
-    this.router.navigateByUrl(url, {relativeTo: this.route});
+    this.router.navigateByUrl(url, { relativeTo: this.route });
   }
 
   ngOnInit() {
@@ -28,6 +29,7 @@ export class DividerComponent implements OnInit {
     this.dividerContent = {
       title: content.title,
       icon: content.icon,
+      imageURL: content.imageURL,
       text: content.text,
       ctaLink: content.ctaLink,
     };

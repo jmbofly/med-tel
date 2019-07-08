@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { ParallaxModule } from 'ngx-parallax';
-
+import { NgxAnimatedGradientModule } from 'ngx-animated-gradient';
 import { CarouselComponent } from './carousel/carousel.component';
 import { TabberComponent } from './tabber/tabber.component';
 import { ContactComponent } from './contact/contact.component';
@@ -26,10 +26,16 @@ import { LoaderComponent } from './loader/loader.component';
     ThankYouComponent,
     LoaderComponent,
   ],
-  imports: [CommonModule, FormsModule, CarouselModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    CarouselModule,
+    NgxAnimatedGradientModule,
+  ],
   exports: [
     CommonModule,
     FormsModule,
+    NgxAnimatedGradientModule,
     CarouselModule,
     ParallaxModule,
     CarouselComponent,

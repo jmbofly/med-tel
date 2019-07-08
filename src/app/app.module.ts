@@ -17,6 +17,7 @@ import { StoreModule } from './store/store.module';
 import { CheckoutModule } from './checkout/checkout.module';
 import { CartModule } from './cart/cart.module';
 import { AccountModule } from './account/account.module';
+import { NgxAnimatedGradientModule } from 'ngx-animated-gradient';
 
 @NgModule({
   declarations: [AppComponent],
@@ -39,6 +40,7 @@ import { AccountModule } from './account/account.module';
     CheckoutModule,
     CartModule,
     AccountModule,
+    NgxAnimatedGradientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

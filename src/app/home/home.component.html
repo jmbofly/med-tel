@@ -1,24 +1,39 @@
 <!-- Hero Section-->
 <!-- TODO: Hero Slider ??? -->
-<section #hero class="hero" appParallax #p="mouseParallax" (mousemove)="p.mouseMoved($event, hero)"
-  [style.background-image]="'url(assets/img/hero-bg.png)'">
+<section #hero class="hero" ngxAnimatedGradient [colors]="colors()">
+  <div
+    style="background-image: url(assets/img/hero-bg.png)"
+    class="background"
+  ></div>
   <div class="container mb-5">
     <div class="row align-items-center justify-content-center">
       <div class="col-lg-6">
-        <h1 class="hero-heading text-uppercase text-center mb-0 animate" data-aos="fade-up">
+        <h1
+          class="hero-heading text-uppercase text-center mb-0 animate"
+          data-aos="fade-up"
+        >
           TeleCare.<br />
           <small>ReInvented.</small>
         </h1>
         <div class="row">
           <div class="col-lg-12">
-            <p class="lead text-center mt-4 mb-4 animate" data-aos="fade-right" data-aos-delay=".5">
+            <p
+              class="lead text-center mt-4 mb-4 animate"
+              data-aos="fade-right"
+              data-aos-delay=".5"
+            >
               Want to Learn more about MedTelPlus products?
             </p>
           </div>
         </div>
         <form action="#" class="subscription-form">
           <div class="form-group">
-            <input type="email" name="email" placeholder="Enter your email" class="form-control" />
+            <input
+              type="email"
+              name="email"
+              placeholder="Enter your email"
+              class="form-control"
+            />
             <button type="button" class="btn border-light btn-primary">
               Learn More
             </button>
@@ -36,8 +51,12 @@
   <p class="lead text-muted mt-2">
     Discover all MedTelPlus Products
   </p>
-  <button class="btn btn-outline-primary" (click)="dividerOne.navigateTo('store')">Go to Shop <i
-      class="fa fa-shopping-cart"></i></button>
+  <button
+    class="btn btn-outline-primary"
+    (click)="dividerOne.navigateTo('store')"
+  >
+    Go to Shop <i class="fa fa-shopping-cart"></i>
+  </button>
 </div>
 
 <section id="homeBanner" class="banner bgwhite text-center pb-0 pt-0">
@@ -46,69 +65,79 @@
       <!--  -->
       <div class="col-sm-10 col-md-8 col-lg-4 m-l-r-auto">
         <!-- block1 -->
-        <div class="block1 hov-img-zoom pos-relative m-b-30" *ngFor="let item of bannerRow1Products">
-          <img [src]="item.imgUrl" [alt]="item.productName">
+        <div
+          class="block1 hov-img-zoom pos-relative m-b-30"
+          *ngFor="let item of bannerRow1Products"
+        >
+          <img [src]="item.imgUrl" [alt]="item.productName" />
 
           <div class="block1-wrapbtn w-size2">
             <!-- Button -->
             <a href="#" class="flex-c-m size2 m-text2 bg3 hov1 trans-0-4">
-              {{item.caption}}
+              {{ item.caption }}
             </a>
           </div>
         </div>
 
         <!-- block2 -->
-
       </div>
-<!--  -->
+      <!--  -->
       <div class="col-sm-10 col-md-8 col-lg-4 m-l-r-auto">
         <!-- block1 -->
-        <div class="block1 hov-img-zoom pos-relative m-b-30" *ngFor="let item of bannerRow2Products">
-          <img [src]="item.imgUrl" [alt]="item.productName">
+        <div
+          class="block1 hov-img-zoom pos-relative m-b-30"
+          *ngFor="let item of bannerRow2Products"
+        >
+          <img [src]="item.imgUrl" [alt]="item.productName" />
 
           <div class="block1-wrapbtn w-size2">
             <!-- Button -->
             <a href="#" class="flex-c-m size2 m-text2 bg3 hov1 trans-0-4">
-              {{item.caption}}
+              {{ item.caption }}
             </a>
           </div>
         </div>
 
         <!-- block2 -->
-
       </div>
-<!--  -->
+      <!--  -->
       <div class="col-sm-10 col-md-8 col-lg-4 m-l-r-auto">
-          <div class="block1 hov-img-zoom pos-relative m-b-30" *ngFor="let item of bannerRow3Products">
-            <img [src]="item.imgUrl" [alt]="item.productName">
+        <div
+          class="block1 hov-img-zoom pos-relative m-b-30"
+          *ngFor="let item of bannerRow3Products"
+        >
+          <img [src]="item.imgUrl" [alt]="item.productName" />
 
-            <div class="block1-wrapbtn w-size2">
+          <div class="block1-wrapbtn w-size2">
+            <!-- Button -->
+            <a href="#" class="flex-c-m size2 m-text2 bg3 hov1 trans-0-4">
+              {{ item.caption }}
+            </a>
+          </div>
+        </div>
+        <div class="block2 wrap-pic-w pos-relative m-b-30 bg-gray">
+          <div class="block2-content sizefull flex-col-c-m pb-5">
+            <h4 class="m-text4 t-center w-size3 p-b-8">
+              Sign up & get 10% off your first purchase
+            </h4>
+
+            <p class="t-center w-size4">
+              Be the first to know about the best TeleCare and Medical Alert
+              Devices on the market
+            </p>
+
+            <div class="w-size2 p-t-25">
               <!-- Button -->
-              <a href="#" class="flex-c-m size2 m-text2 bg3 hov1 trans-0-4">
-                {{item.caption}}
-              </a>
+              <button
+                class="flex-c-m size2 bg4 bo-rad-23 hov1 m-text3 trans-0-4"
+                (click)="dividerOne.navigateTo('store')"
+              >
+                Sign Up
+              </button>
             </div>
           </div>
-          <div class="block2 wrap-pic-w pos-relative m-b-30 bg-gray">
-						<div class="block2-content sizefull flex-col-c-m pb-5">
-							<h4 class="m-text4 t-center w-size3 p-b-8">
-								Sign up & get 10% off your first purchase
-							</h4>
-
-							<p class="t-center w-size4">
-								Be the frist to know about the best TeleCare and Medical Alert Devices on the market
-							</p>
-
-							<div class="w-size2 p-t-25">
-								<!-- Button -->
-								<button class="flex-c-m size2 bg4 bo-rad-23 hov1 m-text3 trans-0-4" (click)="dividerOne.navigateTo('store')">
-									Sign Up
-								</button>
-							</div>
-						</div>
-					</div>
+        </div>
       </div>
-
     </div>
   </div>
 </section>
@@ -129,7 +158,7 @@
     </div>
     <div class="row">
       <div class="card col-lg-4 col-md-12 mt-5 card animate" data-aos="fade-up">
-        <img class="card-img-top" src="assets/images/doctor.png" width="50" alt="" />
+        <img class="card-img-top" src="assets/images/doctor.png" style="width: 50%;" alt="Doctor Icon" />
         <div class="card-body text-center">
           <h4 class="card-title">Trusted Providers</h4>
           <p class="card-text">
@@ -139,7 +168,12 @@
         </div>
       </div>
       <div class="card col-lg-4 col-md-12 mt-5 card animate" data-aos="fade-up">
-        <img class="card-img-top" src="assets/images/police.png" width="50" alt="" />
+        <img
+          class="card-img-top"
+          src="assets/images/police.png"
+          style="width: 50%"
+          alt="Police Officer Icon"
+        />
         <div class="card-body text-center">
           <h4 class="card-title">Peace of Mind</h4>
           <p class="card-text">
@@ -151,7 +185,12 @@
         </div>
       </div>
       <div class="card col-lg-4 col-md-12 mt-5 card animate" data-aos="fade-up">
-        <img class="card-img-top" src="assets/images/agent.png" width="50" alt="" />
+        <img
+          class="card-img-top"
+          src="assets/images/agent.png"
+          style="width: 50%"
+          alt="Agent Icon"
+        />
         <div class="card-body text-center">
           <h4 class="card-title">24/7 Support</h4>
           <p class="card-text">
@@ -170,5 +209,9 @@
 <!-- end Divider-->
 
 <!-- Page divider 1 -->
-<app-divider [content]="dividers[1]"> </app-divider>
+<app-divider #dividerTwo [content]="dividers[1]"></app-divider>
+<!-- end Divider-->
+
+<!-- Page divider 2 -->
+<app-divider #dividerThree [content]="dividers[2]"></app-divider>
 <!-- end Divider-->

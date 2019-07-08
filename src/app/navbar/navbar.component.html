@@ -1,38 +1,60 @@
 <!-- navbar-->
 <nav #nav class="navbar navbar-expand-md animate fadeInDown" data-aos="fixed-header" data-aos-offset="1200">
   <div class="container">
+    <!-- Nav Logo -->
     <button style="width: auto;" class="btn-link btn navbar-brand pr-0 pl-0" (click)="navigateTo('/')">
       <img src="assets/images/logo_full.svg" width="120" style="" class="" alt="" />
     </button>
+    <!-- Nav Menu Buttons -->
     <div class="d-inline-flex">
-      <div *ngIf="loggedIn | async" [hidden]="nav.clientWidth > 760">
-          <div class="dropdown ml-2 d-inline-block">
-            <button #userMenuButton (click)="toggleUserMenu()" class="ml-0 btn btn-link p-1" type="button">
-              <img src="assets/images/icons/icon-gear.png" width="30" alt="" class="header-icon1" />
+      <!-- Nav Handset Menu -->
+      <div *ngIf="(loggedIn | async) && nav.clientWidth < 760">
+        <!-- Nav Auth Menu -->
+        <button #userMenuButton (click)="toggleUserMenu()" class="ml-0 btn btn-sm text-black" type="button">
+          <i class="fa fa-gear header-icon1 fa-2x"></i>
+        </button>
+        <div class="dropdown d-inline-block">
+          <div class="dropdown-menu mt-1 animated slow" [style.display]="userMenu ? 'inline-block': 'none'"
+            [ngClass]="userMenu ? 'slideInLeft':'slideOutRight'">
+            <button class="dropdown-item" (click)="navigateTo('/account')">
+              <i class="fa fa-lock"></i> Account Settings
             </button>
-            <div class="dropdown-menu mt-1" [style.display]="userMenu ? 'block' : 'none'">
-              <button class="dropdown-item" (click)="navigateTo('/account')">
-                <i class="fa fa-lock"></i> Account Settings
-              </button>
-              <button class="dropdown-item" (click)="navigateTo('/account')">
-                <i class="fa fa-shopping-cart"></i> Purchase History
-              </button>
-              <button class="dropdown-item" (click)="signOut()">
-                <i class="fa fa-sign-out"></i> SignOut
-              </button>
-            </div>
+            <button class="dropdown-item" (click)="navigateTo('/account')">
+              <i class="fa fa-shopping-cart"></i> Purchase History
+            </button>
+            <button class="dropdown-item" (click)="signOut()">
+              <i class="fa fa-sign-out"></i> SignOut
+            </button>
           </div>
-          <button class="btn btn-link p-1" (click)="navigateTo('/cart')">
-            <span class="header-icons-noti">{{navCart?.items?.length || 0}}</span>
-            <img src="assets/images/icons/icon-header-02.png" alt="" class="header-icon1" />
+        </div>
+        <button class="btn btn-link p-1" (click)="navigateTo('/cart')">
+          <span class="header-icons-noti">{{navCart?.items?.length || 0}}</span>
+          <img src="assets/images/icons/icon-header-02.png" alt="" class="header-icon1" />
+        </button>
+      </div>
+      <!-- Nav Fullscreen Menu -->
+      <div class="dropdown ml-md-2" *ngIf="!(loggedIn | async) && nav.clientWidth < 760">
+        <button (click)="toggleLoginMenu()" class="ml-0 btn btn-sm p-0" type="button">
+          <i class="header-icon1 fa fa-user-circle fa-2x"></i>
+        </button>
+        <div class="dropdown-menu" [style.display]="!(hideLoginMenu | async) ? 'inline-block' : 'none'"
+          aria-labelledby="triggerId">
+          <button class="dropdown-item" (click)="openLoginModal(content, 'login')">
+            <i class="fa fa-lock"></i> SignIn
+          </button>
+          <button class="dropdown-item" (click)="openLoginModal(content, 'register')">
+            <i class="fa fa-user-plus"></i> SignUp
           </button>
         </div>
-        <button type="button" (click)="toggleMobileMenu()" aria-controls="navbarSupportedContent" aria-expanded="false"
+      </div>
+      <!-- Nav Handset Menu Toggle -->
+      <button type="button" (click)="toggleMobileMenu()" aria-controls="navbarSupportedContent" aria-expanded="false"
         aria-label="Toggle navigation" class="navbar-toggler">
         <i style="font-size: 1.25em" class="fa fa-bars ml-2"></i>
       </button>
 
     </div>
+    <!-- Nav Collapsable Menu -->
     <div id="navbarSupportedContent" class="navbar-collapse" [ngClass]="hideMobileMenu ? 'collapse' : ''">
       <ul class="navbar-nav ml-auto">
         <!-- Link-->
@@ -65,12 +87,13 @@
           </button>
         </li>
       </ul>
-
-      <div class="dropdown ml-md-2" *ngIf="!(loggedIn | async)">
-        <button (click)="toggleLoginMenu()" class="ml-0 btn btn-sm" type="button">
-          <img src="assets/images/icons/icon-header-01.png" alt="" class="header-icon1" />
+      <!-- Nav Collapsed Guest Menu -->
+      <div class="dropdown ml-md-2" *ngIf="!(loggedIn | async) && nav.clientWidth > 760">
+        <button (click)="toggleLoginMenu()" class="ml-0 btn btn-sm p-0" type="button">
+          <i class="header-icon1 fa fa-user-circle fa-2x"></i>
         </button>
-        <div class="dropdown-menu" [style.display]="!(hideLoginMenu | async) ? 'inline-block' : 'none'" aria-labelledby="triggerId">
+        <div class="dropdown-menu" [style.display]="!(hideLoginMenu | async) ? 'inline-block' : 'none'"
+          aria-labelledby="triggerId">
           <button class="dropdown-item" (click)="openLoginModal(content, 'login')">
             <i class="fa fa-lock"></i> SignIn
           </button>
@@ -79,13 +102,14 @@
           </button>
         </div>
       </div>
-      <!-- Signout button -->
+      <!-- Nav Collapsed Auth Menu -->
       <div *ngIf="loggedIn | async" [hidden]="nav.clientWidth < 760">
-        <div class="dropdown ml-2 d-inline-block">
-          <button #userMenuButton (click)="toggleUserMenu()" class="ml-0 btn btn-link p-1" type="button">
-            <img src="assets/images/icons/icon-gear.png" width="30" alt="" class="header-icon1" />
+        <div class="dropdown d-inline-block">
+          <button #userMenuButton (click)="toggleUserMenu()" class="ml-0 btn btn-sm text-black p-1" type="button">
+            <i class="text-black fa fa-gear header-icon1 fa-2x"></i>
           </button>
-          <div class="dropdown-menu mt-1" [style.display]="userMenu ? 'block' : 'none'">
+          <div class="dropdown-menu mt-1 animated slow" [style.display]="userMenu ? 'inline-block': 'none'"
+            [ngClass]="userMenu ? 'slideInLeft':'slideOutRight'">
             <button class="dropdown-item" (click)="navigateTo('/account')">
               <i class="fa fa-lock"></i> Account Settings
             </button>
@@ -97,6 +121,7 @@
             </button>
           </div>
         </div>
+        <!-- Nav Collapsed Cart Button -->
         <button class="btn btn-link p-1" (click)="navigateTo('/cart')">
           <span class="header-icons-noti">{{navCart?.items?.length || 0}}</span>
           <img src="assets/images/icons/icon-header-02.png" alt="" class="header-icon1" />
@@ -105,9 +130,10 @@
     </div>
   </div>
 </nav>
-
+<!-- User Login and Registration Modal -->
 <ng-template #content let-modal>
   <div [ngSwitch]="status">
+    <!-- User Login -->
     <div *ngSwitchCase="'login'">
       <div class="modal-header">
         <h4 class="modal-title" id="modal-login-title">Login</h4>
@@ -131,7 +157,7 @@
           <div class="row">
             <div class="col-12">
               <h5 class="lead text-center text-black-50 m-3">
-                One click Login with <br/>
+                One click Login with <br />
               </h5>
             </div>
           </div>
@@ -159,6 +185,7 @@
       </div>
     </div>
     <div *ngSwitchDefault>
+      <!-- User Registration -->
       <div class="modal-header">
         <h4 class="modal-title" id="modal-login-title">Register</h4>
         <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
@@ -189,7 +216,7 @@
           <div class="row">
             <div class="col-12">
               <h5 class="lead text-center text-black-50 m-3">
-                One click Login with <br/>
+                One click Login with <br />
               </h5>
             </div>
           </div>
@@ -219,5 +246,5 @@
     </div>
   </div>
 </ng-template>
-
+<!-- Global Page Loader -->
 <app-loader #loader></app-loader>
