@@ -1,0 +1,17 @@
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // True if the user is signed in or the requested data is 'public'
+    function signedInOrPublic() {
+      return request.auth.uid != null;
+    }
+
+    match /users/{user} {
+      allow read, write: if signedInOrPublic();
+    }
+    
+    match /contacts/{contact} {
+      allow write;
+    }
+  }
+
+}

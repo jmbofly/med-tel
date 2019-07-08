@@ -1,0 +1,16 @@
+[debug] [2019-07-08T11:37:00.119Z] ----------------------------------------------------------------------
+[debug] [2019-07-08T11:37:00.127Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Ideliverphones\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2019-07-08T11:37:00.128Z] CLI Version:   7.0.2
+[debug] [2019-07-08T11:37:00.128Z] Platform:      win32
+[debug] [2019-07-08T11:37:00.129Z] Node Version:  v10.15.3
+[debug] [2019-07-08T11:37:00.174Z] Time:          Mon Jul 08 2019 07:37:00 GMT-0400 (Eastern Daylight Time)
+[debug] [2019-07-08T11:37:00.174Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-07-08T11:37:00.219Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-07-08T11:37:00.222Z] > authorizing via signed-in user
+[debug] [2019-07-08T11:37:00.222Z] [iam] checking project med-tel-plus for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]
+[debug] [2019-07-08T11:37:00.228Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/med-tel-plus:testIamPermissions  
+
+[debug] [2019-07-08T11:37:00.764Z] <<< HTTP RESPONSE 200
+[debug] [2019-07-08T11:37:00.772Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/med-tel-plus  
+ 
