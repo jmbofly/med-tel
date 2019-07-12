@@ -53,5 +53,7 @@ export interface AdditionalInfo {
   comapnyName?: string;
   bio?: string;
   isNewUser?: boolean;
+  isInfoComplete?: { billing?: boolean; profile?: boolean; account?: boolean };
+  memberSince?: Date;
   subscribed?: boolean;
 }

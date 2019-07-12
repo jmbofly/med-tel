@@ -19,6 +19,10 @@ export class AuthService {
     public userService: UserService
   ) {}
 
+  // private isUserAccountComplete(keys, user) {
+  //   Array.from(user)
+  // }
+
   // Login with Google
   // @returns firebase DocumentReference
   async googleLogin() {
@@ -80,16 +84,23 @@ export class AuthService {
   // Set user defaults
   addNewUserData(userId: string, resData: any, name: string, password = null) {
     let newUser: UserModel;
-    const additional = {
-      isNewUser: false,
-      companyName: '',
-      bio: '',
-      subscribed: false,
-    };
     if (resData.additionalUserInfo.isNewUser) {
       console.log('User is new');
+      const creationDate = new Date();
       const user = resData.user;
       const profile = resData.additionalUserInfo.profile;
+      const additional = {
+        isNewUser: false,
+        memberSince: creationDate,
+        isInfoComplete: {
+          billing: false,
+          account: false,
+          profile: false,
+        },
+        companyName: '',
+        bio: '',
+        subscribed: false,
+      };
       newUser = {
         uid: userId,
         password,
@@ -137,6 +148,12 @@ export class AuthService {
 
       // window.localStorage.setItem('currentUserEmail', newUser.email);
       this.userService.setUser(userId, newUser);
+    } else {
+      this.userService
+        .getUserById(userId)
+        .valueChanges()
+        .pipe(map(user => (newUser = user)))
+        .subscribe();
     }
     return Promise.resolve(newUser);
   }

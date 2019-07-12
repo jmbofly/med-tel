@@ -2,9 +2,11 @@ import {
   Component,
   OnInit,
   Input,
+  ErrorHandler,
   TemplateRef,
   ViewChild,
 } from '@angular/core';
+
 import {
   Router,
   ActivatedRoute,
@@ -14,11 +16,17 @@ import {
   ActivatedRouteSnapshot,
   NavigationEnd,
 } from '@angular/router';
+
 import { NgbModal, NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
+
 import { AuthService } from '../core/auth.service';
+
 import { UserModel } from '../core/user.model';
+
 import { UserService } from '../core/user.service';
+
 import { Observable, BehaviorSubject } from 'rxjs';
+
 import { map, filter, tap, switchMap } from 'rxjs/operators';
 
 @Component({
@@ -35,7 +43,9 @@ export class NavbarComponent implements OnInit {
   status: string;
   navStart: Observable<NavigationStart>;
   navAuthError: Observable<any>;
+  username: string;
   navCart: UserModel['cart'];
+
   constructor(
     private authService: AuthService,
     private userService: UserService,
@@ -80,20 +90,48 @@ export class NavbarComponent implements OnInit {
       .catch(err => console.log('error logging in with Google', err));
   }
 
-  authStateHasChanged(url = '/store') {
+  checkLogoTextColor(nav: HTMLElement, el?: HTMLElement) {
+    const list = nav.classList;
+
+    if (nav.clientWidth > 760) {
+      return list.contains('aos-animate') ? '#364e59' : '#FFFFFF';
+    } else {
+      return '#364e59';
+    }
+  }
+
+  animateLogo(): Observable<any> {
+    const animate = new Observable(obs => {
+      setTimeout(() => {
+        obs.next(' ');
+      }, 1000);
+      obs.next('fin');
+    });
+    return animate;
+  }
+
+  authStateHasChanged(url = '/account') {
     this.navigateTo(url);
     this.modalService.dismissAll();
+  }
+
+  getMenuPos(targetButton: HTMLElement) {
+    return targetButton.offsetLeft;
   }
 
   navigateTo(url: string, urlTree?: any[]) {
     this.hideMobileMenu = true;
     this.hideLoginMenu.next(true);
     this.userMenu = false;
-    this.loader.load({ url });
+
+    this.loader.load({
+      url,
+    });
   }
 
   openLoginModal(content: TemplateRef<any>, setStatus: string) {
     this.status = setStatus;
+
     const modalRef = this.modalService.open(content, {
       ariaLabelledBy: 'modal-login-title',
     });
@@ -104,7 +142,11 @@ export class NavbarComponent implements OnInit {
     if (!this.hideMobileMenu) {
       this.toggleMobileMenu();
     }
-    this.authService.signOut().then(res => this.navigateTo('/'));
+
+    this.router
+      .navigateByUrl('/')
+      .then(res => (res ? this.authService.signOut() : this.signOut()))
+      .catch(err => console.log('ERROR', err));
   }
 
   toggleLoginMenu() {
@@ -121,12 +163,14 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.username = '';
     this.loggedIn = this.authService.loggedIn();
     this.navStart.subscribe(evt => {
       if (evt) {
         this.loader.load();
       }
     });
+
     this.authService
       .getUserId()
       .pipe(
@@ -135,16 +179,19 @@ export class NavbarComponent implements OnInit {
             this.userService
               .getUserById(uid)
               .valueChanges()
-              .pipe(map(user => {
-                if (user) {
-                  this.navCart = user.cart;
-                }
-              }))
+              .pipe(
+                map(user => {
+                  if (user) {
+                    this.username =
+                      user.username || user.firstName || 'New User';
+                    this.navCart = user.cart;
+                  }
+                })
+              )
               .subscribe();
           }
         })
       )
       .subscribe();
-    // console.log('nav', this.nav);
   }
 }

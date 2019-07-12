@@ -29,12 +29,12 @@
     <div class="block2 border-bottom pb-3">
       <div
         class="block2-img wrap-pic-w of-hidden pos-relative border-bottom pb-3"
-        [ngClass]="getItemTagClass(item.tags[0])"
+        [ngClass]="getItemTagClass((item?.tags)[0])"
       >
-        <img [src]="item.imgUrl" alt="IMG-PRODUCT" class="img-fluid" />
+        <img [src]="item?.imgUrl" alt="IMG-PRODUCT" class="img-fluid" />
         <span
           class="badge badge-default m-auto pr-2"
-          *ngFor="let cat of item.category"
+          *ngFor="let cat of item?.category"
           >{{ cat }}</span
         >
         <div class="block2-overlay trans-0-4" [hidden]="!loggedIn">
@@ -49,7 +49,7 @@
           <div class="block2-btn-addcart w-size1 trans-0-4">
             <!-- Button -->
             <button
-            [hidden]="!loggedIn"
+              *ngIf="loggedIn || userCart.items.includes(item.productId)"
               (click)="addToCart(item.productId)"
               class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4"
             >
@@ -72,14 +72,14 @@
           (click)="selectProduct(item.productId)"
           class="btn btn-link m-auto block2-name dis-block s-text3 p-b-5"
         >
-          {{ item.caption }}
+          {{ item?.caption }}
         </button>
         <span
           class="badge badge-primary"
           (click)="addToCart(item.productId)"
           style="font-size: 1.5rem;"
         >
-          ${{ item.price }}
+          ${{ item?.price }}
         </span>
       </div>
     </div>

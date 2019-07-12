@@ -13,6 +13,7 @@ import { DividerComponent } from './divider/divider.component';
 import { ParallaxDirective } from './directives/parallax.directive';
 import { ThankYouComponent } from './thank-you/thank-you.component';
 import { LoaderComponent } from './loader/loader.component';
+import { BrandButtonComponent } from './brand-button/brand-button.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { LoaderComponent } from './loader/loader.component';
     ParallaxDirective,
     ThankYouComponent,
     LoaderComponent,
+    BrandButtonComponent,
   ],
   imports: [
     CommonModule,
@@ -47,6 +49,7 @@ import { LoaderComponent } from './loader/loader.component';
     ParallaxDirective,
     ThankYouComponent,
     LoaderComponent,
+    BrandButtonComponent,
   ],
   entryComponents: [
     CarouselComponent,
@@ -57,6 +60,7 @@ import { LoaderComponent } from './loader/loader.component';
     DividerComponent,
     ThankYouComponent,
     LoaderComponent,
+    BrandButtonComponent,
   ],
 })
 export class SharedModule {}

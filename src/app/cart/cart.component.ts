@@ -31,7 +31,8 @@ export class CartComponent implements OnInit {
   ) {}
 
   getCartItem(productId: string) {
-    if (this.items.includes({ productId })) {
+    const counts = this.items.filter(item => item.productId === productId);
+    if (counts.length >= 1) {
       return;
     } else {
       return Products.filter(
@@ -41,6 +42,7 @@ export class CartComponent implements OnInit {
   }
 
   getItemTotal(item: Product) {
+    if (!item) { return; }
     const count = item.options.quantity;
     const total = item.price * count;
     return total;
@@ -95,6 +97,7 @@ export class CartComponent implements OnInit {
     this.items.splice(itemIdx, 1);
     const items = this.items.map(i => i.productId);
     this.updateCart(userId, { items });
+    this.items.map(i => this.getCartItem(i.productId));
   }
 
   increaseQuantity(idx: number) {
@@ -109,11 +112,12 @@ export class CartComponent implements OnInit {
     this.cart.tax = tax;
     this.cart.total = this.subtotal / tax;
     this.cart.items = this.items.map(item => item.productId);
-    this.cart.readyForCheckout = this.subtotal !== 0;
-    this.updateCart(userId, { cart: this.cart });
+    this.cart.readyForCheckout = this.subtotal > 0;
+    this.updateCart(userId, this.cart);
+    // this.items = this.cart.items.map(item => this.getCartItem(item));
   }
 
-  updateCart(userId, cart) {
+  updateCart(userId: string, cart: Cart) {
     this.shopService.userService.updateUser(userId, { cart });
   }
 

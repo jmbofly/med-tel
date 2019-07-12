@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import * as Aos from 'aos';
 import {
   trigger,
   animateChild,
@@ -10,6 +9,7 @@ import {
   style,
   query,
 } from '@angular/animations';
+import * as Aos from 'aos';
 
 // Routable animations
 export const slideInAnimation = trigger('routeAnimation', [
@@ -26,8 +26,15 @@ export const slideInAnimation = trigger('routeAnimation', [
     query(':enter', [style({ left: '-100%' })]),
     query(':leave', animateChild()),
     group([
-      query(':leave', [animate('300ms ease-out', style({ transform: 'tanslate3d(100%, 0 0)' }))]),
-      query(':enter', [animate('300ms ease-out', style({ transform: 'tanslate3d(0, 0 0)' }))]),
+      query(':leave', [
+        animate(
+          '300ms ease-out',
+          style({ transform: 'tanslate3d(100%, 0 0)' })
+        ),
+      ]),
+      query(':enter', [
+        animate('300ms ease-out', style({ transform: 'tanslate3d(0, 0 0)' })),
+      ]),
     ]),
     query(':enter', animateChild()),
   ]),

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Product } from '../../core/products.data';
+import { Product, Cart } from '../../core/products.data';
 
 @Component({
   selector: 'app-product-list',
@@ -8,6 +8,7 @@ import { Product } from '../../core/products.data';
 })
 export class ProductListComponent implements OnInit {
   @Input() productList: Product[];
+  @Input() userCart?: Cart;
   @Input() loggedIn: boolean;
   @Output() productSelected = new EventEmitter<string>();
   @Output() addedToCart = new EventEmitter<string>();
@@ -16,10 +17,10 @@ export class ProductListComponent implements OnInit {
   constructor() {}
 
   addToCart(productId: string) {
-    this.toggleToaster();
-    setTimeout(() => {
-      this.toggleToaster();
-    }, 2000);
+    // this.toggleToaster();
+    // setTimeout(() => {
+    //   this.toggleToaster();
+    // }, 2000);
     this.addedToCart.emit(productId);
   }
 

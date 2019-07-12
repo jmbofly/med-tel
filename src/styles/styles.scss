@@ -26,6 +26,7 @@
 
 section {
   padding: 7rem 0;
+
   .box-shadow {
     -moz-box-shadow: 0 3px 3px rgba(0, 0, 0, .23);
     box-shadow: 0 3px 3px rgba(0, 0, 0, .23);
@@ -166,11 +167,17 @@ button {
   max-height: 600px;
   transition: all ease-in-out;
   -moz-transition: all ease-in-out;
+  background-attachment: fixed;
+
+  &.home-page {
+    background-attachment: none;
+  }
 
   .hero-heading,
   .lead {
     color: $white;
   }
+
 
   @media all and (min-width: 1200px) {
     height: 860px;
@@ -13492,6 +13499,10 @@ code {
 
   .text-hov-white:hover {
     color: white;
+  }
+
+  .text-hov-primary:hover {
+    fill: #e7475e;
   }
 
   /* ------------------------------------ */

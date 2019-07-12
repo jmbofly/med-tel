@@ -1,7 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, OnDestroy, TemplateRef, ViewChild } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { map, mergeMap } from 'rxjs/operators';
+import { map, mergeMap, tap } from 'rxjs/operators';
 
 import { AuthService } from '../core/auth.service';
 import { UserService } from '../core/user.service';
@@ -25,7 +25,7 @@ export class AccountComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private userService: UserService,
-    private authService: AuthService
+    private authService: AuthService,
   ) {
     this.passwordsMatch = new BehaviorSubject(false);
     this.currentTab = new BehaviorSubject('account');
@@ -46,7 +46,7 @@ export class AccountComponent implements OnInit, OnDestroy {
                 this.user = user;
                 this.userUpdates = user;
                 this.hasPassword = !!user.password;
-              })
+              }),
             )
             .subscribe();
         })
@@ -55,7 +55,11 @@ export class AccountComponent implements OnInit, OnDestroy {
     // this.currentTab.next('profile');
   }
 
-  ngOnDestroy() {}
+  ngOnDestroy() {
+    this.passwordsMatch.complete();
+    this.currentTab.complete();
+    console.log('destroyed account');
+  }
 
   addedChanges(key: string, changes: UserModel, mergeTo: UserModel) {
     // console.log('merge', changes, mergeTo);
@@ -77,14 +81,14 @@ export class AccountComponent implements OnInit, OnDestroy {
   }
 
   toggleTab(tab: string) {
-    this.currentTab.next(tab);
-  }
+      this.currentTab.next(tab);
+    }
 
   togglePurchaseHistoryWindow() {
     this.showPurchaseHistory = !this.showPurchaseHistory;
   }
 
-  updateUserData(loader, newData: any) {
+  updateUserData(loader, newData: any, key?: string) {
     if (newData) {
       loader.load();
       this.userService.updateUser(this.user.uid, newData);

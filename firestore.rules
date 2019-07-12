@@ -6,11 +6,11 @@ service cloud.firestore {
     }
 
     match /users/{user} {
-      allow read, write: if signedInOrPublic();
+      allow read, write, update: if signedInOrPublic();
     }
-    
+
     match /contacts/{contact} {
-      allow write;
+      allow read, write;
     }
   }
 

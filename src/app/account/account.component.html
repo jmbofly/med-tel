@@ -38,9 +38,9 @@
                 <input *ngIf="showAvatarEdit" id="fileupload-avatar" type="file" name="avatar" class="animate fadeInLeft"> 
               </div>
                 <!-- The avatar upload progress bar -->
-                <div id="progress-avatar" class="progress progress-xs fade" [hidden]="!(uploading | async)">
+                <!-- <div id="progress-avatar" class="progress progress-xs fade" [hidden]="!(uploading | async)">
                   <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
+                </div> -->
                 <!-- /avatar upload progress bar -->
               <p class="card-text">
                 <small>JPG, GIF or PNG 400x400, &lt; 2 MB.</small>
@@ -95,7 +95,7 @@
             <hr>
             <!-- .form-actions -->
             <div class="form-actions">
-              <button [disabled]="profile.invalid" (click)="updateUserData(loader, userUpdates)" type="button" class="btn btn-primary ml-auto">Update Profile</button>
+              <button [disabled]="profile.invalid" (click)="updateUserData(loader, userUpdates, 'profile')" type="button" class="btn btn-primary ml-auto">Update Profile</button>
             </div>
             <!-- /.form-actions -->
           </form>
@@ -225,7 +225,7 @@
             <hr>
             <!-- .form-actions -->
             <div class="form-actions">
-              <button type="submit" (click)="updateUserData(loader, userUpdates)" class="btn btn-primary ml-auto">Update Billing</button>
+              <button type="submit" (click)="updateUserData(loader, userUpdates, 'billing')" class="btn btn-primary ml-auto">Update Billing</button>
             </div>
             <!-- /.form-actions -->
           </form>
@@ -277,7 +277,7 @@
                   <label for="current">Enter Current Password to Change Password or to Save Changes</label>
                   <!-- enable submit btn when userUpdates type their current password -->
                   <input [hidden]="!hasPassword" #current type="password" (keyup)="checkAgainstCurrentPassword(current.value, user.password)" name="current" class="form-control ml-auto mr-3" id="current" placeholder="Current Password" required>
-                  <button (click)="updateUserData(loader, userUpdates)" type="button" class="btn btn-primary mt-2" [disabled]="hasPassword && !(passwordsMatch | async)">Update Account</button>
+                  <button (click)="updateUserData(loader, userUpdates, 'account')" type="button" class="btn btn-primary mt-2" [disabled]="hasPassword && !(passwordsMatch | async)">Update Account</button>
                 </div>
                 <!-- /.form-actions -->
               </form>
@@ -294,3 +294,4 @@
   <!-- /grid row -->
 </section>
 <app-loader #loader></app-loader>
+

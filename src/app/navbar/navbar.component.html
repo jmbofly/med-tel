@@ -1,32 +1,13 @@
 <!-- navbar-->
-<nav #nav class="navbar navbar-expand-md animate fadeInDown" data-aos="fixed-header" data-aos-offset="1200">
+<nav #nav class="navbar navbar-expand-md animated fadeInDown" data-aos="fixed-header" data-aos-offset="1200">
   <div class="container">
     <!-- Nav Logo -->
-    <button style="width: auto;" class="btn-link btn navbar-brand pr-0 pl-0" (click)="navigateTo('/')">
-      <img src="assets/images/logo_full.svg" width="120" style="" class="" alt="" />
-    </button>
+    <app-brand-button [height]="'45px'"></app-brand-button>
     <!-- Nav Menu Buttons -->
     <div class="d-inline-flex">
       <!-- Nav Handset Menu -->
       <div *ngIf="(loggedIn | async) && nav.clientWidth < 760">
-        <!-- Nav Auth Menu -->
-        <button #userMenuButton (click)="toggleUserMenu()" class="ml-0 btn btn-sm text-black" type="button">
-          <i class="fa fa-gear header-icon1 fa-2x"></i>
-        </button>
-        <div class="dropdown d-inline-block">
-          <div class="dropdown-menu mt-1 animated slow" [style.display]="userMenu ? 'inline-block': 'none'"
-            [ngClass]="userMenu ? 'slideInLeft':'slideOutRight'">
-            <button class="dropdown-item" (click)="navigateTo('/account')">
-              <i class="fa fa-lock"></i> Account Settings
-            </button>
-            <button class="dropdown-item" (click)="navigateTo('/account')">
-              <i class="fa fa-shopping-cart"></i> Purchase History
-            </button>
-            <button class="dropdown-item" (click)="signOut()">
-              <i class="fa fa-sign-out"></i> SignOut
-            </button>
-          </div>
-        </div>
+        <!-- Nav Auth Cart Link -->
         <button class="btn btn-link p-1" (click)="navigateTo('/cart')">
           <span class="header-icons-noti">{{navCart?.items?.length || 0}}</span>
           <img src="assets/images/icons/icon-header-02.png" alt="" class="header-icon1" />
@@ -34,7 +15,7 @@
       </div>
       <!-- Nav Fullscreen Menu -->
       <div class="dropdown ml-md-2" *ngIf="!(loggedIn | async) && nav.clientWidth < 760">
-        <button (click)="toggleLoginMenu()" class="ml-0 btn btn-sm p-0" type="button">
+        <button #guestMenuButton (click)="toggleLoginMenu()" class="ml-0 btn btn-sm p-0" type="button">
           <i class="header-icon1 fa fa-user-circle fa-2x"></i>
         </button>
         <div class="dropdown-menu" [style.display]="!(hideLoginMenu | async) ? 'inline-block' : 'none'"
@@ -55,7 +36,29 @@
 
     </div>
     <!-- Nav Collapsable Menu -->
-    <div id="navbarSupportedContent" class="navbar-collapse" [ngClass]="hideMobileMenu ? 'collapse' : ''">
+    <div id="navbarSupportedContent" class="navbar-collapse pl-sm-2 animated slideInDown"
+      [ngClass]="hideMobileMenu ? 'collapse' : ''"
+      [style]="nav.clientWidth < 760 ? { backgroundColor: '#fff', padding: '4rem'} : { backgroundColor: 'transparent', padding: 'inherit'}">
+      <div *ngIf="(loggedIn | async) && nav.clientWidth < 760">
+        <!-- Nav Auth Menu -->
+        <button #userMenuButton (click)="toggleUserMenu()" style="border-radius: 0;"
+          class="ml-0 btn btn-block btn-dark text-white dropdown-toggle mt-2 mb-2">
+          <i class="fa fa-user header-icon1"></i> {{username || 'New User'}}
+        </button>
+        <div class="">
+          <div class="mt-1 animated" [hidden]="!userMenu" [ngClass]="userMenu ? 'slideInDown':'slideOutUp'">
+            <button class="dropdown-item" (click)="navigateTo('/account')">
+              <i class="fa fa-lock"></i> Account Settings
+            </button>
+            <button class="dropdown-item" (click)="navigateTo('/account')">
+              <i class="fa fa-shopping-cart"></i> Purchase History
+            </button>
+            <button class="dropdown-item" (click)="signOut()">
+              <i class="fa fa-sign-out"></i> SignOut
+            </button>
+          </div>
+        </div>
+      </div>
       <ul class="navbar-nav ml-auto">
         <!-- Link-->
         <li class="nav-item">
@@ -89,7 +92,7 @@
       </ul>
       <!-- Nav Collapsed Guest Menu -->
       <div class="dropdown ml-md-2" *ngIf="!(loggedIn | async) && nav.clientWidth > 760">
-        <button (click)="toggleLoginMenu()" class="ml-0 btn btn-sm p-0" type="button">
+        <button #guestMenuButton (click)="toggleLoginMenu()" class="ml-0 btn btn-sm p-0" type="button">
           <i class="header-icon1 fa fa-user-circle fa-2x"></i>
         </button>
         <div class="dropdown-menu" [style.display]="!(hideLoginMenu | async) ? 'inline-block' : 'none'"
@@ -105,8 +108,9 @@
       <!-- Nav Collapsed Auth Menu -->
       <div *ngIf="loggedIn | async" [hidden]="nav.clientWidth < 760">
         <div class="dropdown d-inline-block">
-          <button #userMenuButton (click)="toggleUserMenu()" class="ml-0 btn btn-sm text-black p-1" type="button">
-            <i class="text-black fa fa-gear header-icon1 fa-2x"></i>
+          <button #userMenuButton (click)="toggleUserMenu()" class="ml-0 btn btn-sm text-primary p-1 dropdown-toggle"
+            type="button">
+            <i class="text-black fa fa-user header-icon1"></i> {{username || 'New User'}}
           </button>
           <div class="dropdown-menu mt-1 animated slow" [style.display]="userMenu ? 'inline-block': 'none'"
             [ngClass]="userMenu ? 'slideInLeft':'slideOutRight'">
@@ -246,5 +250,7 @@
     </div>
   </div>
 </ng-template>
+<!-- Account Info Check Modal -->
+
 <!-- Global Page Loader -->
 <app-loader #loader></app-loader>

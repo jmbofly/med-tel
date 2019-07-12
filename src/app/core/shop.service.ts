@@ -32,9 +32,7 @@ export class ShopService {
   }
 
   getCurrentShopper(userId: string) {
-    return this.afs
-      .doc<UserModel>(`users/${userId}`)
-      .valueChanges();
+    return this.afs.doc<UserModel>(`users/${userId}`).valueChanges();
   }
 
   getProductDetails(productId: string) {
@@ -48,9 +46,13 @@ export class ShopService {
   }
 
   addToCart(userId: string, productId: string, cart: Cart) {
+    const counts = cart.items.filter(item => item === productId);
+    if (counts.length >= 1) {
+      return;
+    }
     cart.items.push(productId);
     console.log('user cart', cart);
-    this.userService.updateUser(userId, { cart });
+    this.updateCart(userId, cart);
   }
 
   // applyCoupon(couponCode: string) {

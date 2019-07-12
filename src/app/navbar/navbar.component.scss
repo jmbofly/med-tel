@@ -151,21 +151,25 @@
 }
 
 nav.navbar .dropdown-menu {
-  top: 80px;
-  right: 8%;
-  left: unset;
+  // top: 80px;
+  // right: 8.33%;
+  // left: unset;
+  background-color: #9b9898;
+-webkit-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.23);
+    -moz-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.23);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.23);
 }
 
 .dropdown {
-  position: unset;
-  left: unset;
+  // position: unset;
+  // left: unset;
 }
 
 /* NAVBAR MEDIAQUERY */
 @media (min-width: 1600px) {
-  .dropdown-menu {
-    right: 8%;
-  }
+  // .dropdown-menu {
+  //   right: 8%;
+  // }
 }
 
 @media (max-width: 991.98px) {

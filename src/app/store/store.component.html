@@ -80,6 +80,7 @@
 
         <!-- Products Component -->
         <app-product-list
+        [userCart]="user?.cart"
           [productList]="productList"
           [loggedIn]="authService.loggedIn"
           (productSelected)="productSelected($event, product)"
