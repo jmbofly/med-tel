@@ -1,6 +1,7 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 import * as nodemailer from 'nodemailer';
+import { EMAIL_TEMPLATE_STRING as template } from './email.constant';
 
 admin.initializeApp(functions.config().firebase);
 const mainEmail = functions.config().main.email;
@@ -19,6 +20,54 @@ const mailTransport: nodemailer.Transporter = nodemailer.createTransport({
 
 // Company name to include in the emails
 const APP_NAME = 'MedTelPlus';
+
+// TODO: Add newsletter subscription method
+/** method for sending email to subscriber */
+exports.sendNewsletterToSubscriber = functions.firestore
+  .document(`users/{userId}`)
+  .onUpdate((change, context) => {
+    const snap = change.after;
+    let user: any;
+    if (snap.exists) {
+      user = snap.data();
+      return sendNewSubscriberEmail(user.email, user.username);
+    } else {
+      return null;
+    }
+  });
+
+async function sendNewSubscriberEmail(email: string, username: string) {
+  const mailOptions: nodemailer.SendMailOptions = {
+    from: `"MedTelPlus" info@medtelplus.com`,
+    to: email,
+    html: template,
+    // attachments: [
+    //   {
+    //     path: `https://medtelplus.com/assets/images/logo_full.png`,
+    //     filename: 'logo_full.png',
+    //   },
+    //   {
+    //     path: `https://medtelplus.com/assets/images/about-bg.jpg`,
+    //     filename: 'about-bg.jpg',
+    //   },
+    //   {
+    //     path: `https://medtelplus.com/assets/images/logo_full.png`,
+    //     filename: 'logo_full.png',
+    //   },
+    //   {
+    //     path: `https://medtelplus.com/assets/images/logo_full.png`,
+    //     filename: 'logo_full.png',
+    //   },
+    // ],
+  };
+
+  // The user sent a contact form.
+  mailOptions.subject = `Thanks for contacting ${APP_NAME}!`;
+  mailOptions.text = `Hey ${username}! Thanks for subscribing! Keep an eye out for your monthly newsletter with tons of health related content.`;
+  await mailTransport.sendMail(mailOptions);
+  console.log('New contact email sent to:', email);
+  return null;
+}
 
 exports.sendNewContactEmail = functions.firestore
   .document(`contacts/{contactId}`)
@@ -39,9 +88,15 @@ async function sendWelcomeToContact(
   displayName?: string,
   subject?: string
 ) {
-  const mailOptions: any = {
+  const mailOptions: nodemailer.SendMailOptions = {
     from: `"MedTelPlus" info@medtelplus.com`,
     to: email,
+    attachments: [
+      {
+        path: `https://medtelplus.com/assets/images/about-bg.jpg`,
+        filename: 'about-bg.jpg',
+      },
+    ],
   };
 
   // The user sent a contact form.
@@ -92,7 +147,7 @@ exports.sendByeEmail = functions.firestore
 
 // Sends a welcome email to the given user.
 async function sendWelcomeEmail(email?: string, displayName?: string) {
-  const mailOptions: any = {
+  const mailOptions: nodemailer.SendMailOptions = {
     from: `info@medtelplus.com`,
     to: email,
   };
@@ -110,7 +165,7 @@ async function sendWelcomeEmail(email?: string, displayName?: string) {
 
 // Sends a goodbye email to the given user.
 async function sendGoodbyeEmail(email?: string, displayName?: string) {
-  const mailOptions: any = {
+  const mailOptions: nodemailer.SendMailOptions = {
     from: `info@medtelplus.com`,
     to: email,
   };
