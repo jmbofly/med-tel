@@ -91,6 +91,7 @@ async function sendWelcomeToContact(
   const mailOptions: nodemailer.SendMailOptions = {
     from: `"MedTelPlus" info@medtelplus.com`,
     to: email,
+    html: template,
     attachments: [
       {
         path: `https://medtelplus.com/assets/images/about-bg.jpg`,
