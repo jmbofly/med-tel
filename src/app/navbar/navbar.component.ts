@@ -36,6 +36,7 @@ import { map, filter, tap, switchMap } from 'rxjs/operators';
 })
 export class NavbarComponent implements OnInit {
   @ViewChild('loader') loader: any;
+  @ViewChild('nav') navbar: any;
   hideMobileMenu = true;
   hideLoginMenu: BehaviorSubject<boolean>;
   userMenu = false;
@@ -88,16 +89,6 @@ export class NavbarComponent implements OnInit {
         this.authStateHasChanged();
       })
       .catch(err => console.log('error logging in with Google', err));
-  }
-
-  checkLogoTextColor(nav: HTMLElement, el?: HTMLElement) {
-    const list = nav.classList;
-
-    if (nav.clientWidth > 760) {
-      return list.contains('aos-animate') ? '#364e59' : '#FFFFFF';
-    } else {
-      return '#364e59';
-    }
   }
 
   animateLogo(): Observable<any> {
@@ -165,12 +156,19 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
     this.username = '';
     this.loggedIn = this.authService.loggedIn();
+    // const home = document.querySelector('.home-page');
+    // const docTop = home.scrollTop;
+    // if (docTop > 100) {
+    //   home.classList.add('pt-0');
+    // } else {
+    //   home.classList.remove('pt-0');
+
+    // }
     this.navStart.subscribe(evt => {
       if (evt) {
         this.loader.load();
       }
     });
-
     this.authService
       .getUserId()
       .pipe(

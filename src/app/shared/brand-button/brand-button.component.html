@@ -2,10 +2,17 @@
   <div
     id="brand-button"
     style="cursor: pointer;"
-    class="navbar-brand pr-0 pl-0"
+    class="navbar-brand p-2"
     (click)="navigateTo('/')"
   >
-    <!-- <img src="assets/images/logo_full.svg" width="120" style="" class="" alt="" /> -->
+    <img
+      *ngIf="logoHidden"
+      src="assets/images/logo.svg"
+      width="35"
+      style=""
+      class=""
+      alt=""
+    />
     <svg
       xmlns:dc="http://purl.org/dc/elements/1.1/"
       xmlns:cc="http://creativecommons.org/ns#"
@@ -16,6 +23,7 @@
       version="1.1"
       viewBox="0 0 79.374999 26.458333"
       [ngStyle]="{ width: width, height: height }"
+      *ngIf="!logoHidden"
     >
       <defs id="defs1587" />
       <g id="layer4">

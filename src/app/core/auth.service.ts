@@ -30,7 +30,7 @@ export class AuthService {
     provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
     return await this.afAuth.auth.signInWithPopup(provider).then(user => {
       // console.log('user', user);
-      return this.addNewUserData(user.user.uid, user, user.user.displayName);
+      return this.getOrAddUser(user.user.uid, user, user.user.displayName);
     });
   }
 
@@ -67,7 +67,7 @@ export class AuthService {
       .createUserWithEmailAndPassword(email, password)
       .then(res => {
         // Add new user data
-        return this.addNewUserData(res.user.uid, res, name, password);
+        return this.getOrAddUser(res.user.uid, res, name, password);
       })
       .catch(error => {
         console.log(error);
@@ -82,79 +82,7 @@ export class AuthService {
   // Add new user data to database by ID
   // Split name string into first and last
   // Set user defaults
-  addNewUserData(userId: string, resData: any, name: string, password = null) {
-    let newUser: UserModel;
-    if (resData.additionalUserInfo.isNewUser) {
-      console.log('User is new');
-      const creationDate = new Date();
-      const user = resData.user;
-      const profile = resData.additionalUserInfo.profile;
-      const additional = {
-        isNewUser: false,
-        memberSince: creationDate,
-        isInfoComplete: {
-          billing: false,
-          account: false,
-          profile: false,
-        },
-        companyName: '',
-        bio: '',
-        subscribed: false,
-      };
-      newUser = {
-        uid: userId,
-        password,
-        username: name.slice(0, name.indexOf(' ')),
-        email: user.email,
-        firstName: name.slice(0, name.indexOf(' ')),
-        lastName: name.slice(name.indexOf(' ') + 1, name.length),
-        address: {
-          street: '',
-          numberOrApt: '',
-          city: '',
-          stateOrProvince: '',
-          zipcode: '',
-        },
-        phone: '',
-        photoURL: user.photoURL || 'assets/images/icons/user.png',
-        purchaseHistory: [],
-        cart: {
-          coupon: null,
-          items: [],
-          total: 0,
-          tax: 0,
-          readyForCheckout: false,
-        },
-        billing: {
-          firstName: '',
-          lastName: '',
-          email: '',
-          address: {
-            street: '',
-            numberOrApt: '',
-            city: '',
-            stateOrProvince: '',
-            zipcode: '',
-          },
-          phone: '',
-          purchaseHistory: [],
-          savedPaymentMethods: [],
-        },
-        additionalUserInfo: profile
-          ? { profile, ...additional }
-          : { ...additional },
-        wishList: [],
-      };
-
-      // window.localStorage.setItem('currentUserEmail', newUser.email);
-      this.userService.setUser(userId, newUser);
-    } else {
-      this.userService
-        .getUserById(userId)
-        .valueChanges()
-        .pipe(map(user => (newUser = user)))
-        .subscribe();
-    }
-    return Promise.resolve(newUser);
+  getOrAddUser(userId: string, resData: any, name: string, password = null) {
+    this.userService.getUserData(userId, resData, name, password);
   }
 }

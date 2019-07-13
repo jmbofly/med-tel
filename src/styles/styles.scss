@@ -159,6 +159,7 @@ button {
 * =====================================================
 */
 .hero {
+  overflow-x: hidden;
   padding: 8.5rem 0;
   background-repeat: no-repeat;
   background-size: cover;
@@ -167,11 +168,11 @@ button {
   max-height: 600px;
   transition: all ease-in-out;
   -moz-transition: all ease-in-out;
-  background-attachment: fixed;
+  // background-attachment: fixed;
 
-  &.home-page {
-    background-attachment: none;
-  }
+  // &.home-page {
+  //   background-attachment: scroll;
+  // }
 
   .hero-heading,
   .lead {
@@ -275,6 +276,7 @@ button {
 * =====================================================
 */
 .box {
+  cursor: pointer;
   padding: 3rem 2rem;
   -webkit-transition: all 0.4s;
   transition: all 0.4s;
@@ -4521,6 +4523,7 @@ code {
 ///////////////////////////////////////////////////////////
 */
   body {
+    overflow-x: hidden;
     padding-right: 0px !important;
   }
 

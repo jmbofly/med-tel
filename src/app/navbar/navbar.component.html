@@ -1,8 +1,9 @@
 <!-- navbar-->
-<nav #nav class="navbar navbar-expand-md animated fadeInDown" data-aos="fixed-header" data-aos-offset="1200">
+<nav #nav class="navbar navbar-expand-md animated" data-aos="fixed-header" data-aos-offset="1200" [style.width]="nav.clientWidth">
   <div class="container">
     <!-- Nav Logo -->
-    <app-brand-button [height]="'45px'"></app-brand-button>
+    <app-brand-button [height]="'35px'" [width]="'180px'" [logoHidden]="nav.clientWidth < 345">
+    </app-brand-button>
     <!-- Nav Menu Buttons -->
     <div class="d-inline-flex">
       <!-- Nav Handset Menu -->
@@ -38,7 +39,7 @@
     <!-- Nav Collapsable Menu -->
     <div id="navbarSupportedContent" class="navbar-collapse pl-sm-2 animated slideInDown"
       [ngClass]="hideMobileMenu ? 'collapse' : ''"
-      [style]="nav.clientWidth < 760 ? { backgroundColor: '#fff', padding: '4rem'} : { backgroundColor: 'transparent', padding: 'inherit'}">
+      >
       <div *ngIf="(loggedIn | async) && nav.clientWidth < 760">
         <!-- Nav Auth Menu -->
         <button #userMenuButton (click)="toggleUserMenu()" style="border-radius: 0;"

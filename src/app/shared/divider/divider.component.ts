@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -11,7 +12,11 @@ export class DividerComponent implements OnInit {
   // @Input() gradientColors?: () => any;
   dividerContent: any = {};
   dividerColors: any = {};
-  constructor(private router: Router, private route: ActivatedRoute) {}
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private sanitizer: DomSanitizer
+  ) {}
 
   navigateTo(url: string) {
     this.router.navigateByUrl(url, { relativeTo: this.route });
@@ -30,7 +35,7 @@ export class DividerComponent implements OnInit {
       title: content.title,
       icon: content.icon,
       imageURL: content.imageURL,
-      text: content.text,
+      text: this.sanitizer.bypassSecurityTrustUrl(content.text),
       ctaLink: content.ctaLink,
     };
   }

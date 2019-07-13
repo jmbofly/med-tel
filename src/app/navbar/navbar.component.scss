@@ -4,9 +4,9 @@
 * =====================================================
 */
 .navbar[data-aos="fixed-header"] {
-  padding: 1.1rem 1rem;
-  width: 100%;
+  padding: 16px;
   position: absolute;
+  width: 100%;
   z-index: 1000;
   background: #fff;
   -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.08);
@@ -24,6 +24,7 @@
   &.aos-animate {
     background: #fff;
     position: fixed;
+    top: 0;
     -webkit-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.23);
     -moz-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.23);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.23);
@@ -38,7 +39,7 @@
     color: white;
     font-size: 12px;
     position: absolute;
-    top: 48px;
+    top: 40px;
   }
 }
 
@@ -48,7 +49,6 @@
   padding-bottom: 0.3125rem;
   margin-right: 1rem;
   font-size: 1.25rem;
-  width: 7.5rem;
 }
 
 .navbar-toggler {
@@ -155,9 +155,9 @@ nav.navbar .dropdown-menu {
   // right: 8.33%;
   // left: unset;
   background-color: #9b9898;
--webkit-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.23);
-    -moz-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.23);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.23);
+  -webkit-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.23);
+  -moz-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.23);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.23);
 }
 
 .dropdown {

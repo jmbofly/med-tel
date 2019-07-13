@@ -69,7 +69,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -90,8 +90,8 @@
      inkscape:label="cross 1"
      style="">
     <path
-       style="opacity:1;fill:#e7475e;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.06391945;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0.92550004;stroke-opacity:1;paint-order:fill markers stroke"
-       d="m 62.160694,25.832935 c -3.897828,-0.58624 -7.320248,-2.95984 -9.254533,-6.418401 -1.723181,-3.08112 -2.068306,-6.85122 -0.936813,-10.2336486 1.839957,-5.50026 7.310406,-9.11654998 13.048628,-8.62588998 1.699157,0.14528 2.964401,0.48471998 4.461433,1.19690998 3.679539,1.75048 6.263779,5.06653 7.046616,9.0420796 0.211956,1.076389 0.28197,2.811889 0.156832,3.887499 -0.677412,5.822571 -5.297834,10.487261 -11.085702,11.191891 -0.933496,0.11359 -2.537438,0.0948 -3.436461,-0.0404 z m 4.581428,-2.68681 c 0.07758,-0.0363 0.171936,-0.147261 0.209675,-0.24653 0.03774,-0.0992 0.09271,-1.62059 0.122165,-3.38071 l 0.05355,-3.20025 0.788166,-0.0537 c 0.433491,-0.0295 2.035202,-0.0412 3.559357,-0.0259 l 2.771191,0.0278 v -2.8959 -2.895899 l -3.571602,-0.0201 -3.571602,-0.0201 -0.0025,-0.8679896 c -0.0067,-2.31319 -0.145394,-5.86383 -0.23322,-5.96966 -0.13557,-0.16335 -5.568992,-0.16563 -5.704467,-0.002 -0.0625,0.0753 -0.115662,1.1219 -0.173581,3.41715 -0.04592,1.81973 -0.09194,3.3185096 -0.102258,3.3306096 -0.01027,0.0122 -1.63057,0.0468 -3.600539,0.0772 l -3.581759,0.0552 v 2.895889 2.8959 l 3.597689,0.0201 3.597689,0.0201 0.07045,3.37778 c 0.03875,1.85779 0.100017,3.4236 0.136163,3.47957 0.05289,0.0819 0.595821,0.0965 2.780058,0.0748 1.492886,-0.0148 2.777814,-0.0567 2.855396,-0.0931 z"
+       style="opacity:1;fill:#e7475e;fill-opacity:1;fill-rule:nonzero;stroke:#fbf9f9;stroke-width:0.364;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0.92550004;stroke-opacity:0.52173913;paint-order:fill markers stroke"
+       d="M 12.419023,25.832935 C 8.5211959,25.246695 5.0987765,22.873095 3.1644915,19.414534 1.4413108,16.333414 1.0961858,12.563314 2.2276788,9.1808854 4.0676355,3.6806254 9.5380833,0.06433542 15.276305,0.55499542 c 1.699157,0.14528 2.964401,0.48471998 4.461433,1.19690998 3.679539,1.75048 6.263779,5.06653 7.046616,9.0420796 0.211956,1.076389 0.28197,2.811889 0.156832,3.887499 -0.677412,5.822571 -5.297834,10.487261 -11.085702,11.191891 -0.933496,0.11359 -2.537438,0.0948 -3.436461,-0.0404 z m 4.581428,-2.68681 c 0.07758,-0.0363 0.171936,-0.147261 0.209675,-0.24653 0.03774,-0.0992 0.09271,-1.62059 0.122165,-3.38071 l 0.05355,-3.20025 0.788166,-0.0537 c 0.433491,-0.0295 2.035202,-0.0412 3.559357,-0.0259 l 2.771191,0.0278 v -2.8959 -2.895899 l -3.571602,-0.0201 -3.571602,-0.0201 -0.0025,-0.8679896 c -0.0067,-2.31319 -0.145394,-5.86383 -0.23322,-5.96966 -0.13557,-0.16335 -5.568992,-0.16563 -5.704467,-0.002 -0.0625,0.0753 -0.115662,1.1219 -0.173581,3.41715 -0.04592,1.81973 -0.09194,3.3185096 -0.102258,3.3306096 -0.01027,0.0122 -1.6305697,0.0468 -3.6005375,0.0772 l -3.581759,0.0552 v 2.895889 2.8959 l 3.597689,0.0201 3.5976875,0.0201 0.07045,3.37778 c 0.03875,1.85779 0.100017,3.4236 0.136163,3.47957 0.05289,0.0819 0.595821,0.0965 2.780058,0.0748 1.492886,-0.0148 2.777814,-0.0567 2.855396,-0.0931 z"
        id="path2482"
        inkscape:connector-curvature="0" />
   </g>
@@ -119,47 +119,55 @@
      transform="translate(0,-270.54167)">
     <g
        aria-label="MedtTel"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.29007721px;line-height:1.25;font-family:'Bauhaus 93';-inkscape-font-specification:'Bauhaus 93, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.35725191"
-       id="text973">
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.29007721px;line-height:1.25;font-family:'Bauhaus 93';-inkscape-font-specification:'Bauhaus 93, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#fbf9f9;fill-opacity:0.52156866;stroke:#e7475e;stroke-width:0.35725191;stroke-opacity:1"
+       id="text973"
+       transform="matrix(0.6295414,0,0,0.6295414,28.402004,105.12534)">
       <path
          d="m 0.69556493,288.58188 v -6.86594 q 0,-1.27689 0.77451107,-2.08629 0.774511,-0.8094 2.0095421,-0.8094 1.4652911,0 2.2537573,1.34667 0.4814527,-0.72567 1.0326813,-1.03268 0.5512286,-0.31399 1.3606275,-0.31399 1.2838741,0 1.9676768,0.8094 0.683802,0.8094 0.683802,2.33051 v 6.62172 H 7.9452672 v -6.19609 q 0,-0.46052 -0.076753,-0.60705 -0.069776,-0.15351 -0.2930582,-0.15351 -0.4186546,0 -0.4186546,0.71172 v 6.24493 H 4.3239048 v -6.19609 q 0,-0.45354 -0.076753,-0.60705 -0.076753,-0.15351 -0.3000358,-0.15351 -0.4186546,0 -0.4186546,0.76056 v 6.19609 z"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.29007721px;font-family:'Bauhaus 93';-inkscape-font-specification:'Bauhaus 93, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.35725191"
-         id="path1012" />
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.29007721px;font-family:'Bauhaus 93';-inkscape-font-specification:'Bauhaus 93, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.35725191;fill:#fbf9f9;stroke:#e7475e;stroke-opacity:1;fill-opacity:0.52156866"
+         id="path1012"
+         inkscape:connector-curvature="0" />
       <path
          d="m 19.144277,285.5257 h -3.956286 q -0.09071,-0.30004 -0.09071,-0.55123 0,-0.34888 0.125596,-0.6838 h 1.32574 q -0.139552,-0.77451 -0.872197,-0.77451 -0.488431,0 -0.795444,0.41865 -0.307013,0.41168 -0.307013,1.06059 0,0.67683 0.293058,1.09548 0.300036,0.41866 0.781488,0.41866 0.390745,0 0.753579,-0.39075 l 1.486224,1.78626 q -1.039659,0.81638 -2.309578,0.81638 -1.549022,0 -2.602636,-1.03966 -1.053615,-1.03966 -1.053615,-2.57472 0,-1.52809 1.060592,-2.58171 1.067569,-1.05361 2.616591,-1.05361 1.514135,0 2.539838,1.03268 1.032682,1.0257 1.032682,2.53286 0,0.15351 -0.02791,0.48843 z"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.29007721px;font-family:'Bauhaus 93';-inkscape-font-specification:'Bauhaus 93, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.35725191"
-         id="path1014" />
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.29007721px;font-family:'Bauhaus 93';-inkscape-font-specification:'Bauhaus 93, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.35725191;fill:#fbf9f9;stroke:#e7475e;stroke-opacity:1;fill-opacity:0.52156866"
+         id="path1014"
+         inkscape:connector-curvature="0" />
       <path
          d="m 24.517011,279.05749 h 2.609614 v 5.79836 q 0,1.59787 -0.837309,2.60264 -0.481453,0.57914 -1.228054,0.92104 -0.739623,0.3419 -1.521111,0.3419 -1.556,0 -2.623569,-1.04664 -1.06757,-1.04663 -1.06757,-2.56774 0,-1.47227 1.060592,-2.54682 1.060592,-1.07455 2.511928,-1.07455 0.23026,0 0.697757,0.0419 v 2.87476 q -0.320968,-0.25119 -0.641937,-0.25119 -0.404699,0 -0.697757,0.30003 -0.286081,0.29306 -0.286081,0.71172 0,0.4047 0.300036,0.69775 0.300036,0.28608 0.71869,0.28608 1.004771,0 1.004771,-1.38853 z"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.29007721px;font-family:'Bauhaus 93';-inkscape-font-specification:'Bauhaus 93, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.35725191"
-         id="path1016" />
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.29007721px;font-family:'Bauhaus 93';-inkscape-font-specification:'Bauhaus 93, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.35725191;fill:#fbf9f9;stroke:#e7475e;stroke-opacity:1;fill-opacity:0.52156866"
+         id="path1016"
+         inkscape:connector-curvature="0" />
       <path
          d="m 30.817762,279.05749 v 2.66543 h 1.172233 v 2.75614 h -1.172233 q 0,0.83034 0.25817,1.14433 0.265148,0.31399 0.962906,0.31399 v 2.74218 q -0.20235,0.007 -0.300036,0.007 -0.886152,0 -1.674618,-0.41167 -0.781489,-0.41168 -1.255964,-1.11642 -0.600072,-0.9001 -0.600072,-2.38633 v -5.71463 z"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.29007721px;font-family:'Bauhaus 93';-inkscape-font-specification:'Bauhaus 93, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.35725191"
-         id="path1018" />
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.29007721px;font-family:'Bauhaus 93';-inkscape-font-specification:'Bauhaus 93, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.35725191;fill:#fbf9f9;stroke:#e7475e;stroke-opacity:1;fill-opacity:0.52156866"
+         id="path1018"
+         inkscape:connector-curvature="0" />
       <path
          d="m 37.606945,281.7927 v 6.78918 h -2.832896 v -6.78918 h -2.170027 v -2.73521 h 7.165972 v 2.73521 z"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.29007721px;font-family:'Bauhaus 93';-inkscape-font-specification:'Bauhaus 93, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.35725191"
-         id="path1020" />
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.29007721px;font-family:'Bauhaus 93';-inkscape-font-specification:'Bauhaus 93, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.35725191;fill:#fbf9f9;stroke:#e7475e;stroke-opacity:1;fill-opacity:0.52156866"
+         id="path1020"
+         inkscape:connector-curvature="0" />
       <path
          d="m 47.473238,285.5257 h -3.956286 q -0.09071,-0.30004 -0.09071,-0.55123 0,-0.34888 0.125597,-0.6838 h 1.325739 q -0.139551,-0.77451 -0.872197,-0.77451 -0.48843,0 -0.795444,0.41865 -0.307013,0.41168 -0.307013,1.06059 0,0.67683 0.293058,1.09548 0.300036,0.41866 0.781489,0.41866 0.390744,0 0.753578,-0.39075 l 1.486224,1.78626 q -1.039659,0.81638 -2.309578,0.81638 -1.549022,0 -2.602636,-1.03966 -1.053614,-1.03966 -1.053614,-2.57472 0,-1.52809 1.060592,-2.58171 1.067569,-1.05361 2.616591,-1.05361 1.514134,0 2.539838,1.03268 1.032681,1.0257 1.032681,2.53286 0,0.15351 -0.02791,0.48843 z"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.29007721px;font-family:'Bauhaus 93';-inkscape-font-specification:'Bauhaus 93, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.35725191"
-         id="path1022" />
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.29007721px;font-family:'Bauhaus 93';-inkscape-font-specification:'Bauhaus 93, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.35725191;fill:#fbf9f9;stroke:#e7475e;stroke-opacity:1;fill-opacity:0.52156866"
+         id="path1022"
+         inkscape:connector-curvature="0" />
       <path
          d="m 51.171355,279.05749 v 9.52439 h -2.609613 v -9.52439 z"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.29007721px;font-family:'Bauhaus 93';-inkscape-font-specification:'Bauhaus 93, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.35725191"
-         id="path1024" />
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.29007721px;font-family:'Bauhaus 93';-inkscape-font-specification:'Bauhaus 93, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.35725191;fill:#fbf9f9;stroke:#e7475e;stroke-opacity:1;fill-opacity:0.52156866"
+         id="path1024"
+         inkscape:connector-curvature="0" />
     </g>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.29007721px;line-height:1.25;font-family:'Bauhaus 93';-inkscape-font-specification:'Bauhaus 93, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.35725191"
-       x="51.645557"
-       y="288.53302"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.99619484px;line-height:1.25;font-family:'Bauhaus 93';-inkscape-font-specification:'Bauhaus 93, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:0.50241548;stroke:#e7475e;stroke-width:0.22490487;stroke-opacity:0.94117647;"
+       x="60.91502"
+       y="286.76883"
        id="text973-6"><tspan
          sodipodi:role="line"
          id="tspan971-1"
-         x="51.645557"
-         y="288.53302"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.29007721px;font-family:'Bauhaus 93';-inkscape-font-specification:'Bauhaus 93, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.35725191">Plus</tspan></text>
+         x="60.91502"
+         y="286.76883"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.99619484px;font-family:'Bauhaus 93';-inkscape-font-specification:'Bauhaus 93, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.22490487;stroke:#e7475e;stroke-opacity:0.94117647;fill:#000000;fill-opacity:0.50241548;">Plus</tspan></text>
   </g>
 </svg>
