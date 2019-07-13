@@ -129,14 +129,16 @@ export class NavbarComponent implements OnInit {
     modalRef.result.then(results => console.log('modal results', results));
   }
 
-  signOut() {
+  async signOut() {
     if (!this.hideMobileMenu) {
       this.toggleMobileMenu();
     }
-
-    this.router
+    await this.router
       .navigateByUrl('/')
-      .then(res => (res ? this.authService.signOut() : this.signOut()))
+      .then(res => {
+        this.navCart = null;
+      })
+      .finally(() => this.authService.signOut())
       .catch(err => console.log('ERROR', err));
   }
 
@@ -156,14 +158,6 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
     this.username = '';
     this.loggedIn = this.authService.loggedIn();
-    // const home = document.querySelector('.home-page');
-    // const docTop = home.scrollTop;
-    // if (docTop > 100) {
-    //   home.classList.add('pt-0');
-    // } else {
-    //   home.classList.remove('pt-0');
-
-    // }
     this.navStart.subscribe(evt => {
       if (evt) {
         this.loader.load();

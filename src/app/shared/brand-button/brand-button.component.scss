@@ -17,12 +17,14 @@
 
     .path-1 {
       stroke-dashoffset: 0;
-      fill: rgba(255, 255, 255, .8);
+      fill: rgba(255, 255, 255, .5);
+      stroke-width: 1px;
+
     }
 
     .path-2 {
       stroke-dashoffset: 0;
-      fill: #e7475e;
+      fill: rgba(0, 0, 0, .45);
       stroke: #e7475e;
 
       transform: translateX(0);
@@ -42,13 +44,14 @@
 .aos-animate[data-aos="fixed-header"] :host .svg-container {
   .path-1 {
     stroke-dashoffset: 0;
-    fill: rgba(255, 255, 255, .8);
+    fill: #e7475e;
+    stroke: none;
+    stroke-width: 1px;
   }
 
   .path-2 {
     stroke-dashoffset: 0;
-    fill: #e7475e;
-
+    fill: rgba(0, 0, 0, .45);
     transform: translateX(0);
     -moz-transform: translateX(0);
     -webit-transform: translateX(0);

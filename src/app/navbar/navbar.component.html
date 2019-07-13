@@ -1,5 +1,5 @@
 <!-- navbar-->
-<nav #nav class="navbar navbar-expand-md animated" data-aos="fixed-header" data-aos-offset="1200" [style.width]="nav.clientWidth">
+<nav #nav class="navbar navbar-expand-md animated slideInDown" data-aos="fixed-header" data-aos-offset="1200">
   <div class="container">
     <!-- Nav Logo -->
     <app-brand-button [height]="'35px'" [width]="'180px'" [logoHidden]="nav.clientWidth < 345">
@@ -37,7 +37,7 @@
 
     </div>
     <!-- Nav Collapsable Menu -->
-    <div id="navbarSupportedContent" class="navbar-collapse pl-sm-2 animated slideInDown"
+    <div id="navbarSupportedContent" class="navbar-collapse pl-sm-2 animated slideInDown fast"
       [ngClass]="hideMobileMenu ? 'collapse' : ''"
       >
       <div *ngIf="(loggedIn | async) && nav.clientWidth < 760">

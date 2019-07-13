@@ -21,11 +21,13 @@ export class AccountComponent implements OnInit, OnDestroy {
   uploading: Observable<boolean>;
   showAvatarEdit = false;
 
+  today = Date;
+
   showPurchaseHistory = false;
   constructor(
     private router: Router,
     private userService: UserService,
-    private authService: AuthService,
+    private authService: AuthService
   ) {
     this.passwordsMatch = new BehaviorSubject(false);
     this.currentTab = new BehaviorSubject('account');
@@ -46,7 +48,7 @@ export class AccountComponent implements OnInit, OnDestroy {
                 this.user = user;
                 this.userUpdates = user;
                 this.hasPassword = !!user.password;
-              }),
+              })
             )
             .subscribe();
         })
@@ -59,6 +61,28 @@ export class AccountComponent implements OnInit, OnDestroy {
     this.passwordsMatch.complete();
     this.currentTab.complete();
     console.log('destroyed account');
+  }
+
+  getGreetingTime(m = Date.now()) {
+    let g = null; // return g
+
+    if (!m) {
+      return;
+    } // if we can't find a valid or filled moment, we return.
+
+    const splitAfternoon = 12; // 24hr time to split the afternoon
+    const splitEvening = 17; // 24hr time to split the evening
+    const currentHour = parseFloat(m.toString());
+
+    if (currentHour >= splitAfternoon && currentHour <= splitEvening) {
+      g = 'afternoon';
+    } else if (currentHour >= splitEvening) {
+      g = 'evening';
+    } else {
+      g = 'morning';
+    }
+
+    return g;
   }
 
   addedChanges(key: string, changes: UserModel, mergeTo: UserModel) {
@@ -81,8 +105,8 @@ export class AccountComponent implements OnInit, OnDestroy {
   }
 
   toggleTab(tab: string) {
-      this.currentTab.next(tab);
-    }
+    this.currentTab.next(tab);
+  }
 
   togglePurchaseHistoryWindow() {
     this.showPurchaseHistory = !this.showPurchaseHistory;

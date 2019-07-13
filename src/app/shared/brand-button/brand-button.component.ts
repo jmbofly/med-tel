@@ -18,29 +18,19 @@ export class BrandButtonComponent implements OnInit {
 
   ngOnInit() {
     this.widthIsFull.next(this.logoHidden);
+    setTimeout(this.animateSvg, 1200);
   }
 
-  animateSvg(timeout = 1250, action: 'add' | 'remove' = 'add') {
-    const path = document.querySelector('.svg-container');
-
+  animateSvg() {
+    const path = document.getElementById('logo-container');
     const classList = path.classList;
-
-    const add = () => {
-      classList.add('fin');
-    };
-
-    const remove = () => {
-      classList.remove('fin');
-    };
-
-    const func = (act: 'add' | 'remove') => {
-      return act === 'add' ? remove : add;
-    };
-
-    return setTimeout(func(action), timeout);
+    setTimeout(() => classList.toggle('fin'), 500);
+    setTimeout(() => classList.toggle('fin'), 5000);
   }
 
   navigateTo(url) {
-    this.router.navigateByUrl(url).then(() => this.animateSvg(null, 'remove'));
+    this.router
+      .navigateByUrl(url)
+      .then(() => setTimeout(this.animateSvg, 1200));
   }
 }

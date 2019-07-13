@@ -1,6 +1,19 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
 import { Router, ActivatedRoute } from '@angular/router';
+import { DomSanitizer } from '@angular/platform-browser';
+import { Pipe, PipeTransform } from '@angular/core';
+
+@Pipe({
+  name: 'safeHtml',
+})
+export class SafeHtmlPipe implements PipeTransform {
+  constructor(private sanitized: DomSanitizer) {}
+  transform(value) {
+    // console.log('transform value from tab', value);
+    this.sanitized.bypassSecurityTrustStyle(value);
+    return this.sanitized.bypassSecurityTrustHtml(value);
+  }
+}
 
 @Component({
   selector: 'app-divider',
@@ -35,7 +48,7 @@ export class DividerComponent implements OnInit {
       title: content.title,
       icon: content.icon,
       imageURL: content.imageURL,
-      text: this.sanitizer.bypassSecurityTrustUrl(content.text),
+      text: content.text,
       ctaLink: content.ctaLink,
     };
   }

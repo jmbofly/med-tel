@@ -9,12 +9,11 @@ import { TabberComponent } from './tabber/tabber.component';
 import { ContactComponent } from './contact/contact.component';
 import { PricingComponent } from './pricing/pricing.component';
 import { ModalComponent } from './modal/modal.component';
-import { DividerComponent } from './divider/divider.component';
-import { ParallaxDirective } from './directives/parallax.directive';
+import { DividerComponent, SafeHtmlPipe } from './divider/divider.component';
 import { ThankYouComponent } from './thank-you/thank-you.component';
 import { LoaderComponent } from './loader/loader.component';
+import { ParallaxDirective } from './directives/parallax.directive';
 import { BrandButtonComponent } from './brand-button/brand-button.component';
-
 @NgModule({
   declarations: [
     CarouselComponent,
@@ -24,6 +23,7 @@ import { BrandButtonComponent } from './brand-button/brand-button.component';
     ModalComponent,
     DividerComponent,
     ParallaxDirective,
+    SafeHtmlPipe,
     ThankYouComponent,
     LoaderComponent,
     BrandButtonComponent,
@@ -40,13 +40,14 @@ import { BrandButtonComponent } from './brand-button/brand-button.component';
     NgxAnimatedGradientModule,
     CarouselModule,
     ParallaxModule,
+    ParallaxDirective,
     CarouselComponent,
     TabberComponent,
     ContactComponent,
     PricingComponent,
     ModalComponent,
     DividerComponent,
-    ParallaxDirective,
+    SafeHtmlPipe,
     ThankYouComponent,
     LoaderComponent,
     BrandButtonComponent,
