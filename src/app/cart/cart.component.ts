@@ -30,6 +30,16 @@ export class CartComponent implements OnInit {
     public route: ActivatedRoute
   ) {}
 
+  private getCart() {
+    this.authService.getUserId().subscribe(id =>
+      this.shopService.getCurrentShopper(id).subscribe((user: UserModel) => {
+        this.userId = user.uid;
+        this.cart = user.cart;
+        this.items = user.cart.items.map(item => this.shopService.getProductDetails(item));
+      })
+    );
+  }
+
   getCartItem(productId: string) {
     const counts = this.items.filter(item => item.productId === productId);
     if (counts.length >= 1) {
@@ -42,7 +52,9 @@ export class CartComponent implements OnInit {
   }
 
   getItemTotal(item: Product) {
-    if (!item) { return; }
+    if (!item) {
+      return;
+    }
     const count = item.options.quantity;
     const total = item.price * count;
     return total;
@@ -84,7 +96,7 @@ export class CartComponent implements OnInit {
     coupon.value = '';
   }
 
-  getDiscountTotal(couponCode) {
+  getDiscountTotal(couponCode?: string) {
     if (this.cart.coupon) {
       const discount = this.applyCoupon(couponCode);
       this.cart.total = this.subtotal - discount;
@@ -95,9 +107,9 @@ export class CartComponent implements OnInit {
   removeItemFromCart(userId: string, item: Product) {
     const itemIdx = this.items.indexOf(item);
     this.items.splice(itemIdx, 1);
-    const items = this.items.map(i => i.productId);
-    this.updateCart(userId, { items });
-    this.items.map(i => this.getCartItem(i.productId));
+    const list = this.items.map(i => i.productId);
+    console.log('removing item', item, list);
+    this.updateCart(userId, { items: list });
   }
 
   increaseQuantity(idx: number) {
@@ -126,19 +138,6 @@ export class CartComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.authService
-      .getUserId()
-      .pipe(
-        map(id =>
-          this.shopService
-            .getCurrentShopper(id)
-            .subscribe((user: UserModel) => {
-              this.userId = user.uid;
-              this.cart = user.cart;
-              this.items = user.cart.items.map(item => this.getCartItem(item));
-            })
-        )
-      )
-      .subscribe();
+    this.getCart();
   }
 }

@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  TemplateRef,
+  ElementRef,
+} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import {
   trigger,
@@ -9,6 +15,7 @@ import {
   style,
   query,
 } from '@angular/animations';
+import { NavbarComponent } from './navbar/navbar.component';
 import * as Aos from 'aos';
 
 // Routable animations
@@ -47,6 +54,7 @@ export const slideInAnimation = trigger('routeAnimation', [
   animations: [slideInAnimation],
 })
 export class AppComponent implements OnInit {
+  @ViewChild('navbar') nav: ElementRef<NavbarComponent>;
   title = 'MedTelPlus';
   constructor() {}
 
@@ -68,5 +76,9 @@ export class AppComponent implements OnInit {
       duration: 800,
       easing: 'ease',
     });
+    const doc = document.querySelector('#page-content-wrapper');
+    // doc.addEventListener('click', e => {
+    //   this.nav.nativeElement.toggleMobileMenu();
+    // });
   }
 }

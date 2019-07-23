@@ -11,21 +11,31 @@ export class BrandButtonComponent implements OnInit {
   @Input() logoHidden = false;
   @Input() height = '44px';
   @Input() width = '300px';
+  @Input() primaryColor?: string;
+  @Input() secondaryColor?: string;
+  @Input() showOnInit = true;
   widthIsFull: BehaviorSubject<boolean>;
   constructor(private router: Router) {
     this.widthIsFull = new BehaviorSubject(false);
   }
 
   ngOnInit() {
-    this.widthIsFull.next(this.logoHidden);
-    setTimeout(this.animateSvg, 1200);
-  }
-
-  animateSvg() {
     const path = document.getElementById('logo-container');
     const classList = path.classList;
-    setTimeout(() => classList.toggle('fin'), 500);
-    setTimeout(() => classList.toggle('fin'), 5000);
+    const svg = this.animateSvg(path, classList);
+    this.widthIsFull.next(this.logoHidden);
+    if (this.showOnInit) {
+      setTimeout(svg, 1200);
+    } else {
+      setTimeout(() => classList.add('fin'), 500);
+    }
+  }
+
+  animateSvg(path: HTMLElement, classList: DOMTokenList) {
+    return () => {
+      setTimeout(() => classList.toggle('fin'), 500);
+      setTimeout(() => classList.toggle('fin'), 5000);
+    };
   }
 
   navigateTo(url) {

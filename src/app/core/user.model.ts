@@ -1,6 +1,6 @@
 import { Cart } from './products.data';
 
-export class Contact {
+export interface Contact {
   name?: string;
   email?: string;
   subject?: string;
@@ -8,7 +8,7 @@ export class Contact {
   timestamp?: Date;
 }
 
-export class BillingModel {
+export interface BillingModel {
   username?: string;
   email?: string;
   firstName?: string;
@@ -21,11 +21,24 @@ export class BillingModel {
     zipcode: string;
   };
   phone?: string;
-  savedPaymentMethods?: any[];
+  savedPaymentMethods?: PaymentMethod[];
   purchaseHistory?: any[];
 }
 
-export class UserModel {
+export interface PaymentMethod {
+  id?: string;
+  type?: 'credit' | 'debit' | 'paypal';
+  card?: Card;
+}
+
+export interface Card {
+  nameOnCard?: string;
+  cardNumber?: string;
+  expiration?: { month: number; year: number };
+  cvv?: string;
+}
+
+export interface UserModel {
   uid?: string;
   username?: string;
   email?: string;

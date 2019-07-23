@@ -1,140 +1,61 @@
-<!-- navbar-->
-<nav #nav class="navbar navbar-expand-md animated slideInDown" data-aos="fixed-header" data-aos-offset="1200">
+<nav #nav class="navbar navbar-nav" data-aos="fixed-header" data-aos-offset="1200">
   <div class="container">
-    <!-- Nav Logo -->
-    <app-brand-button [height]="'35px'" [width]="'180px'" [logoHidden]="nav.clientWidth < 345">
-    </app-brand-button>
-    <!-- Nav Menu Buttons -->
-    <div class="d-inline-flex">
-      <!-- Nav Handset Menu -->
-      <div *ngIf="(loggedIn | async) && nav.clientWidth < 760">
-        <!-- Nav Auth Cart Link -->
-        <button class="btn btn-link p-1" (click)="navigateTo('/cart')">
-          <span class="header-icons-noti">{{navCart?.items?.length || 0}}</span>
-          <img src="assets/images/icons/icon-header-02.png" alt="" class="header-icon1" />
-        </button>
-      </div>
-      <!-- Nav Fullscreen Menu -->
-      <div class="dropdown ml-md-2" *ngIf="!(loggedIn | async) && nav.clientWidth < 760">
-        <button #guestMenuButton (click)="toggleLoginMenu()" class="ml-0 btn btn-sm p-0" type="button">
-          <i class="header-icon1 fa fa-user-circle fa-2x"></i>
-        </button>
-        <div class="dropdown-menu" [style.display]="!(hideLoginMenu | async) ? 'inline-block' : 'none'"
-          aria-labelledby="triggerId">
-          <button class="dropdown-item" (click)="openLoginModal(content, 'login')">
-            <i class="fa fa-lock"></i> SignIn
-          </button>
-          <button class="dropdown-item" (click)="openLoginModal(content, 'register')">
-            <i class="fa fa-user-plus"></i> SignUp
-          </button>
-        </div>
-      </div>
-      <!-- Nav Handset Menu Toggle -->
-      <button type="button" (click)="toggleMobileMenu()" aria-controls="navbarSupportedContent" aria-expanded="false"
-        aria-label="Toggle navigation" class="navbar-toggler">
-        <i style="font-size: 1.25em" class="fa fa-bars ml-2"></i>
-      </button>
-
+    <!-- Navbar Menu Toggle -->
+    <button type="button" (click)="toggleMobileMenu()" class="navbar-toggler">
+      <i style="font-size: 1.25em" class="fa" [ngClass]="!hideMobileMenu ? 'fa-chevron-left': 'fa-bars'"></i>
+    </button>
+    <div class="navbar-brand mr-auto">
+      <app-brand-button
+        id="brand-button"
+        [height]="'35px'"
+        [width]="'180px'"
+        [logoHidden]="nav.clientWidth < 420"
+        [showOnInit]="false"
+      ></app-brand-button>
     </div>
-    <!-- Nav Collapsable Menu -->
-    <div id="navbarSupportedContent" class="navbar-collapse pl-sm-2 animated slideInDown fast"
-      [ngClass]="hideMobileMenu ? 'collapse' : ''"
-      >
-      <div *ngIf="(loggedIn | async) && nav.clientWidth < 760">
-        <!-- Nav Auth Menu -->
-        <button #userMenuButton (click)="toggleUserMenu()" style="border-radius: 0;"
-          class="ml-0 btn btn-block btn-dark text-white dropdown-toggle mt-2 mb-2">
-          <i class="fa fa-user header-icon1"></i> {{username || 'New User'}}
-        </button>
-        <div class="">
-          <div class="mt-1 animated" [hidden]="!userMenu" [ngClass]="userMenu ? 'slideInDown':'slideOutUp'">
-            <button class="dropdown-item" (click)="navigateTo('/account')">
-              <i class="fa fa-lock"></i> Account Settings
-            </button>
-            <button class="dropdown-item" (click)="navigateTo('/account')">
-              <i class="fa fa-shopping-cart"></i> Purchase History
-            </button>
-            <button class="dropdown-item" (click)="signOut()">
-              <i class="fa fa-sign-out"></i> SignOut
-            </button>
-          </div>
-        </div>
-      </div>
-      <ul class="navbar-nav ml-auto">
-        <!-- Link-->
-        <li class="nav-item">
-          <button (click)="navigateTo('home')" class="btn btn-link nav-link">
-            Home
-          </button>
-        </li>
-        <!-- Link-->
-        <li class="nav-item">
-          <button (click)="navigateTo('faq')" class="btn btn-link nav-link">
-            Faq
-          </button>
-        </li>
-        <!-- Link-->
-        <li class="nav-item">
-          <button (click)="navigateTo('contact')" class="btn btn-link nav-link">
-            Contact
-          </button>
-        </li>
-        <!-- Link-->
-        <li class="nav-item">
-          <button (click)="navigateTo('about')" class="btn btn-link nav-link">
-            About
-          </button>
-        </li>
-        <li class="nav-item">
-          <button (click)="navigateTo('store')" class="btn btn-link nav-link">
-            Store
-          </button>
-        </li>
-      </ul>
-      <!-- Nav Collapsed Guest Menu -->
-      <div class="dropdown ml-md-2" *ngIf="!(loggedIn | async) && nav.clientWidth > 760">
-        <button #guestMenuButton (click)="toggleLoginMenu()" class="ml-0 btn btn-sm p-0" type="button">
-          <i class="header-icon1 fa fa-user-circle fa-2x"></i>
-        </button>
-        <div class="dropdown-menu" [style.display]="!(hideLoginMenu | async) ? 'inline-block' : 'none'"
-          aria-labelledby="triggerId">
-          <button class="dropdown-item" (click)="openLoginModal(content, 'login')">
-            <i class="fa fa-lock"></i> SignIn
-          </button>
-          <button class="dropdown-item" (click)="openLoginModal(content, 'register')">
-            <i class="fa fa-user-plus"></i> SignUp
-          </button>
-        </div>
-      </div>
-      <!-- Nav Collapsed Auth Menu -->
-      <div *ngIf="loggedIn | async" [hidden]="nav.clientWidth < 760">
-        <div class="dropdown d-inline-block">
-          <button #userMenuButton (click)="toggleUserMenu()" class="ml-0 btn btn-sm text-primary p-1 dropdown-toggle"
-            type="button">
-            <i class="text-black fa fa-user header-icon1"></i> {{username || 'New User'}}
-          </button>
-          <div class="dropdown-menu mt-1 animated slow" [style.display]="userMenu ? 'inline-block': 'none'"
-            [ngClass]="userMenu ? 'slideInLeft':'slideOutRight'">
-            <button class="dropdown-item" (click)="navigateTo('/account')">
-              <i class="fa fa-lock"></i> Account Settings
-            </button>
-            <button class="dropdown-item" (click)="navigateTo('/account')">
-              <i class="fa fa-shopping-cart"></i> Purchase History
-            </button>
-            <button class="dropdown-item" (click)="signOut()">
-              <i class="fa fa-sign-out"></i> SignOut
-            </button>
-          </div>
-        </div>
-        <!-- Nav Collapsed Cart Button -->
-        <button class="btn btn-link p-1" (click)="navigateTo('/cart')">
+    <!-- Navbar Menu -->
+    <div *ngIf="(loggedIn | async)" class="ml-md-auto d-flex justify-content-start align-items-center">
+      <!-- Navbar Cart Button -->
+        <button class="navbar-item btn btn-link p-0 mr-2" (click)="navigateTo('/cart')">
           <span class="header-icons-noti">{{navCart?.items?.length || 0}}</span>
-          <img src="assets/images/icons/icon-header-02.png" alt="" class="header-icon1" />
+          <img src="assets/images/icons/icon-header-03.png" width="30" height="30" alt="" class="header-icon1" />
+        </button>
+        <button #userMenuButton (click)="toggleUserMenu()"
+          class="navbar-item btn btn-link p-0 mr-2 dropdown-toggle" type="button">
+            {{username || 'New User'}}
+        </button>
+    </div>
+    <!-- Navbar guest Menu -->
+    <div *ngIf="!(loggedIn | async)" class="navbar-nav">
+      <div class="ml-auto">
+        <button class="navbar-item btn btn-link p-0 mr-2" ngbTooltip="Login to your MedTelPlus account" (click)="openLoginModal(content, 'login')">
+          <i class="fa fa-lock text-primary nav-icon"></i> <small>Login</small>
+        </button>
+        <button class="navbar-item btn btn-link p-0" ngbTooltip="Create your MedTelPlus account" (click)="openLoginModal(content, 'register')">
+          <i class="fa fa-user-plus text-primary nav-icon"></i> <small>Signup</small>
         </button>
       </div>
     </div>
   </div>
 </nav>
+<!-- User Auth Dropdoen -->
+<div *ngIf="(loggedIn | async)">
+  <div #userDropdown class="card dropdown-card" *ngIf="userMenu">
+    <div class="card-body p-0">
+      <ul class="list-group list-group-flush">
+        <li class="dropdown-card-item list-group-item hvr hvr-sweep-to-left" (click)="navigateTo('/account')">
+          <i class="fa fa-lock"></i> Account Settings
+        </li>
+        <!-- <li class="dropdown-card-item list-group-item hvr hvr-sweep-to-left" (click)="navigateTo('/account')">
+          <i class="fa fa-shopping-cart"></i> Purchase History
+        </li> -->
+        <li class="dropdown-card-item list-group-item hvr hvr-sweep-to-left" (click)="signOut()">
+          <i class="fa fa-sign-out"></i> SignOut
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
 <!-- User Login and Registration Modal -->
 <ng-template #content let-modal>
   <div [ngSwitch]="status">
@@ -142,7 +63,7 @@
     <div *ngSwitchCase="'login'">
       <div class="modal-header">
         <h4 class="modal-title" id="modal-login-title">Login</h4>
-        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <button type="button" class="close mb-0" aria-label="Close" (click)="modal.dismiss('Cross click')">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -150,11 +71,11 @@
         <p>Please login with email and password</p>
         <form class="text-left">
           <div class="form-group mb-4">
-            <label>Email<sup class="text-primary">&#10033;</sup></label>
+            <label>Email<sup class="text-danger">&#10033;</sup></label>
             <input #email type="email" name="email" placeholder="Email" class="form-control" />
           </div>
           <div class="form-group mb-4">
-            <label>Password<sup class="text-primary">&#10033;</sup></label>
+            <label>Password<sup class="text-danger">&#10033;</sup></label>
             <input #password type="password" name="password" placeholder="Password" class="form-control" />
           </div>
         </form>
@@ -167,13 +88,13 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-6" title="Google Login">
+            <div class="col-6" ngbTooltip="Google Login">
               <button class="btn btn-block btn-danger m-auto" (click)="googleLogin()">
                 <i class="fa fa-google"></i>
               </button>
             </div>
-            <div class="col-6" title="Facebook Login">
-              <button class="btn btn-block btn-info m-auto">
+            <div class="col-6" ngbTooltip="Facebook Login (experimental, may not work)">
+              <button disabled class="btn btn-block btn-info m-auto">
                 <i class="fa fa-facebook"></i>
               </button>
             </div>
@@ -201,19 +122,19 @@
         <p>Please register with email and password</p>
         <form class="text-left">
           <div class="form-group mb-4">
-            <label>Name<sup class="text-primary">&#10033;</sup></label>
+            <label>Name<sup class="text-danger">&#10033;</sup></label>
             <input #name type="text" name="name" placeholder="e.g. John Smith" class="form-control" />
           </div>
           <div class="form-group mb-4">
-            <label>Email<sup class="text-primary">&#10033;</sup></label>
+            <label>Email<sup class="text-danger">&#10033;</sup></label>
             <input #email type="email" name="email" placeholder="Email" class="form-control" />
           </div>
           <div class="form-group mb-4">
-            <label>Password<sup class="text-primary">&#10033;</sup></label>
+            <label>Password<sup class="text-danger">&#10033;</sup></label>
             <input #password type="password" name="password" placeholder="Password" class="form-control" />
           </div>
           <div class="form-group mb-4">
-            <label>Confirm Password<sup class="text-primary">&#10033;</sup></label>
+            <label>Confirm Password<sup class="text-danger">&#10033;</sup></label>
             <input #password2 type="password" name="password2" placeholder="Re-enter Password" class="form-control" />
           </div>
         </form>
@@ -226,13 +147,13 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-6" title="Google Login">
+            <div class="col-6" ngbTooltip="Google Login">
               <button class="btn btn-block btn-danger m-auto" (click)="googleLogin()">
                 <i class="fa fa-google"></i>
               </button>
             </div>
-            <div class="col-6" title="Facebook Login">
-              <button class="btn btn-block btn-info m-auto">
+            <div class="col-6" ngbTooltip="Facebook Login (experimental, may not work">
+              <button disabled class="btn btn-block btn-info m-auto">
                 <i class="fa fa-facebook"></i>
               </button>
             </div>
@@ -240,10 +161,10 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-link" (click)="modal.close('Close click')">
+        <button type="button" class="btn btn-outline-secondary" (click)="modal.close('Close click')">
           Cancel
         </button>
-        <button [disabled]="password.value !== password2.value" type="button" class="btn btn-outline-primary"
+        <button [disabled]="password.value !== password2.value" type="button" class="btn btn-primary"
           (click)="createAccount(name.value, email.value, password.value)">
           SignUp
         </button>
@@ -252,6 +173,8 @@
   </div>
 </ng-template>
 <!-- Account Info Check Modal -->
+
+
 
 <!-- Global Page Loader -->
 <app-loader #loader></app-loader>

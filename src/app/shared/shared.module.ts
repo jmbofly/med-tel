@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { ParallaxModule } from 'ngx-parallax';
 import { NgxAnimatedGradientModule } from 'ngx-animated-gradient';
@@ -9,11 +10,14 @@ import { TabberComponent } from './tabber/tabber.component';
 import { ContactComponent } from './contact/contact.component';
 import { PricingComponent } from './pricing/pricing.component';
 import { ModalComponent } from './modal/modal.component';
-import { DividerComponent, SafeHtmlPipe } from './divider/divider.component';
+import { DividerComponent } from './divider/divider.component';
 import { ThankYouComponent } from './thank-you/thank-you.component';
 import { LoaderComponent } from './loader/loader.component';
 import { ParallaxDirective } from './directives/parallax.directive';
 import { BrandButtonComponent } from './brand-button/brand-button.component';
+import { PaymentMethodsComponent } from './payment-methods/payment-methods.component';
+
+import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 @NgModule({
   declarations: [
     CarouselComponent,
@@ -23,20 +27,23 @@ import { BrandButtonComponent } from './brand-button/brand-button.component';
     ModalComponent,
     DividerComponent,
     ParallaxDirective,
-    SafeHtmlPipe,
     ThankYouComponent,
     LoaderComponent,
     BrandButtonComponent,
+    PaymentMethodsComponent,
+    SafeHtmlPipe,
   ],
   imports: [
     CommonModule,
     FormsModule,
+    NgbModule,
     CarouselModule,
     NgxAnimatedGradientModule,
   ],
   exports: [
     CommonModule,
     FormsModule,
+    NgbModule,
     NgxAnimatedGradientModule,
     CarouselModule,
     ParallaxModule,
@@ -47,10 +54,11 @@ import { BrandButtonComponent } from './brand-button/brand-button.component';
     PricingComponent,
     ModalComponent,
     DividerComponent,
-    SafeHtmlPipe,
     ThankYouComponent,
     LoaderComponent,
     BrandButtonComponent,
+    PaymentMethodsComponent,
+    SafeHtmlPipe,
   ],
   entryComponents: [
     CarouselComponent,

@@ -4,9 +4,15 @@ import {
   AngularFirestoreCollection,
   AngularFirestoreDocument,
 } from '@angular/fire/firestore';
+import * as firebase from 'firebase';
 import { UserModel, Contact } from './user.model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
+export interface Subscriber {
+  email?: string;
+  timestamp?: Date;
+}
 
 @Injectable({
   providedIn: 'root',
@@ -15,9 +21,11 @@ export class UserService {
   private userCollection: AngularFirestoreCollection<UserModel>;
   users: Observable<UserModel[]>;
   contactCollection: AngularFirestoreCollection<Contact>;
+  subscriberCollection: AngularFirestoreCollection<Subscriber>;
   constructor(public afs: AngularFirestore) {
     this.userCollection = afs.collection<UserModel>('users');
     this.contactCollection = afs.collection<UserModel>('contacts');
+    this.subscriberCollection = afs.collection<UserModel>('subscribers');
     this.users = this.userCollection.valueChanges();
   }
 
@@ -26,15 +34,15 @@ export class UserService {
   }
 
   setUser(userId: string, data: UserModel) {
-    return this.afs.doc(`users/${userId}`).set(data);
+    return this.afs.doc<UserModel>(`users/${userId}`).set(data);
   }
 
   updateUser(userId: string, data: any) {
-    return this.afs.doc(`users/${userId}`).update(data);
+    return this.afs.doc<UserModel>(`users/${userId}`).update(data);
   }
 
   deleteUser(userId: string) {
-    return this.afs.doc(`users/${userId}`).delete();
+    return this.afs.doc<UserModel>(`users/${userId}`).delete();
   }
 
   addNewContact(contact: Contact) {
@@ -42,8 +50,14 @@ export class UserService {
     return this.contactCollection.add(contact);
   }
 
+  addNewSubscriber(email?: string) {
+    const timestamp = new Date();
+    return this.subscriberCollection.add({ email, timestamp });
+  }
+
   getUserData(userId?: string, resData?: any, name?: string, password = null) {
     let newUser: UserModel;
+    const spaceIdx = name.indexOf(' ');
     if (resData.additionalUserInfo.isNewUser) {
       console.log('User is new');
       const memberSince = new Date();
@@ -64,10 +78,10 @@ export class UserService {
       newUser = {
         uid: userId,
         password,
-        username: name.slice(0, name.indexOf(' ')),
+        username: name.slice(0, spaceIdx),
         email: user.email,
-        firstName: name.slice(0, name.indexOf(' ')),
-        lastName: name.slice(name.indexOf(' ') + 1, name.length),
+        firstName: name.slice(0, spaceIdx),
+        lastName: name.slice(spaceIdx, name.length),
         address: {
           street: '',
           numberOrApt: '',

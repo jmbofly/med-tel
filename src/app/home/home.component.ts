@@ -1,7 +1,9 @@
 // TODO: MouseMove Event control
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+
 import { Observable, BehaviorSubject } from 'rxjs';
-import { AuthService } from '../core/auth.service';
+import { UserService } from '../core/user.service';
 import { Products } from '../core/products.data';
 import { Divider, DIVIDERS } from './home.data';
 
@@ -17,21 +19,40 @@ export class HomeComponent implements OnInit {
   bannerRow1Products = Products.filter((item, idx) => idx <= 1);
   bannerRow2Products = Products.filter((item, idx) => idx >= 2 && idx <= 3);
   bannerRow3Products = Products.filter((item, idx) => idx === 4);
-  constructor(private authService: AuthService) {}
+
+  newsletterSent = false;
+  constructor(
+    private userService: UserService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit() {
     this.dividers = DIVIDERS;
   }
 
+  navigateTo(url: string) {
+    return this.router.navigateByUrl(url);
+  }
+
+  async sendNewsletter(email: string) {
+    return await this.userService.addNewSubscriber(email).then(ref => {
+      setTimeout(() => {
+        this.newsletterSent = false;
+      }, 5000);
+      this.newsletterSent = true;
+    });
+  }
+
   colors(gradient?: any): RGBValue[] {
     // console.log('gradient', gradient)
     return [
-      [238, 238, 238],
-      [131, 120, 233],
-      [232, 104, 122],
-      [238, 238, 238],
-      [131, 120, 233],
-      [232, 104, 122],
+      [0, 123, 255],
+      [46, 112, 222],
+      [115, 97, 174],
+      [161, 86, 142],
+      [207, 76, 110],
+      [231, 71, 94],
     ];
   }
 }

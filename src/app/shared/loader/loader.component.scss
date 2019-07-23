@@ -1,3 +1,6 @@
+$secondary: #E7475E;
+$primary: #007bff;
+
 .loader-overlay {
   position: fixed;
   z-index: 5000;
@@ -22,7 +25,7 @@
   line-height: 0;
   animation: rotate-loader 5s infinite;
   padding: 25px;
-  border: 1px solid #cf303d;
+  border: 1px solid $primary;
 }
 
 .loader .loader-inner {
@@ -34,7 +37,7 @@
 
 .loader .loading {
   position: absolute;
-  background: #cf303d;
+  background: $primary;
 }
 
 .loader .one {

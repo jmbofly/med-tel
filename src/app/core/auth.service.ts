@@ -19,16 +19,11 @@ export class AuthService {
     public userService: UserService
   ) {}
 
-  // private isUserAccountComplete(keys, user) {
-  //   Array.from(user)
-  // }
-
-  // Login with Google
-  // @returns firebase DocumentReference
   async googleLogin() {
     const provider = new auth.GoogleAuthProvider();
     provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
     return await this.afAuth.auth.signInWithPopup(provider).then(user => {
+      this.user = user;
       // console.log('user', user);
       return this.getOrAddUser(user.user.uid, user, user.user.displayName);
     });

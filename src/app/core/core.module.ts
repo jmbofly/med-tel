@@ -5,6 +5,7 @@ import {
   InjectionToken,
 } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
+import { NgxPayPalModule } from 'ngx-paypal';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -42,6 +43,7 @@ import { environment } from '../../environments/environment';
   declarations: [],
   imports: [
     SharedModule,
+    NgxPayPalModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     /* AngularFireFunctionsModule */

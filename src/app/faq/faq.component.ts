@@ -21,6 +21,7 @@ export class FaqComponent implements OnInit {
     this.faqList = FAQS.map(
       item => new Faq(item.query, item.keywords, item.answer, 'hide')
     );
+    this.toggleFaqContainer(0);
   }
 
   filterFaqList(
@@ -37,7 +38,6 @@ export class FaqComponent implements OnInit {
   }
 
   toggleFaqContainer(idx: number) {
-    this.faqList.map(faq => (faq.show = 'hide'));
     this.faqList[idx].toggle();
   }
 }

@@ -16,6 +16,11 @@
           contact you within 48 hours of your message.</p>
       </div>
     </div>
+    <div class="row">
+      <div class="downArrow bounce">
+        <i class="fa fa-chevron-down fa-2x"></i>
+      </div>
+    </div>
   </div>
 </section>
 <!-- Contact Section-->
@@ -24,14 +29,14 @@
     <header class="section-header">
       <h2 class="mb-2">Fill out the form</h2>
       <p class="lead">Please submit your information and we will follow up with you as soon as possible. <br />
-        <small>(<sup class="text-primary">&#10033;</sup>) Indicates a required field</small></p>
+        <small>(<sup class="text-danger">&#10033;</sup>) Indicates a required field</small></p>
     </header>
     <div class="row align-items-center mt-5">
       <div class="col-lg-7">
         <form #contactForm="ngForm" name="contactForm" class="contact-form text-left"
           (change)="formStatus(contactForm)">
           <div class="form-group mb-4">
-            <label>Name<sup class="text-primary">&#10033;</sup></label>
+            <label>Name<sup class="text-danger">&#10033;</sup></label>
             <input [(ngModel)]="contact.name" #name="ngModel" type="text" name="name" minLength="3" maxLength="30"
               placeholder="e.g. John Smith" class="form-control" required>
             <p class="form-text text-danger" *ngIf="name.errors && (name.touched || name.dirty)">
@@ -39,7 +44,7 @@
             </p>
           </div>
           <div class="form-group mb-4">
-            <label>Email<sup class="text-primary">&#10033;</sup></label>
+            <label>Email<sup class="text-danger">&#10033;</sup></label>
             <input [(ngModel)]="contact.email" #email="ngModel" type="email"
               [pattern]="'[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+'" name="email" placeholder="you@email.com"
               class="form-control" required>
@@ -51,7 +56,7 @@
             </p>
           </div>
           <div class="form-group mb-4">
-            <label>Subject<sup class="text-primary">&#10033;</sup></label>
+            <label>Subject<sup class="text-danger">&#10033;</sup></label>
             <input [(ngModel)]="contact.subject" #subject="ngModel" type="text" name="subject"
               placeholder="Briefly describe your question" class="form-control" required>
             <p class="form-text text-danger" [hidden]="!subject.errors && (subject.touched || subject.dirty)">
@@ -59,7 +64,7 @@
             </p>
           </div>
           <div class="form-group mb-4">
-            <label>Now let's hear the details<sup class="text-primary">&#10033;</sup></label>
+            <label>Now let's hear the details<sup class="text-danger">&#10033;</sup></label>
             <textarea [(ngModel)]="contact.details" #details="ngModel" name="message"
               placeholder="Let us know what you need" class="form-control" required maxLength="250"></textarea>
             <p class="form-text text-danger" [hidden]="!details.errors?.required && (details.touched || details.dirty)">

@@ -27,7 +27,7 @@ import { UserService } from '../core/user.service';
 
 import { Observable, BehaviorSubject } from 'rxjs';
 
-import { map, filter, tap, switchMap } from 'rxjs/operators';
+import { map, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-navbar',
@@ -46,6 +46,7 @@ export class NavbarComponent implements OnInit {
   navAuthError: Observable<any>;
   username: string;
   navCart: UserModel['cart'];
+  navClientWidth$: BehaviorSubject<number>;
 
   constructor(
     private authService: AuthService,
@@ -85,7 +86,7 @@ export class NavbarComponent implements OnInit {
     this.authService
       .googleLogin()
       .then(user => {
-        // console.log('google user', user);
+        console.log('google user', user);
         this.authStateHasChanged();
       })
       .catch(err => console.log('error logging in with Google', err));
@@ -125,6 +126,7 @@ export class NavbarComponent implements OnInit {
 
     const modalRef = this.modalService.open(content, {
       ariaLabelledBy: 'modal-login-title',
+      size: 'lg'
     });
     modalRef.result.then(results => console.log('modal results', results));
   }
@@ -156,34 +158,33 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.navClientWidth$ = new BehaviorSubject(this.navbar.clientWidth);
+    this.navClientWidth$
+    .pipe(
+      map((val, idx) => val !== this.navbar.ClientWidth ? this.navbar.clientHeight : val));
     this.username = '';
     this.loggedIn = this.authService.loggedIn();
     this.navStart.subscribe(evt => {
       if (evt) {
-        this.loader.load();
+        this.userMenu = this.loader.load();
       }
     });
+
     this.authService
       .getUserId()
-      .pipe(
-        tap(uid => {
+      .subscribe(uid => {
           if (uid) {
             this.userService
               .getUserById(uid)
               .valueChanges()
-              .pipe(
-                map(user => {
+              .subscribe(user => {
                   if (user) {
                     this.username =
-                      user.username || user.firstName || 'New User';
+                    user.username || user.firstName || 'New User';
                     this.navCart = user.cart;
                   }
-                })
-              )
-              .subscribe();
+                });
           }
-        })
-      )
-      .subscribe();
+        });
   }
 }

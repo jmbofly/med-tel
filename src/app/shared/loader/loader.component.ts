@@ -34,6 +34,8 @@ export class LoaderComponent implements OnInit {
         }, 1000);
       }
     });
+    return false;
   }
+
   ngOnInit() {}
 }

@@ -1,17 +1,28 @@
-<section class="page-section container">
-  <h1 class="text-center text-uppercase p-2">Good {{ getGreetingTime()}}, {{ user.username }}!</h1>
+<section class="page-section container pb-1 mb-0">
+  <h1 class="text-center text-uppercase p-4">Good {{ getGreetingTime()}}, {{ user?.username }}!</h1>
   <!-- grid row -->
   <div class="row" style="padding-top: 80px;">
     <!-- grid column -->
     <div class="col-lg-4">
       <!-- .card -->
-      <div class="card card-fluid">
+      <div class="card text-left p-0">
+        <div class="card-body">
+          <h4 class="card-title text-bold">{{user?.firstName}} {{user?.lastName}}</h4>
+          <p class="card-text" *ngIf="user?.additionalUserInfo?.memberSince"><strong>Member Since:</strong>
+            {{getTimestamp(user?.additionalUserInfo?.memberSince) | date}}</p>
+        </div>
+      </div>
+      <div class="card card-text-left p-0">
         <h6 class="card-header"> Your Details </h6>
         <!-- .nav -->
-        <div class="list-group text-center">
-          <button type="button" (click)="toggleTab('account')" class="list-group-item"><i class="fa fa-gears"></i> Account</button>
-          <button type="button" (click)="toggleTab('profile')" class="list-group-item"><i class="fa fa-user"></i> Profile</button>
-          <button type="button" (click)="toggleTab('billing')" class="list-group-item"><i class="fa fa-credit-card"></i> Billing</button>
+        <div class="card-body">
+          <button type="button" (click)="toggleTab('account')" class="btn hvr hvr-sweep-to-right btn-primary btn-block mt-2"><i
+              class="fa fa-gears"></i> Account</button>
+          <button type="button" (click)="toggleTab('profile')" class="btn hvr hvr-sweep-to-right btn-primary btn-block mt-2"><i
+              class="fa fa-user"></i> Profile</button>
+          <button type="button" (click)="toggleTab('billing')" class="btn hvr hvr-sweep-to-right btn-primary btn-block mt-2"><i
+              class="fa fa-credit-card"></i> Billing
+          </button>
         </div>
         <!-- /.nav -->
       </div>
@@ -21,221 +32,257 @@
     <!-- grid column -->
     <div class="col-lg-8">
       <!-- .card -->
-      <div class="card card-fluid">
+      <div class="card p-0">
         <div [ngSwitch]="(currentTab | async)">
-          <div *ngSwitchCase="'profile'">
-            <h6 class="card-header">Public Profile</h6>
+          <div *ngSwitchCase="'profile'" class="animated slideInLeft default">
+            <h6 class="card-header" id="publicProfile"><i class="fa fa-user"></i> Public Profile</h6>
             <div class="card-body">
-          <!-- .media -->
-          <div class="mb-3 container">
-            <!-- avatar -->
-            <div class="media-body">
-              <h5 class="card-title"> Public avatar </h5>
-              <div class="user-avatar user-avatar-xl fileinput-button">
-                <img [src]="user?.photoURL" width="75" alt="User Avatar" class="img-thumbnail mb-1">
-                <div class="">
-                  <button class="round-btn-overlay bg-light text-primary"><i class="fa fa-pencil" (click)="editAvatar()"></i></button>
-                </div> 
-                <input *ngIf="showAvatarEdit" id="fileupload-avatar" type="file" name="avatar" class="animate fadeInLeft"> 
-              </div>
-                <!-- The avatar upload progress bar -->
-                <!-- <div id="progress-avatar" class="progress progress-xs fade" [hidden]="!(uploading | async)">
+              <!-- .media -->
+              <div class="mb-3">
+                <!-- avatar -->
+                <div class="media-body">
+                  <h5 class="card-title"> Public avatar </h5>
+                  <div class="user-avatar user-avatar-xl fileinput-button">
+                    <img [src]="user?.photoURL" width="75" alt="User Avatar" class="img-thumbnail mb-1">
+                    <div class="">
+                      <button class="round-btn-overlay bg-light text-primary"><i class="fa fa-pencil"
+                          (click)="editAvatar()"></i></button>
+                    </div>
+                    <input *ngIf="showAvatarEdit" id="fileupload-avatar" type="file" name="avatar"
+                      class="animate fadeInLeft">
+                  </div>
+                  <!-- The avatar upload progress bar -->
+                  <!-- <div id="progress-avatar" class="progress progress-xs fade" [hidden]="!(uploading | async)">
                   <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
                 </div> -->
-                <!-- /avatar upload progress bar -->
-              <p class="card-text">
-                <small>JPG, GIF or PNG 400x400, &lt; 2 MB.</small>
-              </p>
-            </div>
-            <!-- /avatar -->
-            <!-- .media-body -->
-            <!-- /.media-body -->
-          </div>
-          <!-- /.media -->
-          <!-- form -->
-          <form #profile="ngForm" name="profileForm">
-            <!-- form row -->
-            <div class="form-row">
-              <!-- form column -->
-              <label for="input02" class="col-md-3">Company</label>
-              <!-- /form column -->
-              <!-- form column -->
-              <div class="col-md-9 mb-3">
-                <input type="text" [(ngModel)]="userUpdates.additionalUserInfo.comapnyName" name="company" class="form-control" #company="ngModel" id="input02" placeholder="Your Company Name" required> </div>
-              <!-- /form column -->
-            </div>
-            <!-- /form row -->
-            <!-- form row -->
-            <div class="form-row">
-              <!-- form column -->
-              <label for="input03" class="col-md-3">Profile Heading</label>
-              <!-- /form column -->
-              <!-- form column -->
-              <div class="col-md-9 mb-3">
-                <textarea type="text" [(ngModel)]="userUpdates.additionalUserInfo.bio" #bio="ngModel" name="bio" class="form-control" id="input03" placeholder="Add a short bio..." required></textarea>
-                <small class="text-muted">Appears on your profile page, 300 chars max.</small>
+                  <!-- /avatar upload progress bar -->
+                  <p class="card-text">
+                    <small>JPG, GIF or PNG 400x400, &lt; 2 MB.</small>
+                  </p>
+                </div>
+                <!-- /avatar -->
+                <!-- .media-body -->
+                <!-- /.media-body -->
               </div>
-              <!-- /form column -->
+              <!-- /.media -->
+              <!-- form -->
+              <form #profile="ngForm" name="profileForm">
+                <!-- form row -->
+                <div class="form-row">
+                  <!-- form column -->
+                  <label for="input02" class="col-md-3">Company</label>
+                  <!-- /form column -->
+                  <!-- form column -->
+                  <div class="col-md-9 mb-3">
+                    <input type="text" [(ngModel)]="userUpdates.additionalUserInfo.comapnyName" name="company"
+                      class="form-control" #company="ngModel" id="input02" placeholder="Your Company Name" required>
+                  </div>
+                  <!-- /form column -->
+                </div>
+                <!-- /form row -->
+                <!-- form row -->
+                <div class="form-row">
+                  <!-- form column -->
+                  <label for="input03" class="col-md-3">Profile Heading</label>
+                  <!-- /form column -->
+                  <!-- form column -->
+                  <div class="col-md-9 mb-3">
+                    <textarea type="text" [(ngModel)]="userUpdates.additionalUserInfo.bio" #bio="ngModel" name="bio"
+                      class="form-control" id="input03" placeholder="Add a short bio..." required></textarea>
+                    <small class="text-muted">Appears on your profile page, 300 chars max.</small>
+                  </div>
+                  <!-- /form column -->
+                </div>
+                <!-- /form row -->
+                <!-- form row -->
+                <div class="form-row">
+                  <!-- form column -->
+                  <label for="input04" class="col-md-3">Subscribe to Newsletter?</label>
+                  <!-- /form column -->
+                  <!-- form column -->
+                  <div class="col-md-9 mb-3">
+                    <div class="custom-control custom-checkbox">
+                      <input type="checkbox" class="custom-control-input"
+                        [(ngModel)]="userUpdates.additionalUserInfo.subscribed" #subscribed="ngModel" name="subscribed"
+                        id="input04" checked="">
+                      <label class="custom-control-label" for="input04">Yes, Email newsletter to me</label>
+                    </div>
+                  </div>
+                  <!-- /form column -->
+                </div>
+                <!-- /form row -->
+                <hr>
+                <!-- .form-actions -->
+                <div class="form-actions p-4 col-lg-6 pull-right">
+                  <button [disabled]="profile.invalid" (click)="updateUserData(loader, userUpdates, 'profile')"
+                    type="button" class="btn hvr hvr-sweep-to-right btn-primary">Update Profile</button>
+                </div>
+                <!-- /.form-actions -->
+              </form>
+              <!-- /form -->
             </div>
-            <!-- /form row -->
-            <!-- form row -->
-            <div class="form-row">
-              <!-- form column -->
-              <label for="input04" class="col-md-3">Subscribe to Newsletter?</label>
-              <!-- /form column -->
-              <!-- form column -->
-              <div class="col-md-9 mb-3">
-                <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input" [(ngModel)]="userUpdates.additionalUserInfo.subscribed" #subscribed="ngModel" name="subscribed" id="input04" checked="">
-                  <label class="custom-control-label" for="input04">Yes, Email newsletter to me</label>
+          </div>
+          <div *ngSwitchCase="'billing'" class="animated slideInLeft default">
+            <h6 class="card-header" id="billingData"><i class="fa fa-credit-card"></i> Billing Information </h6>
+            <!-- .card-body -->
+            <div class="card-body">
+              <!-- form -->
+              <form #billing>
+                <!-- form row -->
+                <div class="form-row">
+                  <!-- form column -->
+                  <label for="input01" class="col-md-3 mb-3">First Name</label>
+                  <!-- /form column -->
+                  <!-- form column -->
+                  <div class="col-md-9 mb-3">
+                    <input type="text" [(ngModel)]="userUpdates.billing.firstName" name="firstname" class="form-control"
+                      id="input01" placeholder="" required=""> </div>
+                  <!-- /form column -->
+                </div>
+                <!-- /form row -->
+                <!-- form row -->
+                <div class="form-row">
+                  <!-- form column -->
+                  <label for="input02" class="col-md-3 mb-3">Last Name</label>
+                  <!-- /form column -->
+                  <!-- form column -->
+                  <div class="col-md-9 mb-3">
+                    <input type="text" [(ngModel)]="userUpdates.billing.lastName" name="lastname" class="form-control"
+                      id="input02" required=""> </div>
+                  <!-- /form column -->
+                </div>
+                <!-- /form row -->
+                <!-- form row -->
+                <div class="form-row">
+                  <!-- form column -->
+                  <label for="email" class="col-md-3 mb-3">Email</label>
+                  <!-- /form column -->
+                  <!-- form column -->
+                  <div class="col-md-9 mb-3">
+                    <input type="text" [(ngModel)]="userUpdates.billing.email" name="email" class="form-control"
+                      id="email" required=""> </div>
+                  <!-- /form column -->
+                </div>
+                <!-- /form row -->
+                <!-- form row -->
+                <div class="form-row">
+                  <!-- form column -->
+                  <label for="phone" class="col-md-3 mb-3">Phone</label>
+                  <!-- /form column -->
+                  <!-- form column -->
+                  <div class="col-md-9 mb-3">
+                    <input type="phone" [(ngModel)]="userUpdates.billing.phone" name="lastname" class="form-control"
+                      id="phone" required=""> </div>
+                  <!-- /form column -->
+                </div>
+                <!-- /form row -->
+                <!-- form row -->
+                <div class="form-row">
+                  <!-- form column -->
+                  <label for="input03" class="col-md-3 mb-3">Country</label>
+                  <!-- /form column -->
+                  <!-- form column -->
+                  <div class="col-md-9 mb-3">
+                    <select #country id="input03" [(ngModel)]="userUpdates.billing.address.stateOrProvince"
+                      name="stateOrProvince" class="custom-select" required="">
+                      <option value=""> Select your country </option>
+                      <option value="United States" selected=""> United States </option>
+                    </select>
+                  </div>
+                  <!-- /form column -->
+                </div>
+                <!-- /form row -->
+                <!-- form row -->
+                <div class="form-row">
+                  <!-- form column -->
+                  <label for="input04" class="col-md-3 mb-3">Address Line 1</label>
+                  <!-- /form column -->
+                  <!-- form column -->
+                  <div class="col-md-9 mb-3">
+                    <input type="text" [(ngModel)]="userUpdates.billing.address.street" name="street"
+                      class="form-control" id="input04" placeholder="" required=""> </div>
+                  <!-- /form column -->
+                </div>
+                <!-- /form row -->
+                <!-- form row -->
+                <div class="form-row">
+                  <!-- form column -->
+                  <label for="input05" class="col-md-3 mb-3">Address Line 2 <br/> <small>Suite / Apt #</small></label>
+                  <!-- /form column -->
+                  <!-- form column -->
+                  <div class="col-md-9 mb-3">
+                    <input type="text" [(ngModel)]="userUpdates.billing.address.numberOrApt" name="numberOrApt"
+                      class="form-control" id="input05"> </div>
+                  <!-- /form column -->
+                </div>
+                <!-- /form row -->
+                <!-- form row -->
+                <div class="form-row">
+                  <!-- form column -->
+                  <label for="input06" class="col-md-3 mb-3">City</label>
+                  <!-- /form column -->
+                  <!-- form column -->
+                  <div class="col-md-9 mb-3">
+                    <input type="text" [(ngModel)]="userUpdates.billing.address.city" name="city" class="form-control"
+                      id="input06" placeholder="" required=""> </div>
+                  <!-- /form column -->
+                </div>
+                <!-- /form row -->
+                <!-- form row -->
+                <div class="form-row">
+                  <!-- form column -->
+                  <label for="input07" class="col-md-3 mb-3">Province / Region</label>
+                  <!-- /form column -->
+                  <!-- form column -->
+                  <div class="col-md-9 mb-3">
+                    <input type="text" [(ngModel)]="userUpdates.billing.address.stateOrProvince" name="stateOrProvince"
+                      class="form-control" id="input07" placeholder="" required=""> </div>
+                  <!-- /form column -->
+                </div>
+                <!-- /form row -->
+                <!-- form row -->
+                <div class="form-row">
+                  <!-- form column -->
+                  <label for="input08" class="col-md-3 mb-3">Zip / Postal Code</label>
+                  <!-- /form column -->
+                  <!-- form column -->
+                  <div class="col-md-9 mb-3">
+                    <input type="text" [(ngModel)]="userUpdates.billing.address.zipcode" name="zipcode"
+                      class="form-control" id="input08" placeholder="" required=""> </div>
+                  <!-- /form column -->
+                </div>
+                <!-- /form row -->
+                <hr>
+                <!-- .form-actions -->
+                <div class="form-actions pull-right">
+                  <button type="submit" (click)="updateUserData(loader, userUpdates, 'billing')"
+                    class="btn hvr hvr-sweep-to-right btn-primary ml-auto">Update Billing</button>
+                </div>
+                <!-- /.form-actions -->
+              </form>
+              <!-- /form -->
+              <div class="clearfix"></div>
+              <div class="card col-lg-8 text-left p-0 mt-2">
+                <div class="card-header">Quick Actions</div>
+                <div class="card-body">
+                  <button class="btn hvr hvr-sweep-to-right btn-primary btn-block" (click)="openAccountModal(paymentMethodTemplate)"><i
+                      class="fa fa-credit-card"></i> Payment Methods</button>
+                  <button class="btn hvr hvr-sweep-to-right btn-primary btn-block mt-2"
+                    (click)="openAccountModal(purchaseHistoryTemplate, { backdrop: true})"><i class="fa fa-history"></i>
+                    Purchase History</button>
+                </div>
+                <div class="card-footer">
+                  <button class="btn hvr hvr-sweep-to-right btn-outline-secondary"><i class="fa fa-users"></i></button>
+                  <button class="btn hvr hvr-sweep-to-right btn-outline-secondary"><i class="fa fa-list-ul"></i></button>
+                  <button class="btn hvr hvr-sweep-to-right btn-outline-secondary"><i class="fa fa-heart"></i></button>
                 </div>
               </div>
-              <!-- /form column -->
+
             </div>
-            <!-- /form row -->
-            <hr>
-            <!-- .form-actions -->
-            <div class="form-actions">
-              <button [disabled]="profile.invalid" (click)="updateUserData(loader, userUpdates, 'profile')" type="button" class="btn btn-primary ml-auto">Update Profile</button>
-            </div>
-            <!-- /.form-actions -->
-          </form>
-          <!-- /form -->
-            </div>
+            <!-- /.card-body -->
           </div>
-          <div *ngSwitchCase="'billing'">
-            <h6 class="card-header"> Billing Information </h6>
-        <!-- .card-body -->
-        <div class="card-body">
-          <!-- form -->
-          <form #billing>
-            <!-- form row -->
-            <div class="form-row">
-              <!-- form column -->
-              <label for="input01" class="col-md-3 mb-3">First Name</label>
-              <!-- /form column -->
-              <!-- form column -->
-              <div class="col-md-9 mb-3">
-                <input type="text" [(ngModel)]="userUpdates.billing.firstName" name="firstname" class="form-control" id="input01" placeholder="" required=""> </div>
-              <!-- /form column -->
-            </div>
-            <!-- /form row -->
-            <!-- form row -->
-            <div class="form-row">
-              <!-- form column -->
-              <label for="input02" class="col-md-3 mb-3">Last Name</label>
-              <!-- /form column -->
-              <!-- form column -->
-              <div class="col-md-9 mb-3">
-                <input type="text" [(ngModel)]="userUpdates.billing.lastName" name="lastname" class="form-control" id="input02" required=""> </div>
-              <!-- /form column -->
-            </div>
-            <!-- /form row -->
-            <!-- form row -->
-            <div class="form-row">
-              <!-- form column -->
-              <label for="email" class="col-md-3 mb-3">Email</label>
-              <!-- /form column -->
-              <!-- form column -->
-              <div class="col-md-9 mb-3">
-                <input type="text" [(ngModel)]="userUpdates.billing.email" name="email" class="form-control" id="email" required=""> </div>
-              <!-- /form column -->
-            </div>
-            <!-- /form row -->
-            <!-- form row -->
-            <div class="form-row">
-              <!-- form column -->
-              <label for="phone" class="col-md-3 mb-3">Phone</label>
-              <!-- /form column -->
-              <!-- form column -->
-              <div class="col-md-9 mb-3">
-                <input type="phone" [(ngModel)]="userUpdates.billing.phone" name="lastname" class="form-control" id="phone" required=""> </div>
-              <!-- /form column -->
-            </div>
-            <!-- /form row -->
-            <!-- form row -->
-            <div class="form-row">
-              <!-- form column -->
-              <label for="input03" class="col-md-3 mb-3">Country</label>
-              <!-- /form column -->
-              <!-- form column -->
-              <div class="col-md-9 mb-3">
-                <select #country id="input03" class="custom-select">
-                  <option value=""> Select your country </option>
-                  <option value="id" selected=""> United States </option>
-                </select>
-              </div>
-              <!-- /form column -->
-            </div>
-            <!-- /form row -->
-            <!-- form row -->
-            <div class="form-row">
-              <!-- form column -->
-              <label for="input04" class="col-md-3 mb-3">Address Line 1</label>
-              <!-- /form column -->
-              <!-- form column -->
-              <div class="col-md-9 mb-3">
-                <input type="text" [(ngModel)]="userUpdates.billing.address.street" name="street" class="form-control" id="input04" placeholder="" required=""> </div>
-              <!-- /form column -->
-            </div>
-            <!-- /form row -->
-            <!-- form row -->
-            <div class="form-row">
-              <!-- form column -->
-              <label for="input05" class="col-md-3 mb-3">Address Line 2 - Suite / Apt #</label>
-              <!-- /form column -->
-              <!-- form column -->
-              <div class="col-md-9 mb-3">
-                <input type="text" [(ngModel)]="userUpdates.billing.address.numberOrApt" name="numberOrApt" class="form-control" id="input05"> </div>
-              <!-- /form column -->
-            </div>
-            <!-- /form row -->
-            <!-- form row -->
-            <div class="form-row">
-              <!-- form column -->
-              <label for="input06" class="col-md-3 mb-3">City</label>
-              <!-- /form column -->
-              <!-- form column -->
-              <div class="col-md-9 mb-3">
-                <input type="text" [(ngModel)]="userUpdates.billing.address.city" name="city" class="form-control" id="input06" placeholder="" required=""> </div>
-              <!-- /form column -->
-            </div>
-            <!-- /form row -->
-            <!-- form row -->
-            <div class="form-row">
-              <!-- form column -->
-              <label for="input07" class="col-md-3 mb-3">Province / Region</label>
-              <!-- /form column -->
-              <!-- form column -->
-              <div class="col-md-9 mb-3">
-                <input type="text" [(ngModel)]="userUpdates.billing.address.stateOrProvince" name="stateOrProvince" class="form-control" id="input07" placeholder="" required=""> </div>
-              <!-- /form column -->
-            </div>
-            <!-- /form row -->
-            <!-- form row -->
-            <div class="form-row">
-              <!-- form column -->
-              <label for="input08" class="col-md-3 mb-3">Zip / Postal Code</label>
-              <!-- /form column -->
-              <!-- form column -->
-              <div class="col-md-9 mb-3">
-                <input type="text" [(ngModel)]="userUpdates.billing.address.zipcode" name="zipcode" class="form-control" id="input08" placeholder="" required=""> </div>
-              <!-- /form column -->
-            </div>
-            <!-- /form row -->
-            <hr>
-            <!-- .form-actions -->
-            <div class="form-actions">
-              <button type="submit" (click)="updateUserData(loader, userUpdates, 'billing')" class="btn btn-primary ml-auto">Update Billing</button>
-            </div>
-            <!-- /.form-actions -->
-          </form>
-          <!-- /form -->
-        </div>
-        <!-- /.card-body -->
-          </div>
-          <div *ngSwitchCase="'account'">
-            <h6 class="card-header"> Account </h6>
+          <div *ngSwitchCase="'account'" class="animated slideInLeft default">
+            <h6 class="card-header" id="accountSettings"><i class="fa fa-gears"></i> Account </h6>
             <!-- .card-body -->
             <div class="card-body">
               <!-- form -->
@@ -243,42 +290,63 @@
                 <!-- form row -->
                 <div class="form-row">
                   <!-- form column -->
-                  <div class="col-md-6 mb-3">
-                    <label for="input01">First Name</label>
-                    <input type="text" [(ngModel)]="userUpdates.firstName" name="firstname" class="form-control" id="input01" placeholder="" required> </div>
+                    <label class="col-md-3 mb-3" for="input01">First Name</label>
+                    <div class="col-md-9 mb-3">
+                      <input type="text" [(ngModel)]="userUpdates.firstName" name="firstname" class="form-control"
+                      id="input01" placeholder="" required>
+                    </div>
                   <!-- /form column -->
                   <!-- form column -->
-                  <div class="col-md-6 mb-3">
-                    <label for="input02">Last Name</label>
-                    <input type="text" [(ngModel)]="userUpdates.lastName" name="lastname" class="form-control" id="input02" placeholder="" required> </div>
+                    <label class="col-md-3 mb-3" for="input02">Last Name</label>
+                    <div class="col-md-9 mb-3">
+                      <input type="text" [(ngModel)]="userUpdates.lastName" name="lastname" class="form-control"
+                      id="input02" placeholder="" required> 
+                    </div>
                   <!-- /form column -->
                 </div>
                 <!-- /form row -->
                 <!-- .form-group -->
-                <div class="form-group">
-                  <label for="input03">Email</label>
-                  <input type="email" [(ngModel)]="userUpdates.email" name="email" class="form-control" id="input03" placeholder="" required=""> </div>
+                <div class="form-row">
+                  <label class="col-md-3 mb-3" for="input03">Email</label>
+                  <div class="col-md-9 mb-3">
+
+                    <input type="email" [(ngModel)]="userUpdates.email" name="email" class="form-control" id="input03"
+                    placeholder="" required=""> </div>
+                  </div>
                 <!-- /.form-group -->
                 <!-- .form-group -->
-                <div class="form-group">
-                  <label for="input04">Password</label>
-                  <input type="password" [(ngModel)]="userUpdates.password" name="password1" class="form-control" id="input04" placeholder="" required [disabled]="hasPassword && !(passwordsMatch | async)">
+                <div class="form-row">
+                  <label class="col-md-3 mb-3" for="input04">Password</label>
+                  <div class="col-md-9 mb-3">
+
+                    <input type="password" [(ngModel)]="userUpdates.password" name="password1" class="form-control"
+                    id="input04" placeholder="" required [disabled]="hasPassword && !(passwordsMatch | async)">
+                  </div>
                 </div>
                 <!-- /.form-group -->
                 <!-- .form-group -->
-                <div class="form-group">
-                  <label for="input05">Username</label>
-                  <input type="text" [(ngModel)]="userUpdates.username" name="username" class="form-control" id="input05" placeholder="" required>
-                  <small class="text-muted">Have a nickname or preffered name? Add a username. We like to keep things friendly</small>
+                <div class="form-row">
+                  <label class="col-md-3 mb-3" for="input05">Username</label>
+                  <div class="col-md-9 mb-3">
+                    <input type="text" [(ngModel)]="userUpdates.username" name="username" class="form-control"
+                    id="input05" placeholder="" required>
+                    <small class="text-lg-right">Use a nickname or preffered name</small>
+                  </div>
                 </div>
                 <!-- /.form-group -->
                 <hr>
                 <!-- .form-actions -->
-                <div class="form-group form-actions">
-                  <label for="current">Enter Current Password to Change Password or to Save Changes</label>
-                  <!-- enable submit btn when userUpdates type their current password -->
-                  <input [hidden]="!hasPassword" #current type="password" (keyup)="checkAgainstCurrentPassword(current.value, user.password)" name="current" class="form-control ml-auto mr-3" id="current" placeholder="Current Password" required>
-                  <button (click)="updateUserData(loader, userUpdates, 'account')" type="button" class="btn btn-primary mt-2" [disabled]="hasPassword && !(passwordsMatch | async)">Update Account</button>
+                <div class=" form-actions">
+                  <div class="input-group">
+                    <input [hidden]="!hasPassword" #current type="password"
+                    (keyup)="checkAgainstCurrentPassword(current.value, user?.password)" name="current"
+                    class="form-control w-full-sm" id="current" placeholder="Enter Current Password To Save Changes" required>
+                    <div class="input-group-addon">
+                      <button (click)="updateUserData(loader, userUpdates, 'account')"
+                        class="btn hvr hvr-sweep-to-right btn-primary" [disabled]="hasPassword && !(passwordsMatch | async)">Update
+                        Account</button>
+                    </div>
+                  </div>
                 </div>
                 <!-- /.form-actions -->
               </form>
@@ -294,5 +362,17 @@
   </div>
   <!-- /grid row -->
 </section>
-<app-loader #loader></app-loader>
+<ng-template #paymentMethodTemplate let-modal>
+  <section class="pb-1 pt-1 mt-0 mb-0" id="paymentMethods">
+    <app-payment-methods [billingData]="user?.billing" (closeModal)="modal.dismiss($event)"
+      (updatePaymentMethods)="updatePaymentMethods($event, loader)"></app-payment-methods>
+  </section>
+</ng-template>
+<!-- Purchase History Modal Template -->
+<ng-template #purchaseHistoryTemplate>
+  <section class="pb-1 pt-1 mt-0 mb-0">
+    <app-purchase-history [history]="user?.billing?.purchaseHistory" id="paymentHistory"></app-purchase-history>
 
+  </section>
+</ng-template>
+<app-loader #loader></app-loader>

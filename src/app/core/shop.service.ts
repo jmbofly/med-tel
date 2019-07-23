@@ -46,13 +46,9 @@ export class ShopService {
   }
 
   addToCart(userId: string, productId: string, cart: Cart) {
-    const counts = cart.items.filter(item => item === productId);
-    if (counts.length >= 1) {
-      return;
-    }
     cart.items.push(productId);
     console.log('user cart', cart);
-    this.updateCart(userId, cart);
+    this.userService.updateUser(userId, { cart });
   }
 
   // applyCoupon(couponCode: string) {

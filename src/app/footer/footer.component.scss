@@ -1,6 +1,9 @@
+$secondary: #E7475E;
+$primary: #007bff;
+
 footer.main-footer {
   padding: 7rem 0;
-  background: #E7475E;
+  background: $primary;
   color: #fff;
   padding-bottom: 0;
 }

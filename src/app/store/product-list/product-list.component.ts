@@ -1,4 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 import { Product, Cart } from '../../core/products.data';
 
 @Component({
@@ -16,20 +19,16 @@ export class ProductListComponent implements OnInit {
   showToaster = false;
   constructor() {}
 
-  addToCart(productId: string) {
-    // this.toggleToaster();
-    // setTimeout(() => {
-    //   this.toggleToaster();
-    // }, 2000);
-    this.addedToCart.emit(productId);
+  selectProduct(productId: string) {
+    this.productSelected.emit(productId);
   }
 
   addToWishList(id: string) {
     this.addedToWishList.emit(id);
   }
 
-  selectProduct(productId: string) {
-    this.productSelected.emit(productId);
+  addToCart(productId: string) {
+    this.addedToCart.emit(productId);
   }
 
   getItemTagClass(tag: string) {

@@ -1,8 +1,12 @@
-<div class="svg-container" id="logo-container">
+<div
+  class="svg-container"
+  id="logo-container"
+  [ngClass]="showOnInit ? 'show-on-init' : ''"
+>
   <div
     id="brand-button"
     style="cursor: pointer;"
-    class="navbar-brand p-2"
+    class="navbar-brand mr-0"
     (click)="navigateTo('/')"
   >
     <img
@@ -29,7 +33,7 @@
       <g id="layer4">
         <path
           class="path path-3"
-          style=""
+          [style.fill]="primaryColor"
           d="m 62.160694,25.832935 c -3.897828,-0.58624 -7.320248,-2.95984 -9.254533,-6.418401 -1.723181,-3.08112 -2.068306,-6.85122 -0.936813,-10.2336486 1.839957,-5.50026 7.310406,-9.11654998 13.048628,-8.62588998 1.699157,0.14528 2.964401,0.48471998 4.461433,1.19690998 3.679539,1.75048 6.263779,5.06653 7.046616,9.0420796 0.211956,1.076389 0.28197,2.811889 0.156832,3.887499 -0.677412,5.822571 -5.297834,10.487261 -11.085702,11.191891 -0.933496,0.11359 -2.537438,0.0948 -3.436461,-0.0404 z m 4.581428,-2.68681 c 0.07758,-0.0363 0.171936,-0.147261 0.209675,-0.24653 0.03774,-0.0992 0.09271,-1.62059 0.122165,-3.38071 l 0.05355,-3.20025 0.788166,-0.0537 c 0.433491,-0.0295 2.035202,-0.0412 3.559357,-0.0259 l 2.771191,0.0278 v -2.8959 -2.895899 l -3.571602,-0.0201 -3.571602,-0.0201 -0.0025,-0.8679896 c -0.0067,-2.31319 -0.145394,-5.86383 -0.23322,-5.96966 -0.13557,-0.16335 -5.568992,-0.16563 -5.704467,-0.002 -0.0625,0.0753 -0.115662,1.1219 -0.173581,3.41715 -0.04592,1.81973 -0.09194,3.3185096 -0.102258,3.3306096 -0.01027,0.0122 -1.63057,0.0468 -3.600539,0.0772 l -3.581759,0.0552 v 2.895889 2.8959 l 3.597689,0.0201 3.597689,0.0201 0.07045,3.37778 c 0.03875,1.85779 0.100017,3.4236 0.136163,3.47957 0.05289,0.0819 0.595821,0.0965 2.780058,0.0748 1.492886,-0.0148 2.777814,-0.0567 2.855396,-0.0931 z"
           id="path2482"
         />
@@ -74,24 +78,28 @@
           />
           <path
             class="path path-2"
+            [style.fill]="primaryColor"
             d="m 55.137577,285.30672 v -2.6121 q 0.897454,0 0.897454,-0.68586 0,-0.62749 -0.68586,-0.62749 -0.693155,0 -0.693155,0.86097 v 6.50837 h -2.962329 v -6.20192 q 0,-0.96312 0.189706,-1.57602 0.197002,-0.62019 0.66397,-1.15282 0.525339,-0.59101 1.313348,-0.93394 0.788008,-0.34293 1.627092,-0.34293 1.517646,0 2.546435,1.02149 1.036085,1.0215 1.036085,2.53185 0,1.46657 -0.926639,2.37861 -0.84638,0.83909 -2.553732,0.83909 z"
             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.94297886px;font-family:'Bauhaus 93';-inkscape-font-specification:'Bauhaus 93, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill-opacity:1;stroke-width:0.3735756"
             id="path943"
           />
           <path
             class="path path-2"
+            [style.fill]="primaryColor ? primaryColor : ''"
             d="m 62.827958,278.79106 v 9.95955 h -2.728845 v -9.95955 z"
             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.94297886px;font-family:'Bauhaus 93';-inkscape-font-specification:'Bauhaus 93, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill-opacity:1;stroke-width:0.3735756"
             id="path945"
           />
           <path
             class="path path-2"
+            [style.fill]="primaryColor"
             d="m 64.418571,281.57827 h 2.728845 v 4.10786 q 0,0.62019 0.518042,0.62019 0.510747,0 0.510747,-0.62019 v -4.10786 h 2.728845 v 4.05679 q 0,1.41549 -0.941233,2.39321 -0.941233,0.97042 -2.305655,0.97042 -1.554128,0 -2.502657,-1.13094 -0.736934,-0.88286 -0.736934,-2.45158 z"
             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.94297886px;font-family:'Bauhaus 93';-inkscape-font-specification:'Bauhaus 93, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill-opacity:1;stroke-width:0.3735756"
             id="path947"
           />
           <path
             class="path path-2"
+            [style.fill]="primaryColor"
             d="m 77.063187,281.57827 v 2.87477 q -0.576413,0 -0.795305,0.2189 -0.211595,0.21159 -0.269966,0.84638 -0.189705,2.10865 -1.634388,2.97692 -0.76612,0.45237 -2.17432,0.45237 h -0.379412 v -2.88936 h 0.124039 q 0.656674,0 0.933936,-0.26997 0.284558,-0.27726 0.328337,-0.96312 0.05837,-1.11635 0.204298,-1.56872 0.153224,-0.45238 0.612896,-0.89746 0.802601,-0.78071 2.225395,-0.78071 z"
             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.94297886px;font-family:'Bauhaus 93';-inkscape-font-specification:'Bauhaus 93, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill-opacity:1;stroke-width:0.3735756"
             id="path949"

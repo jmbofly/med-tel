@@ -2,46 +2,54 @@
 <section #section class="bgwhite" id="storeSection">
   <div class="container">
     <div class="row">
-      <div class="col-sm-12 col-md-4 col-lg-3 p-b-50">
-        <div class="leftbar p-r-20 p-r-0-sm animate" data-aos="page-nav-sticky">
-          <h4 class="m-text14 p-b-7 pt-sm-2">
-            Categories
-          </h4>
+      <div class="col-sm-12 col-md-3 col-lg-3">
+        <div
+          class="card leftbar border-0"
+          data-aos="page-nav-sticky"
+          data-aos-offset="1100"
+        >
+          <div class="card-header bg-transparent">
+            <h4 class="card-title pt-0">
+              Categories
+            </h4>
+          </div>
+          <div class="card-body">
+            <button
+              (click)="sortProducts('all')"
+              class="hvr hvr-sweep-to-right btn btn-block nav-link"
+            >
+              All
+            </button>
 
-          <ul class="p-b-54">
-            <li class="p-t-4">
-              <button (click)="sortProducts('all')" class="s-text13">
-                All
-              </button>
-            </li>
+            <button
+              (click)="sortProducts('devices')"
+              class="hvr hvr-sweep-to-right btn btn-block nav-link"
+            >
+              Devices
+            </button>
 
-            <li class="p-t-4">
-              <button (click)="sortProducts('devices')" class="s-text13">
-                Devices
-              </button>
-            </li>
+            <button
+              disabled
+              (click)="sortProducts('cancer-screening')"
+              class="hvr hvr-sweep-to-right btn btn-block nav-link"
+            >
+              CancerScreening
+            </button>
 
-            <li class="p-t-4">
-              <button
-                (click)="sortProducts('cancer-screening')"
-                class="s-text13"
-              >
-                CancerScreening
-              </button>
-            </li>
+            <button
+              (click)="sortProducts('telemedicine')"
+              class="hvr hvr-sweep-to-right btn btn-block nav-link"
+            >
+              TeleMedicine
+            </button>
 
-            <li class="p-t-4">
-              <button (click)="sortProducts('telemedicine')" class="s-text13">
-                TeleMedicine
-              </button>
-            </li>
-
-            <li class="p-t-4">
-              <button (click)="sortProducts('accessories')" class="s-text13">
-                Accessories
-              </button>
-            </li>
-          </ul>
+            <button
+              (click)="sortProducts('accessories')"
+              class="hvr hvr-sweep-to-right btn btn-block nav-link"
+            >
+              Accessories
+            </button>
+          </div>
 
           <!-- <app-product-filter></app-product-filter> -->
         </div>
@@ -80,9 +88,9 @@
 
         <!-- Products Component -->
         <app-product-list
-        [userCart]="user?.cart"
+          [userCart]="user?.cart"
           [productList]="productList"
-          [loggedIn]="authService.loggedIn"
+          [loggedIn]="loggedIn | async"
           (productSelected)="productSelected($event, product)"
           (addedToCart)="addToCart($event)"
           (addedToWishList)="addToWishList($event, user.wishList)"
@@ -123,6 +131,7 @@
       Close
     </button>
     <button
+      [disabled]="!(loggedIn | async)"
       (click)="addToCart(selectedProduct.productId)"
       type="button"
       class="btn btn-primary"

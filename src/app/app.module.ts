@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { NgbModalModule, NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { ParallaxModule } from 'ngx-parallax';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
@@ -24,8 +23,6 @@ import { NgxAnimatedGradientModule } from 'ngx-animated-gradient';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    NgbModalModule,
-    NgbCollapseModule,
     ParallaxModule,
     SharedModule,
     CoreModule,

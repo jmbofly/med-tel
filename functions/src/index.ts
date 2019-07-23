@@ -24,46 +24,37 @@ const APP_NAME = 'MedTelPlus';
 // TODO: Add newsletter subscription method
 /** method for sending email to subscriber */
 exports.sendNewsletterToSubscriber = functions.firestore
-  .document(`users/{userId}`)
-  .onUpdate((change, context) => {
-    const snap = change.after;
+  .document(`subscribers/{subscriberId}`)
+  .onCreate((snap, context) => {
     let user: any;
     if (snap.exists) {
       user = snap.data();
-      return sendNewSubscriberEmail(user.email, user.username);
+      return sendNewSubscriberEmail(user.email);
     } else {
       return null;
     }
   });
 
-async function sendNewSubscriberEmail(email: string, username: string) {
+async function sendNewSubscriberEmail(email: string) {
   const mailOptions: nodemailer.SendMailOptions = {
     from: `"MedTelPlus" info@medtelplus.com`,
     to: email,
+    attachments: [
+      {
+        path: `https://medtelplus.com/assets/images/logo_full.png`,
+        filename: 'logo_full.png',
+      },
+      {
+        path: `https://medtelplus.com/assets/images/about-bg.jpg`,
+        filename: 'about-bg.jpg',
+      },
+    ],
     html: template,
-    // attachments: [
-    //   {
-    //     path: `https://medtelplus.com/assets/images/logo_full.png`,
-    //     filename: 'logo_full.png',
-    //   },
-    //   {
-    //     path: `https://medtelplus.com/assets/images/about-bg.jpg`,
-    //     filename: 'about-bg.jpg',
-    //   },
-    //   {
-    //     path: `https://medtelplus.com/assets/images/logo_full.png`,
-    //     filename: 'logo_full.png',
-    //   },
-    //   {
-    //     path: `https://medtelplus.com/assets/images/logo_full.png`,
-    //     filename: 'logo_full.png',
-    //   },
-    // ],
   };
 
   // The user sent a contact form.
   mailOptions.subject = `Thanks for contacting ${APP_NAME}!`;
-  mailOptions.text = `Hey ${username}! Thanks for subscribing! Keep an eye out for your monthly newsletter with tons of health related content.`;
+  mailOptions.text = `Hey! Thanks for subscribing! Keep an eye out for your monthly newsletter with tons of health related content.`;
   await mailTransport.sendMail(mailOptions);
   console.log('New contact email sent to:', email);
   return null;
@@ -151,6 +142,7 @@ async function sendWelcomeEmail(email?: string, displayName?: string) {
   const mailOptions: nodemailer.SendMailOptions = {
     from: `info@medtelplus.com`,
     to: email,
+    html: template,
   };
 
   // The user subscribed to the newsletter.
@@ -169,6 +161,7 @@ async function sendGoodbyeEmail(email?: string, displayName?: string) {
   const mailOptions: nodemailer.SendMailOptions = {
     from: `info@medtelplus.com`,
     to: email,
+    html: template,
   };
 
   // The user unsubscribed to the newsletter.

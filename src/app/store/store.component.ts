@@ -2,8 +2,9 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { map, tap, switchMap } from 'rxjs/operators';
+import { map, filter } from 'rxjs/operators';
 
+import { UserService } from '../core/user.service';
 import { AuthService } from '../core/auth.service';
 import { ShopService } from '../core/shop.service';
 import { Products, Product } from '../core/products.data';
@@ -18,10 +19,12 @@ export class StoreComponent implements OnInit {
   productList: any[];
   wishList: string[];
   selectedProduct: Product;
+  loggedIn: Observable<boolean>;
   userId: string;
-  user: UserModel = null;
+  user: UserModel;
   constructor(
-    public authService: AuthService,
+    private userService: UserService,
+    private authService: AuthService,
     private modalService: NgbModal,
     private shopService: ShopService,
     private router: Router,
@@ -29,21 +32,20 @@ export class StoreComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.loggedIn = this.authService.loggedIn();
     this.authService
       .getUserId()
       .pipe(
-        map(uid => {
-          if (uid) {
-            this.shopService
-              .getCurrentShopper(uid)
-              .subscribe(user => (this.user = user ? user : null));
-            console.log('user uid: ', uid);
-          }
-        })
+        map(id =>
+          this.shopService
+            .getCurrentShopper(id)
+            .pipe(map(user => (this.user = user)))
+            .subscribe()
+        )
       )
       .subscribe();
 
-    this.productList = this.shopService.availableProducts;
+    this.productList = Array.from(Products);
     if (this.user) {
       this.wishList = this.user.wishList;
     }
@@ -55,20 +57,20 @@ export class StoreComponent implements OnInit {
     }
     const wishList = this.user.wishList;
     wishList.push(productId);
-    this.shopService.userService.updateUser(this.user.uid, { wishList });
+    this.userService.updateUser(this.user.uid, { wishList });
   }
 
-  removeFromWishList(currentList: string[], productId) {
-    const item = currentList.indexOf(productId);
-    currentList.splice(item);
-    this.shopService.userService.updateUser(this.user.uid, {
-      wishList: currentList,
+  removeFromWishList(wishList: string[], productId) {
+    const item = wishList.indexOf(productId);
+    wishList.splice(item);
+    this.userService.updateUser(this.user.uid, {
+      ...wishList,
     });
   }
 
   sortProducts(category: string) {
     if (category === 'all') {
-      this.productList = this.shopService.availableProducts;
+      this.productList = Products;
     } else {
       this.productList = this.productList.filter(item => {
         for (const i of item.category) {
@@ -94,9 +96,7 @@ export class StoreComponent implements OnInit {
   }
 
   addToCart(productId: string) {
-    if (this.user) {
-      this.shopService.addToCart(this.user.uid, productId, this.user.cart);
-      this.modalService.dismissAll();
-    }
+    this.shopService.addToCart(this.user.uid, productId, this.user.cart);
+    this.modalService.dismissAll();
   }
 }

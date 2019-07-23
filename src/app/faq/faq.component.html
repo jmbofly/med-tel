@@ -6,16 +6,21 @@
         <!-- breadcrumb-->
         <nav aria-label="breadcrumb" class="d-flex justify-content-center">
           <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="" class="animsition-link">Home</a></li>
-            <li aria-current="page" class="breadcrumb-item active">FAQ </li>
+            <li class="breadcrumb-item text-primary" (click)="navigateTo('/')" >Home </li>
+            <li aria-current="page" class="breadcrumb-item active">Faq </li>
           </ol>
         </nav>
         <h1 class="hero-heading">Frequently asked questions</h1>
         <div class="row">
           <div class="col-lg-7 mx-auto">
-            <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
+            <p class="lead">MedTelPlus databse of frequently asked questions. If you can't find an answer just <button class="btn btn-sm btn-link" (click)="navigateTo('contact')"><i class="fa fa-paper-plane"></i> Contact Us</button></p>
           </div>
         </div>
+        <div class="row">
+      <div class="downArrow bounce">
+        <i class="fa fa-chevron-down fa-2x"></i>
+      </div>
+    </div>
       </div>
     </section>
     <!-- FAQ Section-->
@@ -24,41 +29,43 @@
         <!-- wordPress installation-->
         <header class="section header mb-5">
           <h2>Have a question?</h2>
-          <p class="lead">Check below or search for any frequently asked question in our batabase.</p>
+          <p class="lead">Find your question below or search for any frequently asked questions in our batabase.</p>
         </header>
-        <div class="row"> 
-          <div class="col-lg-8">   
+        <div class="row">
+          <div class="col-lg-8">
             <div class="accordion pb-5">
               <!-- question-->
-              <div class="card bg-dark" *ngFor="let faq of faqList; let i = index;">
+              <div class="card bg-light mb-2" *ngFor="let faq of faqList; let i = index;">
                 <div class="card-header">
-                  <h4 class="mb-0 accordion-heading">
-                    <button (click)="toggleFaqContainer(i)" class="d-flex align-items-center"><i class="icon-light-bulb"></i><span>{{faq?.query}}</span></button>
+                  <h4 class="mb-0 accordion-heading bg-primary">
+                    <button (click)="toggleFaqContainer(i)" class="btn btn-link text-white"><i class="icon-light-bulb"></i><span> {{faq?.query}}</span><i class="fa fa-chevron-right ml-4"></i></button>
                   </h4>
                 </div>
                 <div *ngIf="faq.show === 'show'" [hidden]="faq.show === 'hide'" class="animate slide-in-down">
-                  <div class="card-body text-dark" [innerHTML]="faq?.answer?.content"></div>
+                  <div class="card-body" [innerHTML]="faq?.answer?.content"></div>
                   <div class="card-footer" *ngIf="faq?.answer?.links?.length">
-                    <button class="btn btn-outline-dark" (click)="navigateTo(faq.answer.links[0])">Possible Solution</button>
+                    <button class="btn btn-outline-secondary" (click)="navigateTo(faq.answer.links[0])">Possible Solution</button>
                   </div>
                 </div>
               </div>
-        
+
             </div>
             <!-- troubleshooting-->
             <!-- <header class="section-header text-left mb-5 mt-5">
               <h2 class="mt-5">Troubleshooting</h2>
               <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
             </header> -->
-            
+
           </div>
           <!-- sidebar-->
           <aside class="sidebar col-lg-4 mt-5 mt-lg-0">
             <div class="search mb-4">
               <form action="#" class="search-form">
-                <div class="form-group">
+                <div class="input-group">
                   <input type="search" name="search" placeholder="Search" class="form-control">
-                  <button type="submit"> <i class="fa fa-search"></i></button>
+                  <div class="input-group-addon">
+                    <button class="btn btn-primary"> <i class="fa fa-search"></i></button>
+                  </div>
                 </div>
               </form>
             </div>

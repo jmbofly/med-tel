@@ -2,24 +2,57 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-3 mb-5 mb-lg-0">
-        <div class="footer-logo">MedTelPlus</div>
+        <div class="footer-logo">
+          <app-brand-button
+            #brandButton
+            [height]="'35px'"
+            [width]="'180px'"
+            [primaryColor]="'#FFFFFF'"
+            [secondaryColor]="'#007BFF'"
+          ></app-brand-button>
+        </div>
+        <div class="footer-link">
+          <p><em>Disabled Veteran Owned</em></p>
+        </div>
+        <div class="footer-link">
+          <p><em>Division of Global Technology Services</em></p>
+        </div>
+        <div class="footer-link">
+          <p><em>Non-profit 501-C3</em></p>
+        </div>
       </div>
       <div class="col-lg-3 mb-5 mb-lg-0">
         <h5 class="footer-heading">Site pages</h5>
         <ul class="list-unstyled">
-          <li><a href="#" class="footer-link">Home</a></li>
-          <li><a href="#" class="footer-link">FAQ</a></li>
-          <li><a href="#" class="footer-link">Contact</a></li>
-          <li><a href="#" class="footer-link">About</a></li>
+          <li (click)="brandButton.navigateTo('home')" class="footer-link">
+            Home
+          </li>
+          <li (click)="brandButton.navigateTo('faq')" class="footer-link">
+            FAQ
+          </li>
+          <li (click)="brandButton.navigateTo('contact')" class="footer-link">
+            Contact
+          </li>
+          <li (click)="brandButton.navigateTo('about')" class="footer-link">
+            About
+          </li>
         </ul>
       </div>
       <div class="col-lg-3 mb-5 mb-lg-0">
         <h5 class="footer-heading">Product</h5>
         <ul class="list-unstyled">
-          <li><a href="#" class="footer-link">Why MedTelPlus?</a></li>
-          <li><a href="#" class="footer-link">Agents</a></li>
-          <li><a href="#" class="footer-link">Blog</a></li>
-          <li><a href="#" class="footer-link">Pricing</a></li>
+          <li (click)="brandButton.navigateTo('faq')" class="footer-link">
+            Why MedTelPlus?
+          </li>
+          <li (click)="brandButton.navigateTo('contact')" class="footer-link">
+            Agents
+          </li>
+          <li (click)="brandButton.navigateTo('faq')" class="footer-link">
+            Blog
+          </li>
+          <li (click)="brandButton.navigateTo('store')" class="footer-link">
+            Pricing
+          </li>
         </ul>
       </div>
       <div class="col-lg-3">
@@ -44,13 +77,13 @@
         <div class="col-lg-6 text-center text-lg-right">
           <ul class="list-inline social mb-0">
             <li class="list-inline-item">
-              <a href="#" class="social-link"><i class="fa fa-facebook"></i></a
-              ><a href="#" class="social-link"><i class="fa fa-twitter"></i></a
+              <a href="https://facebook.com/medtelplus" class="social-link"><i class="fa fa-facebook"></i></a
+              ><a href="https://twitter.com/medtelpus" class="social-link"><i class="fa fa-twitter"></i></a
               ><a href="#" class="social-link"
                 ><i class="fa fa-youtube-play"></i></a
               ><a href="#" class="social-link"><i class="fa fa-vimeo"></i></a
               ><a href="#" class="social-link"
-                ><i class="fa fa-pinterest"></i
+                ><i class="fa fa-linkedin"></i
               ></a>
             </li>
           </ul>

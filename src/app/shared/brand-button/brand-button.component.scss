@@ -1,4 +1,7 @@
+$secondary: #3F5E7F;
+$primary: #007bff;
 // SVG ANIMATION
+
 .svg-container {
 
   #brand-button {
@@ -11,9 +14,9 @@
     // outline: none !important;
   }
 
-  &.fin,
-  &:hover,
-  &:focus {
+  &.fin:not(.show-on-init),
+  &:hover:not(.show-on-init),
+  &:focus:not(.show-on-init) {
 
     .path-1 {
       stroke-dashoffset: 0;
@@ -24,47 +27,70 @@
 
     .path-2 {
       stroke-dashoffset: 0;
-      fill: rgba(0, 0, 0, .45);
-      stroke: #e7475e;
-
+      fill: $primary;
+      stroke: rgba(255, 255, 255, .5);
       transform: translateX(0);
       -moz-transform: translateX(0);
       -webit-transform: translateX(0);
     }
 
     .path-3 {
-      fill: #e7475e;
+      fill: $primary;
       stroke-dashoffset: 0;
       stroke-width: .9px;
     }
   }
 
+  &.show-on-init {
+    .path-1 {
+      stroke-dashoffset: 0;
+      fill: rgba(255, 255, 255, .5);
+      stroke-width: 1px;
+
+    }
+
+    .path-2 {
+      stroke-dashoffset: 0;
+      fill: $primary;
+      stroke: rgba(255, 255, 255, .5);
+      transform: translateX(0);
+      -moz-transform: translateX(0);
+      -webit-transform: translateX(0);
+    }
+
+    .path-3 {
+      fill: $primary;
+      stroke-dashoffset: 0;
+      stroke-width: .9px;
+    }
+  }
 }
+
 
 .aos-animate[data-aos="fixed-header"] :host .svg-container {
   .path-1 {
     stroke-dashoffset: 0;
-    fill: #e7475e;
+    fill: $primary;
     stroke: none;
     stroke-width: 1px;
   }
 
   .path-2 {
     stroke-dashoffset: 0;
-    fill: rgba(0, 0, 0, .45);
+    fill: $primary;
     transform: translateX(0);
     -moz-transform: translateX(0);
     -webit-transform: translateX(0);
   }
 
   .path-3 {
-    fill: #e7475e;
+    fill: $primary;
     stroke-dashoffset: 0;
     stroke-width: .9px;
   }
 }
 
-
+// Element init styles
 .path {
   fill: none;
   stroke: none;
@@ -73,7 +99,7 @@
 }
 
 .path-1 {
-  stroke: #e7475e;
+  stroke: $primary;
   stroke-dasharray: 200;
   stroke-dashoffset: 200;
   transition: .65s linear .5s;
@@ -90,12 +116,12 @@
 }
 
 .path-3 {
-  stroke: rgba(255, 255, 255, .5);
-  fill: #e7475f8e;
+  stroke: $secondary;
+  fill: $primary;
   stroke-width: .76px;
-  stroke-dasharray: 60 60;
-  stroke-dashoffset: 120;
-  transition: .75s linear .7s;
+  stroke-dasharray: 100 0 0 250;
+  stroke-dashoffset: 180;
+  transition: 3s ease-in-out;
   transform: translateX(-100%);
   -moz-transform: translateX(-100%);
   -webit-transform: translateX(-100%);
