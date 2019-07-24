@@ -14,7 +14,6 @@ import { AboutModule } from './about/about.module';
 import { FooterModule } from './footer/footer.module';
 import { StoreModule } from './store/store.module';
 import { CheckoutModule } from './checkout/checkout.module';
-import { CartModule } from './cart/cart.module';
 import { AccountModule } from './account/account.module';
 import { NgxAnimatedGradientModule } from 'ngx-animated-gradient';
 
@@ -35,7 +34,6 @@ import { NgxAnimatedGradientModule } from 'ngx-animated-gradient';
     FooterModule,
     StoreModule,
     CheckoutModule,
-    CartModule,
     AccountModule,
     NgxAnimatedGradientModule,
   ],

@@ -6,7 +6,7 @@ import { FaqComponent } from './faq/faq.component';
 import { AboutComponent } from './about/about.component';
 import { StoreComponent } from './store/store.component';
 import { CheckoutComponent } from './checkout/checkout.component';
-import { CartComponent } from './cart/cart.component';
+import { UserCartComponent } from './shared/user-cart/user-cart.component';
 import { AccountComponent } from './account/account.component';
 import { AuthGuard } from './core/guards/auth.guard';
 
@@ -43,7 +43,7 @@ const routes: Routes = [
   },
   {
     path: 'cart',
-    component: CartComponent,
+    component: UserCartComponent,
   },
   {
     path: 'home',

@@ -13,11 +13,12 @@ import { ModalComponent } from './modal/modal.component';
 import { DividerComponent } from './divider/divider.component';
 import { ThankYouComponent } from './thank-you/thank-you.component';
 import { LoaderComponent } from './loader/loader.component';
-import { ParallaxDirective } from './directives/parallax.directive';
+// import { ParallaxDirective } from './directives/parallax.directive';
 import { BrandButtonComponent } from './brand-button/brand-button.component';
 import { PaymentMethodsComponent } from './payment-methods/payment-methods.component';
 
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
+import { UserCartComponent } from './user-cart/user-cart.component';
 @NgModule({
   declarations: [
     CarouselComponent,
@@ -26,12 +27,12 @@ import { SafeHtmlPipe } from './pipes/safe-html.pipe';
     PricingComponent,
     ModalComponent,
     DividerComponent,
-    ParallaxDirective,
     ThankYouComponent,
     LoaderComponent,
     BrandButtonComponent,
     PaymentMethodsComponent,
     SafeHtmlPipe,
+    UserCartComponent,
   ],
   imports: [
     CommonModule,
@@ -47,7 +48,6 @@ import { SafeHtmlPipe } from './pipes/safe-html.pipe';
     NgxAnimatedGradientModule,
     CarouselModule,
     ParallaxModule,
-    ParallaxDirective,
     CarouselComponent,
     TabberComponent,
     ContactComponent,
@@ -59,6 +59,7 @@ import { SafeHtmlPipe } from './pipes/safe-html.pipe';
     BrandButtonComponent,
     PaymentMethodsComponent,
     SafeHtmlPipe,
+    UserCartComponent,
   ],
   entryComponents: [
     CarouselComponent,
@@ -70,6 +71,7 @@ import { SafeHtmlPipe } from './pipes/safe-html.pipe';
     ThankYouComponent,
     LoaderComponent,
     BrandButtonComponent,
+    UserCartComponent,
   ],
 })
 export class SharedModule {}

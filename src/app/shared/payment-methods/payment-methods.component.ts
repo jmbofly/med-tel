@@ -78,7 +78,7 @@ export class PaymentMethodsComponent implements OnInit, OnDestroy {
       </span>
       <span class="list-inline-item"> ${email}
       </span>
-      <b class="text-danger pl-4 mr-2"> default payment method</b>`;
+      <small class="text-danger pl-4 mr-2"> default payment method</small>`;
     }
     const viewable = cardNumber.slice(12, cardNumber.length);
     return `<span class="badge badge-primary">
@@ -146,13 +146,7 @@ export class PaymentMethodsComponent implements OnInit, OnDestroy {
       const expired = Date.UTC(exp.year, exp.month) < Date.now();
       // If true check that ALL card fields have values
       // TODO: check field values are valid
-      if (
-        card &&
-        !expired &&
-        cvv &&
-        cvv.length === 3 &&
-        card.cardNumber
-      ) {
+      if (card && !expired && cvv && cvv.length === 3 && card.cardNumber) {
         console.log(expired, card, method);
         return true;
       }

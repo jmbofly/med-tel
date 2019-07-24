@@ -14,9 +14,16 @@
 import { Component, OnInit } from '@angular/core';
 import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
 import { Observable, BehaviorSubject } from 'rxjs';
+import { map, filter } from 'rxjs/operators';
 import { AuthService } from '../core/auth.service';
+import { ShopService } from '../core/shop.service';
 import { UserService } from '../core/user.service';
-import { UserModel, PaymentMethod, Card } from '../core/user.model';
+import {
+  UserModel,
+  BillingModel,
+  PaymentMethod,
+  Card,
+} from '../core/user.model';
 import { Product, Cart } from '../core/products.data';
 
 @Component({
@@ -25,7 +32,25 @@ import { Product, Cart } from '../core/products.data';
   styleUrls: ['./checkout.component.scss'],
 })
 export class CheckoutComponent implements OnInit {
-  constructor() {}
+  userId: string;
+  userCart$: Observable<Cart>;
+  userBilling$: Observable<BillingModel>;
+  constructor(
+    private authService: AuthService,
+    private userService: UserService,
+    private shopService: ShopService
+  ) {
+    authService.getUserId().subscribe(uid => (this.userId = uid));
+  }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.userCart$ = this.userService
+      .getUserById(this.userId)
+      .valueChanges()
+      .pipe(map(user => user.cart));
+    this.userBilling$ = this.userService
+      .getUserById(this.userId)
+      .valueChanges()
+      .pipe(map(user => user.billing));
+  }
 }

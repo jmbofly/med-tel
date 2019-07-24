@@ -23,6 +23,13 @@
           <button type="button" (click)="toggleTab('billing')" class="btn hvr hvr-sweep-to-right btn-primary btn-block mt-2"><i
               class="fa fa-credit-card"></i> Billing
           </button>
+          <button type="button" (click)="toggleTab('payments')" class="btn hvr hvr-sweep-to-right btn-primary btn-block mt-2"><i
+              class="fa fa-money"></i> Saved Payments
+          </button>
+          <button type="button" (click)="toggleTab('purchases')" class="btn hvr hvr-sweep-to-right btn-primary btn-block mt-2"><i
+              class="fa fa-history"></i> Purchases
+          </button>
+          
         </div>
         <!-- /.nav -->
       </div>
@@ -32,7 +39,7 @@
     <!-- grid column -->
     <div class="col-lg-8">
       <!-- .card -->
-      <div class="card p-0">
+      <div class="card p-0 mb-4">
         <div [ngSwitch]="(currentTab | async)">
           <div *ngSwitchCase="'profile'" class="animated slideInLeft default">
             <h6 class="card-header" id="publicProfile"><i class="fa fa-user"></i> Public Profile</h6>
@@ -261,22 +268,6 @@
                 <!-- /.form-actions -->
               </form>
               <!-- /form -->
-              <div class="clearfix"></div>
-              <div class="card col-lg-8 text-left p-0 mt-2">
-                <div class="card-header">Quick Actions</div>
-                <div class="card-body">
-                  <button class="btn hvr hvr-sweep-to-right btn-primary btn-block" (click)="openAccountModal(paymentMethodTemplate)"><i
-                      class="fa fa-credit-card"></i> Payment Methods</button>
-                  <button class="btn hvr hvr-sweep-to-right btn-primary btn-block mt-2"
-                    (click)="openAccountModal(purchaseHistoryTemplate, { backdrop: true})"><i class="fa fa-history"></i>
-                    Purchase History</button>
-                </div>
-                <div class="card-footer">
-                  <button class="btn hvr hvr-sweep-to-right btn-outline-secondary"><i class="fa fa-users"></i></button>
-                  <button class="btn hvr hvr-sweep-to-right btn-outline-secondary"><i class="fa fa-list-ul"></i></button>
-                  <button class="btn hvr hvr-sweep-to-right btn-outline-secondary"><i class="fa fa-heart"></i></button>
-                </div>
-              </div>
 
             </div>
             <!-- /.card-body -->
@@ -354,6 +345,18 @@
             </div>
             <!-- /.card-body -->
           </div>
+          <div *ngSwitchCase="'payments'" class="animated slideInLeft default">
+            <h6 class="card-header"><i class="fa fa-money"></i> Payment Methods</h6>
+            <div class="card-body">
+              <app-payment-methods [billingData]="user?.billing" (updatePaymentMethods)="updatePaymentMethods($event, loader)"></app-payment-methods>
+            </div>
+          </div>
+          <div *ngSwitchCase="'purchases'" class="animated slideInLeft default">
+            <h6 class="card-header"><i class="fa fa-list"></i> Purchase History</h6>
+            <div class="card-body">
+              <app-purchase-history [history]="user?.billing?.purchaseHistory" id="paymentHistory"></app-purchase-history>
+            </div>
+          </div>
         </div>
       </div>
       <!-- /.card -->
@@ -362,17 +365,4 @@
   </div>
   <!-- /grid row -->
 </section>
-<ng-template #paymentMethodTemplate let-modal>
-  <section class="pb-1 pt-1 mt-0 mb-0" id="paymentMethods">
-    <app-payment-methods [billingData]="user?.billing" (closeModal)="modal.dismiss($event)"
-      (updatePaymentMethods)="updatePaymentMethods($event, loader)"></app-payment-methods>
-  </section>
-</ng-template>
-<!-- Purchase History Modal Template -->
-<ng-template #purchaseHistoryTemplate>
-  <section class="pb-1 pt-1 mt-0 mb-0">
-    <app-purchase-history [history]="user?.billing?.purchaseHistory" id="paymentHistory"></app-purchase-history>
-
-  </section>
-</ng-template>
 <app-loader #loader></app-loader>

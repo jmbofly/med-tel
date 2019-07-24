@@ -1,122 +1,111 @@
-<div class="container">
-  <div class="card mb-0">
-    <i class="fa fa-credit-card-alt fa-2x img-top-card p-4"></i>
-    <div class="card-body">
-      <h4 class="card-title">Payment Methods</h4>
-      <p class="card-text">
-        Credit / Debit Cards and Paypal are accepted forms of payment
-      </p>
-    </div>
+  <div class="mb-0">
     <div *ngIf="methods">
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item p-md-4 border-top" *ngFor="let method of methods; let i = index">
+      <ul class="list-group list-group-flush mb-2">
+        <li class="list-group-item p-md-4 d-inline-flex justify-content-between" *ngFor="let method of methods; let i = index">
           <span [hidden]="method.type === 'paypal'" class="list-inline-item text-uppercase">{{ method.type }}
           </span>
           <span class="list-inline-item" [innerHTML]="
               formatViewableCardData(method.card.cardNumber, billingData?.email, (method.type === 'paypal' ? 'default':'alternate')) | safeHtml
             "></span>
-          <button class="btn btn-toolbar pull-right" (click)="removePaymentMethod(methods, i)">
+          <button class="btn btn-toolbar list-inline-item pl-0 pr-0" (click)="removePaymentMethod(methods, i)">
             <i class="fa fa-trash-o"></i>
           </button>
         </li>
       </ul>
-      <div class="p-4 pull-right" [hidden]="showNewInputContainer">
-        <button class="btn btn-primary mr-1" (click)="toggleInputContainer()">
-          Add Payment Method
+      <div class="d-flex mb-2 animate" [hidden]="showNewInputContainer" style="justify-content: flex-end;">
+        <button class="btn btn-primary mr-2" (click)="toggleInputContainer()">
+          Add <i class="fa fa-plus"></i>
         </button>
-        <button class="btn btn-outline-secondary ml-1" (click)="dismissModal('canceled')">
-            Cancel
-          </button>
+        
       </div>
     </div>
-    <ng-template *ngIf="!methods[0]">
+    <div *ngIf="!methods[0]">
       <h3 class="text-black-50">You Must Add A Payment Method. You'll be unable to purchase anything from MedTelPlus
       </h3>
-    </ng-template>
+    </div>
     
-      <div class="card" *ngIf="showNewInputContainer">
-        <div class="card-body">
-          <h4 class="card-title">Add Payment</h4>
-          <form #paymentMethodForm="ngForm" name="paymentMethod">
-          <div class="d-block my-3">
-            <div class="custom-control custom-radio">
-              <input id="credit" [(ngModel)]="newMethod.type" [value]="'credit'" name="paymentMethod" type="radio"
-                class="custom-control-input" required />
-              <label class="custom-control-label" for="credit">Credit card</label>
+    <div *ngIf="showNewInputContainer">
+      <div class="m-0">
+        <h4 class="card-title">Add Payment</h4>
+        <form #paymentMethodForm="ngForm" name="paymentMethod">
+        <div class="d-block my-3">
+          <div class="custom-control custom-radio">
+            <input id="credit" [(ngModel)]="newMethod.type" [value]="'credit'" name="paymentMethod" type="radio"
+              class="custom-control-input" required />
+            <label class="custom-control-label" for="credit">Credit card</label>
+          </div>
+          <div class="custom-control custom-radio">
+            <input id="debit" [(ngModel)]="newMethod.type" [value]="'debit'" name="paymentMethod" type="radio"
+              class="custom-control-input" [required]="" />
+            <label class="custom-control-label" for="debit">Debit card</label>
+          </div>
+          <div class="custom-control custom-radio">
+            <input id="paypal" [(ngModel)]="newMethod.type" [value]="'paypal'" name="paymentMethod" type="radio"
+              class="custom-control-input" required />
+            <label class="custom-control-label" for="paypal">Paypal</label>
+          </div>
+        </div>
+        <div *ngIf="newMethod.type === 'paypal'">
+          <h4 class="p4 blockquote">
+            PayPal account belonging to <b>{{billingData?.email}}</b> will be considered your main payment method until deleted
+          </h4>
+        </div>
+        <div *ngIf="newMethod.type !== 'paypal'">
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="cc-name">Name on card</label>
+              <input type="text" [(ngModel)]="newMethod.card.nameOnCard" #cardHolder="ngModel" class="form-control" id="cc-name" name="cardHolder"
+                placeholder="Cardholder's name" [required]="newMethod.type !== 'paypal'" />
+              <small class="text-muted">Full name as displayed on card</small>
+              <div *ngIf="cardHolder.dirty && cardHolder.invalid" class="invalid-feedback">
+                Name on card is required
+              </div>
             </div>
-            <div class="custom-control custom-radio">
-              <input id="debit" [(ngModel)]="newMethod.type" [value]="'debit'" name="paymentMethod" type="radio"
-                class="custom-control-input" [required]="" />
-              <label class="custom-control-label" for="debit">Debit card</label>
-            </div>
-            <div class="custom-control custom-radio">
-              <input id="paypal" [(ngModel)]="newMethod.type" [value]="'paypal'" name="paymentMethod" type="radio"
-                class="custom-control-input" required />
-              <label class="custom-control-label" for="paypal">Paypal</label>
+            <div class="col-md-6 mb-3">
+              <label for="cc-number">Credit card number</label>
+              <input type="text" [(ngModel)]="newMethod.card.cardNumber" #cardNumber="ngModel" class="form-control" id="cc-number" name="cardNumber" 
+                [placeholder]="'XXXX-XXXX-XXXX-XXXX'" [maxLength]="16" [minLength]="16" [required]="newMethod.type !== 'paypal'" [pattern]="validateCreditCardNumber(cardNumber.value, true)"/>
+              <div *ngIf="cardNumber.dirty && cardHolder?.errors?.pattern" class="invalid-feedback text-danger">
+                Credit card number is not valid
+              </div>
             </div>
           </div>
-          <div *ngIf="newMethod.type === 'paypal'">
-            <h4 class="p4 blockquote">
-              PayPal account belonging to <b>{{billingData?.email}}</b> will be considered your main payment method until deleted
-            </h4>
-          </div>
-          <div *ngIf="newMethod.type !== 'paypal'">
-            <div class="row">
-              <div class="col-md-6 mb-3">
-                <label for="cc-name">Name on card</label>
-                <input type="text" [(ngModel)]="newMethod.card.nameOnCard" #cardHolder="ngModel" class="form-control" id="cc-name" name="cardHolder"
-                  placeholder="Cardholder's name" [required]="newMethod.type !== 'paypal'" />
-                <small class="text-muted">Full name as displayed on card</small>
-                <div *ngIf="cardHolder.dirty && cardHolder.invalid" class="invalid-feedback">
-                  Name on card is required
-                </div>
-              </div>
-              <div class="col-md-6 mb-3">
-                <label for="cc-number">Credit card number</label>
-                <input type="text" [(ngModel)]="newMethod.card.cardNumber" #cardNumber="ngModel" class="form-control" id="cc-number" name="cardNumber" 
-                  [placeholder]="'XXXX-XXXX-XXXX-XXXX'" [maxLength]="16" [minLength]="16" [required]="newMethod.type !== 'paypal'" [pattern]="validateCreditCardNumber(cardNumber.value, true)"/>
-                <div *ngIf="cardNumber.dirty && cardHolder?.errors?.pattern" class="invalid-feedback text-danger">
-                  Credit card number is not valid
-                </div>
-              </div>
-            </div>
-            <label for="cc-expiration">Expiration</label>
-            <div class="row">
-              <div class="col-md-5 mb-3">
-                <div class="input-group">
-                  
-                  <input #month="ngModel" [(ngModel)]="newMethod.card.expiration.month" class="form-control" id="cc-expiration-month" type="text" name="month"
-                    placeholder="mm" maxLength="2" [required]="newMethod.type !== 'paypal'"/>
-                    <div *ngIf="month.dirty && month.errors" class="invalid-feedback">
-                      Expiration date required
-                    </div>
-                  <input #expYear="ngModel" [(ngModel)]="newMethod.card.expiration.year" class="form-control" id="cc-expiration-year" type="text" name="expirationYear"
-                    placeholder="yy" maxLength="2" [required]="newMethod.type !== 'paypal'"/>
-                    
-                </div>
-              </div>
-              <div class="col-md-3 mb-3">
-                <div class="input-group">
-                    <label for="cc-expiration">CVV</label>
-                  <input type="text" #security="ngModel" [(ngModel)]="newMethod.card.cvv" class="form-control" id="security" placeholder="3 digit security pin" name="security"
-                  maxLength="3" minLength="3" [required]="newMethod.type !== 'paypal'" />
-                  <div *ngIf="security?.dirty && security?.errors" class="invalid-feedback">
-                    Security code required
+          <label for="cc-expiration">Expiration</label>
+          <div class="row">
+            <div class="col-md-5 mb-3">
+              <div class="input-group">
+                
+                <input #month="ngModel" [(ngModel)]="newMethod.card.expiration.month" class="form-control" id="cc-expiration-month" type="text" name="month"
+                  placeholder="mm" maxLength="2" [required]="newMethod.type !== 'paypal'"/>
+                  <div *ngIf="month.dirty && month.errors" class="invalid-feedback">
+                    Expiration date required
                   </div>
+                <input #expYear="ngModel" [(ngModel)]="newMethod.card.expiration.year" class="form-control" id="cc-expiration-year" type="text" name="expirationYear"
+                  placeholder="yy" maxLength="2" [required]="newMethod.type !== 'paypal'"/>
+                  
+              </div>
+            </div>
+            <div class="col-md-3 mb-3">
+              <div class="input-group">
+                  <label for="cc-expiration">CVV</label>
+                <input type="text" #security="ngModel" [(ngModel)]="newMethod.card.cvv" class="form-control" id="security" placeholder="3 digit security pin" name="security"
+                maxLength="3" minLength="3" [required]="newMethod.type !== 'paypal'" />
+                <div *ngIf="security?.dirty && security?.errors" class="invalid-feedback">
+                  Security code required
                 </div>
               </div>
             </div>
           </div>
-        </form>
         </div>
-        <div class="card-footer pull-right">
-          <button [disabled]="!readyToSave(newMethod, paymentMethodForm)" class="btn btn-primary m-1" (click)="addNewPaymentMethod(methods, newMethod)">
-            Save Payment Method
-          </button>
-          <button class="btn btn-outline-primary m-1" (click)="dismissModal('canceled')">
-            Cancel
-          </button>
-        </div>
+      </form>
       </div>
+      <div class="d-flex justify-content-end">
+        <button [disabled]="!readyToSave(newMethod, paymentMethodForm)" class="btn btn-primary m-1" (click)="addNewPaymentMethod(methods, newMethod)">
+          Save
+        </button>
+        <button class="btn btn-outline-primary m-1" (click)="toggleInputContainer()">
+          Cancel
+        </button>
+      </div>
+    </div>
   </div>
-</div>

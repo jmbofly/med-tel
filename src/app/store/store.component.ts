@@ -36,12 +36,11 @@ export class StoreComponent implements OnInit {
     this.authService
       .getUserId()
       .pipe(
-        map(id =>
-          this.shopService
-            .getCurrentShopper(id)
-            .pipe(map(user => (this.user = user)))
-            .subscribe()
-        )
+        map(id => {
+          this.shopService.initNewShopper(id).user.subscribe(user => {
+            this.user = user;
+          });
+        })
       )
       .subscribe();
 

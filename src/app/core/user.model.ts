@@ -1,5 +1,5 @@
 import { Cart } from './products.data';
-
+import { Observable } from 'rxjs';
 export interface Contact {
   name?: string;
   email?: string;
@@ -38,6 +38,16 @@ export interface Card {
   cvv?: string;
 }
 
+export interface CurrentShopper {
+  billing?: Observable<BillingModel>;
+  cart?: Observable<Cart>;
+  purchaseHistory?: Observable<UserModel['billing']['purchaseHistory']>;
+  savedPaymentMethods?: Observable<PaymentMethod[]>;
+  user?: Observable<UserModel>;
+  address?: Observable<BillingModel['address']>;
+  wishList?: Observable<UserModel['wishList']>;
+}
+
 export interface UserModel {
   uid?: string;
   username?: string;
@@ -54,11 +64,18 @@ export interface UserModel {
     zipcode: string;
   };
   phone?: string;
-  purchaseHistory?: any[];
+  purchaseHistory?: PurchaseHistory[];
   cart?: Cart;
   billing?: BillingModel;
   additionalUserInfo?: AdditionalInfo;
   wishList?: string[];
+}
+
+export interface PurchaseHistory {
+  purchaseTimestamp?: Date;
+  paymentMethod?: PaymentMethod;
+  cart?: Cart;
+  accountUserId?: string;
 }
 
 export interface AdditionalInfo {

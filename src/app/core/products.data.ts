@@ -66,13 +66,10 @@ export const COUPONS: Coupon[] = [
 export const Products: Product[] = [
          {
            imgUrl: 'assets/images/911HN_buttonclipcover_01_540x.jpg',
-           caption: 'Replacement Clip Cover',
+           caption: 'Clip Cover',
            price: 5.99,
            productId: '0001',
-           description: `Fusce ornare mi vel risus
-      porttitor dignissim. Nunc eget risus at
-      ipsum blandit ornare vel sed velit. Proin gravida arcu nisl,
-      a dignissim mauris placerat`,
+           description: `Replacement Clip Cover`,
            reviews: [
              {
                name: 'joe schmoe',
@@ -95,10 +92,7 @@ export const Products: Product[] = [
            caption: 'Replacement Battery Cover',
            price: 5.99,
            productId: '0002',
-           description: `Fusce ornare mi vel risus
-      porttitor dignissim. Nunc eget risus at
-      ipsum blandit ornare vel sed velit. Proin gravida arcu nisl,
-      a dignissim mauris placerat`,
+           description: ``,
            reviews: [
              {
                name: 'joe schmoe',
@@ -121,10 +115,7 @@ export const Products: Product[] = [
            caption: '911 Help Now Button',
            price: 79.99,
            productId: '0003',
-           description: `Fusce ornare mi vel risus
-      porttitor dignissim. Nunc eget risus at
-      ipsum blandit ornare vel sed velit. Proin gravida arcu nisl,
-      a dignissim mauris placerat`,
+           description: ``,
            reviews: [
              {
                name: 'joe schmoe',
@@ -138,7 +129,7 @@ export const Products: Product[] = [
            },
            additionalInformation:
              'No additional information at this time.',
-           productName: '911 Help Now Alert Button',
+           productName: '911 HN Button',
            tags: ['sale'],
            category: ['devices', 'telemedicine'],
          },
@@ -147,10 +138,7 @@ export const Products: Product[] = [
            caption: '2 911 Help Now Buttons Package',
            price: 125.99,
            productId: '0004',
-           description: `Fusce ornare mi vel risus
-      porttitor dignissim. Nunc eget risus at
-      ipsum blandit ornare vel sed velit. Proin gravida arcu nisl,
-      a dignissim mauris placerat`,
+           description: ``,
            reviews: [
              {
                name: 'joe schmoe',
@@ -164,7 +152,7 @@ export const Products: Product[] = [
            },
            additionalInformation:
              'No additional information at this time.',
-           productName: '2 for One 911 Help Now Buttons',
+           productName: '2 911 HN Buttons',
            tags: ['new'],
            category: ['devices', 'telemedicine'],
          },
@@ -173,10 +161,7 @@ export const Products: Product[] = [
            caption: 'Replacement Lanyard',
            price: 5.99,
            productId: '0005',
-           description: `Fusce ornare mi vel risus
-      porttitor dignissim. Nunc eget risus at
-      ipsum blandit ornare vel sed velit. Proin gravida arcu nisl,
-      a dignissim mauris placerat`,
+           description: ``,
            reviews: [
              {
                name: 'joe schmoe',
@@ -199,10 +184,7 @@ export const Products: Product[] = [
            caption: 'Replacement Button Guard',
            price: 4.99,
            productId: '0006',
-           description: `Fusce ornare mi vel risus
-      porttitor dignissim. Nunc eget risus at
-      ipsum blandit ornare vel sed velit. Proin gravida arcu nisl,
-      a dignissim mauris placerat`,
+           description: ``,
            reviews: [
              {
                name: 'joe schmoe',
@@ -225,10 +207,7 @@ export const Products: Product[] = [
            caption: `SmartGo Personal Alert Device`,
            price: 45.99,
            productId: '0007',
-           description: `Fusce ornare mi vel risus
-      porttitor dignissim. Nunc eget risus at
-      ipsum blandit ornare vel sed velit. Proin gravida arcu nisl,
-      a dignissim mauris placerat`,
+           description: ``,
            reviews: [
              {
                name: 'joe schmoe',
@@ -243,7 +222,7 @@ export const Products: Product[] = [
            },
            additionalInformation:
              'No additional information at this time.',
-           productName: 'Smartgo Personal Alert Device',
+           productName: 'Smartgo Alert Device',
            tags: ['new'],
            category: ['devices', 'telemedicine'],
          },
@@ -252,10 +231,7 @@ export const Products: Product[] = [
            caption: `2 SmartGo Personal Alert Devices`,
            price: 85.99,
            productId: '0008',
-           description: `Fusce ornare mi vel risus
-              porttitor dignissim. Nunc eget risus at
-              ipsum blandit ornare vel sed velit. Proin gravida arcu nisl,
-              a dignissim mauris placerat`,
+           description: ``,
            reviews: [
              {
                name: 'joe schmoe',
@@ -270,7 +246,7 @@ export const Products: Product[] = [
            },
            additionalInformation:
              'No additional information at this time.',
-           productName: '',
+           productName: '2 SmartGo Alert Devices',
            tags: ['soldout'],
            category: ['devices', 'telemedicine'],
          },
@@ -279,10 +255,7 @@ export const Products: Product[] = [
            caption: `SmartGo Personal Alert Device Charging Dock`,
            price: 35.99,
            productId: '0009',
-           description: `Fusce ornare mi vel risus
-              porttitor dignissim. Nunc eget risus at
-              ipsum blandit ornare vel sed velit. Proin gravida arcu nisl,
-              a dignissim mauris placerat`,
+           description: ``,
            reviews: [
              {
                name: 'joe schmoe',
@@ -296,7 +269,7 @@ export const Products: Product[] = [
            },
            additionalInformation:
              'No additional information at this time.',
-           productName: '',
+           productName: 'SmartGo Charging Dock',
            tags: ['new'],
            category: ['devices', 'telemedicine'],
          },

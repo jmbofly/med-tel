@@ -26,9 +26,9 @@
     *ngFor="let item of productList"
   >
     <!-- Block2 -->
-    <div class="block2 border-bottom pb-3">
+    <div class="block2 border-bottom border-left border-right">
       <div
-        class="block2-img wrap-pic-w of-hidden pos-relative border-bottom pb-3"
+        class="block2-img wrap-pic-w of-hidden pos-relative"
         [ngClass]="getItemTagClass((item?.tags)[0])"
       >
         <img [src]="item?.imgUrl" alt="IMG-PRODUCT" class="img-fluid" />
@@ -73,17 +73,20 @@
         </div>
       </div>
 
-      <div class="block2-txt p-t-20 text-center">
+      <div
+        class="card-footer text-center"
+        style="border-top: dashed 1px rgba(0,0,0,.23);"
+      >
         <button
           (click)="selectProduct(item.productId)"
-          class="btn btn-link m-auto block2-name dis-block p-b-5"
+          class="btn btn-link hvr hvr-sweep-to-right"
         >
-          {{ item?.caption }}
+          {{ item?.productName }}
         </button>
         <span
+          disabled
           class="badge badge-secondary"
-          (click)="addToCart(item.productId)"
-          style="font-size: 1.5rem;"
+          (click)="selectProduct(item.productId)"
         >
           ${{ item?.price }}
         </span>

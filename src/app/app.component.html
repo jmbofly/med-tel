@@ -10,10 +10,10 @@
   <div class="bg-secondary" id="sidebar-wrapper">
     <div class="sidebar-heading">
       <p class="lead">
-        {{ 'Customer: ' + navbar?.username || 'Welcome' }}
+        {{ 'Signed-in as ' + navbar?.username || 'Welcome' }}
       </p>
     </div>
-    <ul class="list-group list-group-flush">
+    <ul class="list-group list-group-flush m-auto">
       <div
         class="navbar p-1 hvr hvr-sweep-to-right"
         style="background-color: rgba(0, 69, 143, .6);"
@@ -36,7 +36,7 @@
           (click)="navbar.navigateTo('faq')"
           class="btn btn-link nav-link"
         >
-          <i class="fa fa-info"></i> Faq
+          <i class="fa fa-info-circle"></i> Faq
         </button>
       </li>
       <!-- Link-->
