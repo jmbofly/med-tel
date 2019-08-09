@@ -60,12 +60,13 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "med-tel:build"
+            "browserTarget": "med-tel:build",
+            "baseHref": "/"
           },
           "configurations": {
             "production": {
               "browserTarget": "med-tel:build:production",
-              "baseHref": "/"
+              "baseHref": "https://medtelplus.com/"
             }
           }
         },
