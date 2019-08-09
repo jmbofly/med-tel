@@ -5,7 +5,7 @@ import { NgForm } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 
 import { UserService } from '../core/user.service';
-import { Contact } from '../core/user.model';
+import { Contact } from '../core/interfaces/contact';
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.component.html',
@@ -48,6 +48,6 @@ export class ContactComponent implements OnInit, OnDestroy {
   }
 
   formStatus(form: NgForm) {
-    console.log(form);
+    // console.log(form);
   }
 }

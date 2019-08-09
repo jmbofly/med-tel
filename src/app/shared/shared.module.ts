@@ -2,8 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { ParallaxModule } from 'ngx-parallax';
+import { NgxPayPalModule } from 'ngx-paypal';
+import { NgxNewstickerAlbeModule } from 'ngx-newsticker-albe';
 import { NgxAnimatedGradientModule } from 'ngx-animated-gradient';
 import { CarouselComponent } from './carousel/carousel.component';
 import { TabberComponent } from './tabber/tabber.component';
@@ -13,7 +16,7 @@ import { ModalComponent } from './modal/modal.component';
 import { DividerComponent } from './divider/divider.component';
 import { ThankYouComponent } from './thank-you/thank-you.component';
 import { LoaderComponent } from './loader/loader.component';
-// import { ParallaxDirective } from './directives/parallax.directive';
+import { ParallaxDirective } from './directives/parallax.directive';
 import { BrandButtonComponent } from './brand-button/brand-button.component';
 import { PaymentMethodsComponent } from './payment-methods/payment-methods.component';
 
@@ -29,6 +32,7 @@ import { UserCartComponent } from './user-cart/user-cart.component';
     DividerComponent,
     ThankYouComponent,
     LoaderComponent,
+    ParallaxDirective,
     BrandButtonComponent,
     PaymentMethodsComponent,
     SafeHtmlPipe,
@@ -38,16 +42,22 @@ import { UserCartComponent } from './user-cart/user-cart.component';
     CommonModule,
     FormsModule,
     NgbModule,
+    NgxSkeletonLoaderModule,
     CarouselModule,
+    NgxPayPalModule,
+    NgxNewstickerAlbeModule,
     NgxAnimatedGradientModule,
   ],
   exports: [
     CommonModule,
     FormsModule,
     NgbModule,
+    NgxSkeletonLoaderModule,
     NgxAnimatedGradientModule,
     CarouselModule,
     ParallaxModule,
+    NgxPayPalModule,
+    NgxNewstickerAlbeModule,
     CarouselComponent,
     TabberComponent,
     ContactComponent,
@@ -56,6 +66,7 @@ import { UserCartComponent } from './user-cart/user-cart.component';
     DividerComponent,
     ThankYouComponent,
     LoaderComponent,
+    ParallaxDirective,
     BrandButtonComponent,
     PaymentMethodsComponent,
     SafeHtmlPipe,

@@ -18,7 +18,7 @@ import { map } from 'rxjs/operators';
 })
 export class CarouselComponent implements OnInit {
   @ViewChild('carousel') carousel;
-  @Input() section: 'home' | 'testimonial';
+  @Input() section: 'hero' | 'store' | 'testimonial' | 'simple';
   @Input() classes: string[];
   @Input() options: Owl['options'];
   @Input() slides: any[];

@@ -25,7 +25,7 @@ export class BrandButtonComponent implements OnInit {
     const svg = this.animateSvg(path, classList);
     this.widthIsFull.next(this.logoHidden);
     if (this.showOnInit) {
-      setTimeout(svg, 1200);
+      setTimeout(svg, 0);
     } else {
       setTimeout(() => classList.add('fin'), 500);
     }
@@ -33,8 +33,8 @@ export class BrandButtonComponent implements OnInit {
 
   animateSvg(path: HTMLElement, classList: DOMTokenList) {
     return () => {
-      setTimeout(() => classList.toggle('fin'), 500);
-      setTimeout(() => classList.toggle('fin'), 5000);
+      setTimeout(() => classList.toggle('fin'), 0);
+      setTimeout(() => classList.toggle('fin'), 1250);
     };
   }
 

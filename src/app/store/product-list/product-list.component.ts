@@ -2,7 +2,8 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { Product, Cart } from '../../core/products.data';
+import { Product } from '../../core/interfaces/product';
+import { Cart } from '../../core/interfaces/cart';
 
 @Component({
   selector: 'app-product-list',
@@ -12,19 +13,13 @@ import { Product, Cart } from '../../core/products.data';
 export class ProductListComponent implements OnInit {
   @Input() productList: Product[];
   @Input() userCart?: Cart;
-  @Input() loggedIn: boolean;
   @Output() productSelected = new EventEmitter<string>();
   @Output() addedToCart = new EventEmitter<string>();
-  @Output() addedToWishList = new EventEmitter<string>();
   showToaster = false;
   constructor() {}
 
   selectProduct(productId: string) {
     this.productSelected.emit(productId);
-  }
-
-  addToWishList(id: string) {
-    this.addedToWishList.emit(id);
   }
 
   addToCart(productId: string) {

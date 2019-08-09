@@ -1,180 +1,64 @@
-<nav #nav class="navbar navbar-nav" data-aos="fixed-header" data-aos-offset="1200">
-  <div class="container">
+<nav
+  #nav
+  class="navbar navbar-nav"
+  data-aos="fixed-header"
+  data-aos-offset="1200"
+>
+  <div class="container d-inline-flex">
     <!-- Navbar Menu Toggle -->
-    <button type="button" (click)="toggleMobileMenu()" class="navbar-toggler">
-      <i style="font-size: 1.25em" class="fa" [ngClass]="!hideMobileMenu ? 'fa-chevron-left': 'fa-bars'"></i>
-    </button>
-    <div class="navbar-brand mr-auto">
+    <div
+      id="nav-icon1"
+      (click)="toggleMobileMenu()"
+      [ngClass]="!hideMobileMenu ? 'open' : ''"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <div class="navbar-brand mr-auto pr-2">
       <app-brand-button
         id="brand-button"
         [height]="'35px'"
         [width]="'180px'"
         [logoHidden]="nav.clientWidth < 420"
-        [showOnInit]="false"
+        [showOnInit]="true"
       ></app-brand-button>
     </div>
-    <!-- Navbar Menu -->
-    <div *ngIf="(loggedIn | async)" class="ml-md-auto d-flex justify-content-start align-items-center">
-      <!-- Navbar Cart Button -->
-        <button class="navbar-item btn btn-link p-0 mr-2" (click)="navigateTo('/cart')">
-          <span class="header-icons-noti">{{navCart?.items?.length || 0}}</span>
-          <img src="assets/images/icons/icon-header-03.png" width="30" height="30" alt="" class="header-icon1" />
-        </button>
-        <button #userMenuButton (click)="toggleUserMenu()"
-          class="navbar-item btn btn-link p-0 mr-2 dropdown-toggle" type="button">
-            {{username || 'New User'}}
-        </button>
-    </div>
-    <!-- Navbar guest Menu -->
-    <div *ngIf="!(loggedIn | async)" class="navbar-nav">
-      <div class="ml-auto">
-        <button class="navbar-item btn btn-link p-0 mr-2" ngbTooltip="Login to your MedTelPlus account" (click)="openLoginModal(content, 'login')">
-          <i class="fa fa-lock text-primary nav-icon"></i> <small>Login</small>
-        </button>
-        <button class="navbar-item btn btn-link p-0" ngbTooltip="Create your MedTelPlus account" (click)="openLoginModal(content, 'register')">
-          <i class="fa fa-user-plus text-primary nav-icon"></i> <small>Signup</small>
+    <div
+      class="form-group form-inline mb-0 mr-2"
+      [hidden]="nav.clientWidth < 760"
+    >
+      <input
+        type="text"
+        placeholder="Search"
+        class="w-full form-control"
+        name="queryString"
+        [(ngModel)]="query"
+        [ngbTypeahead]="search"
+      />
+      <div class="input-group-addon">
+        <button class="btn btn-primary text-light border-0 outline-">
+          <i class="fa fa-search"></i>
         </button>
       </div>
     </div>
+    <!-- Navbar Cart Button -->
+    <button
+      *ngIf="navCart?.items?.length"
+      class="btn btn-link p-0 mr-2"
+      (click)="navigateTo('/cart')"
+    >
+      <span class="header-icons-noti">{{ navCart?.items?.length || 0 }}</span>
+      <img
+        src="assets/images/icons/icon-header-03.png"
+        width="30"
+        height="30"
+        alt=""
+        class="header-icon1"
+      />
+    </button>
   </div>
 </nav>
-<!-- User Auth Dropdoen -->
-<div *ngIf="(loggedIn | async)">
-  <div #userDropdown class="card dropdown-card" *ngIf="userMenu">
-    <div class="card-body p-0">
-      <ul class="list-group list-group-flush">
-        <li class="dropdown-card-item list-group-item hvr hvr-sweep-to-left" (click)="navigateTo('/account')">
-          <i class="fa fa-lock"></i> Account Settings
-        </li>
-        <!-- <li class="dropdown-card-item list-group-item hvr hvr-sweep-to-left" (click)="navigateTo('/account')">
-          <i class="fa fa-shopping-cart"></i> Purchase History
-        </li> -->
-        <li class="dropdown-card-item list-group-item hvr hvr-sweep-to-left" (click)="signOut()">
-          <i class="fa fa-sign-out"></i> SignOut
-        </li>
-      </ul>
-    </div>
-  </div>
-</div>
-<!-- User Login and Registration Modal -->
-<ng-template #content let-modal>
-  <div [ngSwitch]="status">
-    <!-- User Login -->
-    <div *ngSwitchCase="'login'">
-      <div class="modal-header">
-        <h4 class="modal-title" id="modal-login-title">Login</h4>
-        <button type="button" class="close mb-0" aria-label="Close" (click)="modal.dismiss('Cross click')">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Please login with email and password</p>
-        <form class="text-left">
-          <div class="form-group mb-4">
-            <label>Email<sup class="text-danger">&#10033;</sup></label>
-            <input #email type="email" name="email" placeholder="Email" class="form-control" />
-          </div>
-          <div class="form-group mb-4">
-            <label>Password<sup class="text-danger">&#10033;</sup></label>
-            <input #password type="password" name="password" placeholder="Password" class="form-control" />
-          </div>
-        </form>
-        <div class="container m-auto">
-          <div class="row">
-            <div class="col-12">
-              <h5 class="lead text-center text-black-50 m-3">
-                One click Login with <br />
-              </h5>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-6" ngbTooltip="Google Login">
-              <button class="btn btn-block btn-danger m-auto" (click)="googleLogin()">
-                <i class="fa fa-google"></i>
-              </button>
-            </div>
-            <div class="col-6" ngbTooltip="Facebook Login (experimental, may not work)">
-              <button disabled class="btn btn-block btn-info m-auto">
-                <i class="fa fa-facebook"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-link" (click)="modal.close('Close click')">
-          Cancel
-        </button>
-        <button type="button" class="btn btn-outline-primary" (click)="login(email.value, password.value)">
-          SignIn
-        </button>
-      </div>
-    </div>
-    <div *ngSwitchDefault>
-      <!-- User Registration -->
-      <div class="modal-header">
-        <h4 class="modal-title" id="modal-login-title">Register</h4>
-        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Please register with email and password</p>
-        <form class="text-left">
-          <div class="form-group mb-4">
-            <label>Name<sup class="text-danger">&#10033;</sup></label>
-            <input #name type="text" name="name" placeholder="e.g. John Smith" class="form-control" />
-          </div>
-          <div class="form-group mb-4">
-            <label>Email<sup class="text-danger">&#10033;</sup></label>
-            <input #email type="email" name="email" placeholder="Email" class="form-control" />
-          </div>
-          <div class="form-group mb-4">
-            <label>Password<sup class="text-danger">&#10033;</sup></label>
-            <input #password type="password" name="password" placeholder="Password" class="form-control" />
-          </div>
-          <div class="form-group mb-4">
-            <label>Confirm Password<sup class="text-danger">&#10033;</sup></label>
-            <input #password2 type="password" name="password2" placeholder="Re-enter Password" class="form-control" />
-          </div>
-        </form>
-        <div class="container m-auto">
-          <div class="row">
-            <div class="col-12">
-              <h5 class="lead text-center text-black-50 m-3">
-                One click Login with <br />
-              </h5>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-6" ngbTooltip="Google Login">
-              <button class="btn btn-block btn-danger m-auto" (click)="googleLogin()">
-                <i class="fa fa-google"></i>
-              </button>
-            </div>
-            <div class="col-6" ngbTooltip="Facebook Login (experimental, may not work">
-              <button disabled class="btn btn-block btn-info m-auto">
-                <i class="fa fa-facebook"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-outline-secondary" (click)="modal.close('Close click')">
-          Cancel
-        </button>
-        <button [disabled]="password.value !== password2.value" type="button" class="btn btn-primary"
-          (click)="createAccount(name.value, email.value, password.value)">
-          SignUp
-        </button>
-      </div>
-    </div>
-  </div>
-</ng-template>
-<!-- Account Info Check Modal -->
-
-
 
 <!-- Global Page Loader -->
 <app-loader #loader></app-loader>

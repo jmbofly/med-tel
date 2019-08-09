@@ -1,6 +1,7 @@
 import {
   Component,
   OnInit,
+  Input,
   OnDestroy,
   TemplateRef,
   ViewChild,
@@ -10,10 +11,13 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map, combineAll, switchMap } from 'rxjs/operators';
 
-import { AuthService } from '../../core/auth.service';
 import { ShopService } from '../../core/shop.service';
-import { Products, Product, Cart, COUPONS } from '../../core/products.data';
-import { UserModel } from '../../core/user.model';
+import { UserModel, CurrentShopper } from '../../core/interfaces/user';
+import { Product } from '../../core/interfaces/product';
+import { Products } from '../../core/data/products';
+import { Coupon } from '../../core/interfaces/coupon';
+import { COUPONS } from '../../core/data/coupons';
+import { Cart } from '../../core/interfaces/cart';
 
 @Component({
   selector: 'app-user-cart',
@@ -22,14 +26,19 @@ import { UserModel } from '../../core/user.model';
 })
 export class UserCartComponent implements OnInit, OnDestroy {
   @ViewChild('coupon') coupon: any;
-  cart: Cart = {};
-  items: Product[] = [];
-  subtotal = 0;
+  @Input() isCheckout = false;
+  private OHIO_SALES_TAX = 0.075;
+  cart: Cart;
+  items: Product[];
+  subtotal: number;
+  taxAmount: number;
   couponUsed = false;
   couponValid = false;
-  userId: string;
+  couponDiscountString: string;
+
+  couponDiscount: number;
+  shippingCost: number;
   constructor(
-    private authService: AuthService,
     private modalService: NgbModal,
     private shopService: ShopService,
     private router: Router,
@@ -37,27 +46,26 @@ export class UserCartComponent implements OnInit, OnDestroy {
   ) {}
 
   private getCart() {
-    this.authService
-      .getUserId()
-      .pipe(switchMap(uid => (this.userId = uid)))
-      .subscribe(id => {
-        if (id) {
-          this.shopService
-            .initNewShopper(id)
-            .cart
-            .subscribe(currentUserCart => {
-              this.cart = currentUserCart;
-              this.items = this.cart.items.map(item =>
-                this.shopService.getProductDetails(item)
-              );
-            });
-        }
-      });
+    this.shopService.cart$.subscribe();
+    const orderReceipt = this.getOrderSubtotal();
+    const readReceipt = receipt => {
+      setTimeout(() => {
+        this.shippingCost = receipt.shipping;
+        this.subtotal = receipt.subtotal;
+        this.taxAmount = receipt.tax;
+        this.couponDiscount = receipt.discount;
+      }, 1000);
+    };
+    this.cart = this.shopService.cart;
+    this.items = this.shopService.items;
+    readReceipt(orderReceipt);
   }
 
   getCartItem(productId: string) {
+    console.log('getting cart item...');
     const counts = this.items.filter(item => item.productId === productId);
     if (counts.length >= 1) {
+      // this.items.find(item => item.productId === productId).options.quantity ++;
       return;
     } else {
       return Products.filter(
@@ -66,20 +74,8 @@ export class UserCartComponent implements OnInit, OnDestroy {
     }
   }
 
-  getItemTotal(item: Product) {
-    if (!item) {
-      return;
-    }
-    const count = item.options.quantity;
-    const total = item.price * count;
-    return total;
-  }
-
-  getCartSubtotal(items: Product[]) {
-    const prices = [];
-    items.map(item => prices.push(this.getItemTotal(item)));
-    this.subtotal = prices.reduce(this.addToTotal, 0);
-    return this.subtotal;
+  getOrderSubtotal() {
+    return this.shopService.getOrderSubtotal();
   }
 
   addToTotal(total: number, a: number) {
@@ -87,16 +83,7 @@ export class UserCartComponent implements OnInit, OnDestroy {
   }
 
   applyCoupon(couponCode: string) {
-    const coupon = COUPONS.find(coup => coup.couponCode === couponCode);
-    if (coupon) {
-      this.couponUsed = true;
-      this.cart.coupon = coupon;
-      this.couponValid = true;
-      return this.subtotal / coupon.discountAmount;
-    } else if (!COUPONS.includes({ couponCode })) {
-      this.couponValid = false;
-      this.couponUsed = true;
-    }
+    return this.shopService.applyCoupon(couponCode);
   }
 
   navigateTo(url: string) {
@@ -107,24 +94,24 @@ export class UserCartComponent implements OnInit, OnDestroy {
     this.cart.coupon = null;
     this.couponUsed = false;
     this.couponValid = false;
-    this.cart.total = this.subtotal;
     coupon.value = '';
+    this.shopService.updateCart(this.cart);
   }
 
   getDiscountTotal(couponCode?: string) {
     if (this.cart.coupon) {
       const discount = this.applyCoupon(couponCode);
-      this.cart.total = this.subtotal - discount;
-      return this.cart.total;
+      if (discount && discount !== 0) {
+        this.couponValid = true;
+        this.couponUsed = true;
+        this.getOrderSubtotal();
+        return this.cart.total * discount;
+      }
     }
   }
 
-  removeItemFromCart(userId: string, item: Product) {
-    const itemIdx = this.items.indexOf(item);
-    this.items.splice(itemIdx, 1);
-    const list = this.items.map(i => i.productId);
-    console.log('removing item', item, list);
-    this.updateCart(userId, { items: list });
+  removeItemFromCart(item: Product, idx: number) {
+    this.items = this.shopService.removeItemFromCart(item, idx);
   }
 
   increaseQuantity(idx: number) {
@@ -135,25 +122,25 @@ export class UserCartComponent implements OnInit, OnDestroy {
     this.items[idx].options.quantity--;
   }
 
-  updateTotals(userId: string, tax: number) {
-    this.cart.tax = tax;
-    this.cart.total = this.subtotal / tax;
-    this.cart.items = this.items.map(item => item.productId);
-    this.cart.readyForCheckout = this.subtotal > 0;
-    this.updateCart(userId, this.cart);
-    // this.items = this.cart.items.map(item => this.getCartItem(item));
-  }
-
-  updateCart(userId: string, cart: Cart) {
-    this.shopService.updateCart(userId, cart);
+  updateCartTotal() {
+    this.shopService.getCartTotal();
   }
 
   readyForCheckout() {
-    return this.cart.total !== 0;
+    if (this.cart.total !== 0) {
+      this.cart.readyForCheckout = true;
+    } else {
+      this.cart.readyForCheckout = false;
+      return false;
+    }
   }
 
   ngOnInit() {
     this.getCart();
+
+    // this.subtotal = this.shopService.subtotal;
+    // this.taxAmount = this.shopService.taxAmount;
+    // this.couponDiscount = this.shopService.couponDiscount;
   }
 
   ngOnDestroy() {}

@@ -7,61 +7,53 @@
   [ngClass]="navbar.hideMobileMenu ? '' : 'toggled'"
 >
   <!-- Sidebar -->
-  <div class="bg-secondary" id="sidebar-wrapper">
+  <div id="sidebar-wrapper" class="">
     <div class="sidebar-heading">
-      <p class="lead">
-        {{ 'Signed-in as ' + navbar?.username || 'Welcome' }}
+      <p class="lead text-white text-uppercase">
+        Menu
       </p>
     </div>
-    <ul class="list-group list-group-flush m-auto">
-      <div
-        class="navbar p-1 hvr hvr-sweep-to-right"
-        style="background-color: rgba(0, 69, 143, .6);"
+    <ul class="list-group">
+      <li
+        class="list-group-item hvr hvr-sweep-to-right"
+        (click)="navbar.navigateTo('home')"
       >
-        <h5 class="pl-2 text-light">
-          <small><i class="fa fa-phone"></i> 1 844 879 4788 Call Now!!</small>
-        </h5>
-      </div>
-      <li class="nav-item hvr hvr-sweep-to-right">
-        <button
-          (click)="navbar.navigateTo('home')"
-          class="btn btn-link nav-link"
-        >
+        <button class="btn btn-link nav-link">
           <i class="fa fa-home"></i> Home
         </button>
       </li>
       <!-- Link-->
-      <li class="nav-item hvr hvr-sweep-to-right">
-        <button
-          (click)="navbar.navigateTo('faq')"
-          class="btn btn-link nav-link"
-        >
+      <li
+        class="list-group-item hvr hvr-sweep-to-right"
+        (click)="navbar.navigateTo('faq')"
+      >
+        <button class="btn btn-link nav-link">
           <i class="fa fa-info-circle"></i> Faq
         </button>
       </li>
       <!-- Link-->
-      <li class="nav-item hvr hvr-sweep-to-right">
-        <button
-          (click)="navbar.navigateTo('contact')"
-          class="btn btn-link nav-link"
-        >
+      <li
+        class="list-group-item hvr hvr-sweep-to-right"
+        (click)="navbar.navigateTo('contact')"
+      >
+        <button class="btn btn-link nav-link">
           <i class="fa fa-envelope"></i> Contact
         </button>
       </li>
       <!-- Link-->
-      <li class="nav-item hvr hvr-sweep-to-right">
-        <button
-          (click)="navbar.navigateTo('about')"
-          class="btn btn-link nav-link"
-        >
+      <li
+        class="list-group-item hvr hvr-sweep-to-right"
+        (click)="navbar.navigateTo('about')"
+      >
+        <button class="btn btn-link nav-link">
           <i class="fa fa-list"></i> About
         </button>
       </li>
-      <li class="nav-item hvr hvr-sweep-to-right">
-        <button
-          (click)="navbar.navigateTo('store')"
-          class="btn btn-link nav-link"
-        >
+      <li
+        class="list-group-item hvr hvr-sweep-to-right border-0"
+        (click)="navbar.navigateTo('store')"
+      >
+        <button class="btn btn-link nav-link">
           <i class="fa fa-shopping-cart"></i> Store
         </button>
       </li>
@@ -76,3 +68,11 @@
 
 <app-footer class="pt-4"></app-footer>
 <!-- <button class="btn btn-back-to-top animate" data-aos="fade-right"></button> -->
+<div class="d-none d-md-block">
+  <ngx-newsticker
+    id="messageTicker"
+    [title]="'GST Updates'"
+    [events]="sidebarHeaderMessages"
+    [showCounter]="false"
+  ></ngx-newsticker>
+</div>

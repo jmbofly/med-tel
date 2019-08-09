@@ -5,31 +5,22 @@
     <!-- grid column -->
     <div class="col-lg-4">
       <!-- .card -->
-      <div class="card text-left p-0">
-        <div class="card-body">
-          <h4 class="card-title text-bold">{{user?.firstName}} {{user?.lastName}}</h4>
-          <p class="card-text" *ngIf="user?.additionalUserInfo?.memberSince"><strong>Member Since:</strong>
-            {{getTimestamp(user?.additionalUserInfo?.memberSince) | date}}</p>
-        </div>
-      </div>
-      <div class="card card-text-left p-0">
-        <h6 class="card-header"> Your Details </h6>
+      <div class="card p-0 mb-3">
+        <h6 class="card-header text-white bg-gradient-primary"> Your Details </h6>
         <!-- .nav -->
-        <div class="card-body">
-          <button type="button" (click)="toggleTab('account')" class="btn hvr hvr-sweep-to-right btn-primary btn-block mt-2"><i
-              class="fa fa-gears"></i> Account</button>
-          <button type="button" (click)="toggleTab('profile')" class="btn hvr hvr-sweep-to-right btn-primary btn-block mt-2"><i
-              class="fa fa-user"></i> Profile</button>
-          <button type="button" (click)="toggleTab('billing')" class="btn hvr hvr-sweep-to-right btn-primary btn-block mt-2"><i
-              class="fa fa-credit-card"></i> Billing
-          </button>
-          <button type="button" (click)="toggleTab('payments')" class="btn hvr hvr-sweep-to-right btn-primary btn-block mt-2"><i
-              class="fa fa-money"></i> Saved Payments
-          </button>
-          <button type="button" (click)="toggleTab('purchases')" class="btn hvr hvr-sweep-to-right btn-primary btn-block mt-2"><i
-              class="fa fa-history"></i> Purchases
-          </button>
-          
+        <div class="card-content p-0">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item" [ngClass]="(currentTab | async) === 'account' ? 'active2':''" (click)="toggleTab('account')"><i
+              class="fa fa-gears"></i> Account</li>
+            <li class="list-group-item" [ngClass]="(currentTab | async) === 'profile' ? 'active2':''" (click)="toggleTab('profile')"><i
+              class="fa fa-user"></i> Profile</li>
+            <li class="list-group-item" [ngClass]="(currentTab | async) === 'billing' ? 'active2':''" (click)="toggleTab('billing')"><i
+              class="fa fa-credit-card"></i> Billing</li>
+            <li class="list-group-item" [ngClass]="(currentTab | async) === 'payments' ? 'active2':''" (click)="toggleTab('payments')"><i
+              class="fa fa-money"></i> Saved Payments</li>
+            <li class="list-group-item" [ngClass]="(currentTab | async) === 'purchases' ? 'active2':''" (click)="toggleTab('purchases')"><i
+              class="fa fa-history"></i>  Purchases</li>
+          </ul>
         </div>
         <!-- /.nav -->
       </div>
@@ -41,16 +32,20 @@
       <!-- .card -->
       <div class="card p-0 mb-4">
         <div [ngSwitch]="(currentTab | async)">
-          <div *ngSwitchCase="'profile'" class="animated slideInLeft default">
-            <h6 class="card-header" id="publicProfile"><i class="fa fa-user"></i> Public Profile</h6>
+          <div *ngSwitchCase="'profile'" class="animated slideInLeft fast">
+            <h6 class="card-header text-white bg-gradient-primary" id="publicProfile"><i class="fa fa-user"></i> Public Profile</h6>
             <div class="card-body">
               <!-- .media -->
               <div class="mb-3">
                 <!-- avatar -->
                 <div class="media-body">
-                  <h5 class="card-title"> Public avatar </h5>
-                  <div class="user-avatar user-avatar-xl fileinput-button">
-                    <img [src]="user?.photoURL" width="75" alt="User Avatar" class="img-thumbnail mb-1">
+                  <h4 class="card-title text-bold">{{user?.firstName}} {{user?.lastName}}</h4>
+                  <p class="card-text" *ngIf="user?.additionalUserInfo?.memberSince"><strong>Member Since:</strong>
+                    {{getTimestamp(user?.additionalUserInfo?.memberSince) | date}}</p>
+                    <hr>
+                    <p class="card-text"> Public avatar </p>
+                    <div class="user-avatar user-avatar-xl fileinput-button">
+                      <img [src]="user?.photoURL" width="75" alt="User Avatar" class="img-thumbnail mb-1">
                     <div class="">
                       <button class="round-btn-overlay bg-light text-primary"><i class="fa fa-pencil"
                           (click)="editAvatar()"></i></button>
@@ -67,6 +62,8 @@
                     <small>JPG, GIF or PNG 400x400, &lt; 2 MB.</small>
                   </p>
                 </div>
+                
+        
                 <!-- /avatar -->
                 <!-- .media-body -->
                 <!-- /.media-body -->
@@ -129,8 +126,8 @@
               <!-- /form -->
             </div>
           </div>
-          <div *ngSwitchCase="'billing'" class="animated slideInLeft default">
-            <h6 class="card-header" id="billingData"><i class="fa fa-credit-card"></i> Billing Information </h6>
+          <div *ngSwitchCase="'billing'" class="animated slideInLeft fast">
+            <h6 class="card-header text-white bg-gradient-primary" id="billingData"><i class="fa fa-credit-card"></i> Billing Information </h6>
             <!-- .card-body -->
             <div class="card-body">
               <!-- form -->
@@ -190,10 +187,10 @@
                   <!-- /form column -->
                   <!-- form column -->
                   <div class="col-md-9 mb-3">
-                    <select #country id="input03" [(ngModel)]="userUpdates.billing.address.stateOrProvince"
+                    <select #country id="input03" [(ngModel)]="userUpdates.billing.address.country"
                       name="stateOrProvince" class="custom-select" required="">
-                      <option value=""> Select your country </option>
-                      <option value="United States" selected=""> United States </option>
+                      <option value="">Choose...</option>
+                      <option *ngFor="let c of countriesOptions" [value]="c.cc">{{c.cn}}</option>
                     </select>
                   </div>
                   <!-- /form column -->
@@ -238,12 +235,16 @@
                 <!-- form row -->
                 <div class="form-row">
                   <!-- form column -->
-                  <label for="input07" class="col-md-3 mb-3">Province / Region</label>
+                  <label for="state" class="col-md-3 mb-3">State</label>
                   <!-- /form column -->
                   <!-- form column -->
                   <div class="col-md-9 mb-3">
-                    <input type="text" [(ngModel)]="userUpdates.billing.address.stateOrProvince" name="stateOrProvince"
-                      class="form-control" id="input07" placeholder="" required=""> </div>
+                    <select [(ngModel)]="userUpdates.billing.address.stateOrProvince" name="stateOrProvince"
+                      class="form-control" id="state" required>
+                      <option value="">Choose...</option>
+                      <option *ngFor="let s of statesOptions" [value]="s.name">{{s.name}}</option>
+                    </select>
+                    </div>
                   <!-- /form column -->
                 </div>
                 <!-- /form row -->
@@ -272,8 +273,8 @@
             </div>
             <!-- /.card-body -->
           </div>
-          <div *ngSwitchCase="'account'" class="animated slideInLeft default">
-            <h6 class="card-header" id="accountSettings"><i class="fa fa-gears"></i> Account </h6>
+          <div *ngSwitchCase="'account'" class="animated slideInLeft fast">
+            <h6 class="card-header text-white bg-gradient-primary" id="accountSettings"><i class="fa fa-gears"></i> Account </h6>
             <!-- .card-body -->
             <div class="card-body">
               <!-- form -->
@@ -345,14 +346,14 @@
             </div>
             <!-- /.card-body -->
           </div>
-          <div *ngSwitchCase="'payments'" class="animated slideInLeft default">
-            <h6 class="card-header"><i class="fa fa-money"></i> Payment Methods</h6>
+          <div *ngSwitchCase="'payments'" class="animated slideInLeft fast">
+            <h6 class="card-header text-white bg-gradient-primary"><i class="fa fa-money"></i> Payment Methods</h6>
             <div class="card-body">
               <app-payment-methods [billingData]="user?.billing" (updatePaymentMethods)="updatePaymentMethods($event, loader)"></app-payment-methods>
             </div>
           </div>
-          <div *ngSwitchCase="'purchases'" class="animated slideInLeft default">
-            <h6 class="card-header"><i class="fa fa-list"></i> Purchase History</h6>
+          <div *ngSwitchCase="'purchases'" class="animated slideInLeft fast">
+            <h6 class="card-header text-white bg-gradient-primary"><i class="fa fa-list"></i> Purchase History</h6>
             <div class="card-body">
               <app-purchase-history [history]="user?.billing?.purchaseHistory" id="paymentHistory"></app-purchase-history>
             </div>

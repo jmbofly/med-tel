@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Product } from '../../core/products.data';
+import { Product } from '../../core/interfaces/product';
 
 @Component({
   selector: 'app-product-filter',

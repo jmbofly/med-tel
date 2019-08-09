@@ -1,10 +1,9 @@
-// TODO: MouseMove Event control
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { Observable, BehaviorSubject } from 'rxjs';
 import { UserService } from '../core/user.service';
-import { Products } from '../core/products.data';
+import { Products } from '../core/data/products';
 import { Divider, DIVIDERS } from './home.data';
 
 export type RGBValue = [number, number, number];

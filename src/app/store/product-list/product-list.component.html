@@ -1,5 +1,4 @@
 <div
-  *ngIf="loggedIn"
   class="card"
   [hidden]="!showToaster"
   style="position: fixed; top: 75vh; right: 32px; z-index: 2000;"
@@ -22,7 +21,7 @@
 </div>
 <div class="row">
   <div
-    class="col-sm-12 col-md-6 col-lg-4 p-b-50"
+    class="col-sm-12 col-md-6 col-lg-4 p-b-16"
     *ngFor="let item of productList"
   >
     <!-- Block2 -->
@@ -37,38 +36,19 @@
           *ngFor="let cat of item?.category"
           >{{ cat }}</span
         >
-        <div
-          class="block2-overlay trans-0-4 hvr hvr-sweep-to-top hvr-slow active"
-          *ngIf="loggedIn"
-        >
-          <button
-            class="block2-btn-addwishlist trans-0-4"
-            (click)="addToWishList(item.productId)"
-          >
-            <i class="fa fa-heart icon_heart_alt" aria-hidden="true"></i>
-            <i class="fa fa-heart-o icon_heart dis-none" aria-hidden="true"></i>
-          </button>
-
+        <div class="block2-overlay trans-0-4 hvr hvr-sweep-to-top hvr-slow">
           <div class="block2-btn-addcart w-size12">
             <!-- Button -->
             <button
-              *ngIf="loggedIn || !userCart?.items?.includes(item.productId)"
+              *ngIf="!userCart?.items?.includes(item.productId)"
               (click)="addToCart(item.productId)"
-              class="btn btn-secondary"
+              class="btn btn-outline-light"
             >
               Add to Cart
             </button>
           </div>
-        </div>
-        <div
-          class="block2-overlay trans-0-4 hvr hvr-sweep-to-top hvr-slow active"
-          [hidden]="loggedIn"
-        >
-          <div class="block2-btn-addcart w-size12">
-            <!-- Button -->
-            <button class="btn btn-secondary">
-              Create Account
-            </button>
+          <div class="block2-caption" (click)="selectProduct(item?.productId)">
+            {{ item?.productName }}
           </div>
         </div>
       </div>
@@ -77,17 +57,7 @@
         class="card-footer text-center"
         style="border-top: dashed 1px rgba(0,0,0,.23);"
       >
-        <button
-          (click)="selectProduct(item.productId)"
-          class="btn btn-link hvr hvr-sweep-to-right"
-        >
-          {{ item?.productName }}
-        </button>
-        <span
-          disabled
-          class="badge badge-secondary"
-          (click)="selectProduct(item.productId)"
-        >
+        <span class="lead text-dark" (click)="selectProduct(item.productId)">
           ${{ item?.price }}
         </span>
       </div>

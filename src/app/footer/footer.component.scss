@@ -1,9 +1,11 @@
 $secondary: #E7475E;
 $primary: #007bff;
+$primary-gradient: linear-gradient(90deg,
+  rgb(90, 123, 255), rgb(0, 123, 255));
 
 footer.main-footer {
   padding: 7rem 0;
-  background: $primary;
+  background: $primary-gradient;
   color: #fff;
   padding-bottom: 0;
 }

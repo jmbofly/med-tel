@@ -30,7 +30,7 @@ export class FaqComponent implements OnInit {
     inputList: Faq[] = this.faqList,
     outputList: Faq[]
   ) {
-    console.log('faqs', inputList);
+    // console.log('faqs', inputList);
   }
 
   navigateTo(url: string, params = null) {

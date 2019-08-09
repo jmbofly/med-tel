@@ -12,7 +12,11 @@ import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
 import { AuthService } from '../core/auth.service';
 import { UserService } from '../core/user.service';
-import { UserModel, PaymentMethod } from '../core/user.model';
+import { UserModel } from '../core/interfaces/user';
+import { STATES_HASH } from '../core/data/states';
+import { COUNTRIES } from '../core/data/countries';
+import { PaymentMethod } from '../core/interfaces/payment';
+
 
 @Component({
   selector: 'app-account',
@@ -29,7 +33,8 @@ export class AccountComponent implements OnInit, OnDestroy {
   hasPassword: boolean;
   uploading: Observable<boolean>;
   showAvatarEdit = false;
-
+  statesOptions = STATES_HASH;
+  countriesOptions = COUNTRIES;
   showPurchaseHistory = false;
   constructor(
     private router: Router,
@@ -58,7 +63,7 @@ export class AccountComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.passwordsMatch.complete();
     this.currentTab.complete();
-    console.log('destroyed account');
+    // console.log('destroyed account');
   }
 
   private userConfig(user: UserModel) {
@@ -128,16 +133,20 @@ export class AccountComponent implements OnInit, OnDestroy {
     this.showPurchaseHistory = !this.showPurchaseHistory;
   }
 
-  openAccountModal(template: string | TemplateRef<any>, options?: any | NgbModalOptions, callback?: any) {
+  openAccountModal(
+    template: string | TemplateRef<any>,
+    options?: any | NgbModalOptions,
+    callback?: any
+  ) {
     const defaults = {
       ariaLabelledBy: 'account-options',
       backdrop: 'static',
-      size: 'lg'
+      size: 'lg',
     };
-    const opts = {...defaults, ...options};
+    const opts = { ...defaults, ...options };
     const modalRef = this.modalService.open(template, opts);
     modalRef.result.then(response => {
-      console.log('add-payment-method modal response', response);
+      // console.log('add-payment-method modal response', response);
     });
   }
 
@@ -150,8 +159,12 @@ export class AccountComponent implements OnInit, OnDestroy {
   }
 
   updatePaymentMethods(methods: PaymentMethod[], loader) {
-    const expDates = methods.map(method => method.card ? method.card.expiration : new Error('expiration date missing from payment method'));
-    console.log(expDates);
+    const expDates = methods.map(method =>
+      method.card
+        ? method.card.expiration
+        : new Error('expiration date missing from payment method')
+    );
+    // console.log(expDates);
     this.user.billing.savedPaymentMethods = methods;
     this.updateUserData(loader, this.user);
   }

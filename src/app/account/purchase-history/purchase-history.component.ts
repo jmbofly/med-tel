@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { UserModel } from '../../core/user.model';
+import { UserModel } from '../../core/interfaces/user';
 @Component({
   selector: 'app-purchase-history',
   templateUrl: './purchase-history.component.html',

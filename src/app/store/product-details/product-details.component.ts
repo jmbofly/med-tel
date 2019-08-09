@@ -4,7 +4,7 @@ import {
   CarouselComponent as Owl,
   CarouselSlideDirective,
 } from 'ngx-owl-carousel-o';
-import { Product, ProductImage } from '../../core/products.data';
+import { Product, ProductImage } from '../../core/interfaces/product';
 
 @Component({
   selector: 'app-product-details',
@@ -18,7 +18,7 @@ export class ProductDetailsComponent implements OnInit {
   collapseSections = {
     description: true,
     info: true,
-    reviews: true
+    reviews: true,
   };
 
   carouselOptions: Owl['options'] = {
@@ -54,7 +54,7 @@ export class ProductDetailsComponent implements OnInit {
 
   getData(data: SlidesOutputData) {
     this.activeSlides = data;
-    console.log(this.activeSlides);
+    // console.log(this.activeSlides);
   }
 
   getMockImageList(product) {

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { map, filter } from 'rxjs/operators';
+import { map, every, pairwise, filter } from 'rxjs/operators';
 
 import {
   AngularFirestore,
@@ -10,17 +10,19 @@ import {
   DocumentData,
 } from '@angular/fire/firestore';
 import { UserService } from './user.service';
-import { Products, Product, Cart, Coupon } from './products.data';
-import {
-  UserModel,
-  CurrentShopper,
-  BillingModel,
-  PaymentMethod,
-  PurchaseHistory,
-} from './user.model';
+import { UserModel, CurrentShopper } from './interfaces/user';
+import { Products } from './data/products';
+import { Coupon } from './interfaces/coupon';
+import { COUPONS } from './data/coupons';
+import { Product } from './interfaces/product';
+import { Cart } from './interfaces/cart';
+import { BillingModel } from '../core/interfaces/billing';
+import { PaymentMethod } from './interfaces/payment';
+import { Shipping } from './interfaces/shipping';
+import { PurchaseHistory } from './interfaces/purchases';
 import { AuthService } from './auth.service';
 import { User } from 'firebase';
-
+export const OHIO_SALES_TAX = 0.075;
 @Injectable({
   providedIn: 'root',
 })
@@ -38,63 +40,53 @@ export class ShopService {
   /*
    *
    */
-  /** current user unique id */
-  userId: string;
+  /** cart cache initialized */
+  cart: Cart;
   /*
    *
    */
-  /** current user Observable --- NOT the same as currentShopper$!!!!! --- */
-  user$: Observable<UserModel>;
+  /** cart.items cache initialized */
+  items: Product[];
   /*
    *
    */
-  /** current user purchase history */
-  purchaseHistory: UserModel['purchaseHistory'];
+  /** cart cache observable */
+  cart$: BehaviorSubject<Cart>;
   /*
    *
    */
-  /** AngularFirestore Collection of coupons available for use */
-  couponCollection: AngularFirestoreCollection<Coupon>;
+  /** cart subtotal = cart.total + tax - discount */
+  subtotal = 0.0;
   /*
    *
    */
-  /** current shopper Observable. --- NOT the same as user$!!!!! --- */
-  currentShopper$: Observable<CurrentShopper>;
+  /** order tax */
+  taxAmount = 0.0;
   /*
    *
    */
-  /** current user cart Observable */
-  userCart$: Observable<Cart>;
+  /** coupon has been entered */
+  couponUsed = false;
   /*
    *
    */
-  /** current user billing Observable */
-  userBilling$: Observable<BillingModel>;
+  /** coupon is valid */
+  couponValid = false;
   /*
    *
    */
-  /** current user address Observable */
-  userAddress$: Observable<UserModel['address']>;
+  /** coupon name string */
+  couponDiscountString: string;
   /*
    *
    */
-  /** current shopper saved payment methods Observable */
-  userSavedPaymentMethods$: Observable<PaymentMethod[]>;
+  /** coupon discount amount */
+  couponDiscount: number;
   /*
    *
    */
-  /** current user purchase history Observable */
-  userPurchaseHistory$: Observable<PurchaseHistory[]>;
-  /*
-   *
-   */
-  /** current user wish list Observable */
-  userWishList$: Observable<string[]>;
-  /*
-   *
-   */
-  /** guest cart Observable */
-  guestCart$: Observable<Cart>;
+  /** cost of shipping order */
+  shippingCost = 4.99;
   /*
    *
    */
@@ -109,84 +101,126 @@ export class ShopService {
      *
      */
     /** private - inject UserService */
-    private userService: UserService,
-    /*
-     *
-     */
-    /** private - inject AuthService */
-    private authService: AuthService
+    private userService: UserService
   ) {
-    /*
-     *
-     */
-    /** AngularFirestoreCollection of valid coupons */
-    this.couponCollection = afs.collection<Coupon>('coupons');
-    /*
-     *
-     */
-    /** get current user id */
-    authService.getUserId().subscribe(uid => (this.userId = uid));
+    this.cart$ = new BehaviorSubject(null);
   }
   /*
    *
    */
-  /** get current user Observable */
-  getCurrentShopper(userId: string) {
-    return this.afs.doc<UserModel>(`users/${userId}`).valueChanges();
-  }
-  /*
-   *
-   */
-  /** initiate Observable streams on currentShopper$ */
-  initNewShopper(userId?: string) {
-    const currentData = this.getCurrentShopper(this.userId);
-    const currentShopper: CurrentShopper = {
-      user: currentData,
-      cart: currentData.pipe(map(user => user.cart)),
-      billing: currentData.pipe(map(user => user.billing)),
-      address: currentData.pipe(map(user => user.billing.address)),
-      savedPaymentMethods: currentData.pipe(
-        map(user => user.billing.savedPaymentMethods)
-      ),
-      purchaseHistory: currentData.pipe(
-        map(user => user.billing.purchaseHistory)
-      ),
-      wishList: currentData.pipe(map(user => user.wishList)),
+  /** initiate Observable streams */
+  initNewShopper() {
+    this.cart = {
+      items: [],
+      coupon: {
+        couponCode: null,
+        discountAmount: 0,
+        expiresOn: null,
+      },
+      total: 0,
+      tax: 0,
+      readyForCheckout: false,
     };
-    this.currentShopper$ = new Observable(obs => {
-      obs.next(currentShopper);
-    });
-    this.userCart$ = currentShopper.cart;
-    this.userBilling$ = currentShopper.billing;
-    this.userAddress$ = currentShopper.address;
-    this.userSavedPaymentMethods$ = currentShopper.savedPaymentMethods;
-    this.userPurchaseHistory$ = currentShopper.purchaseHistory;
-    this.userWishList$ = currentShopper.wishList;
-    this.user$ = currentShopper.user;
-    return currentShopper;
+    this.items = this.cart.items.map(id => this.getProductDetails(id));
+    this.updateCart(this.cart);
   }
 
-  getProductDetails(productId: string) {
+  addToTotal(price: number) {
+    this.cart.total += price;
+    this.updateCart(this.cart);
+  }
+
+  applyCoupon(couponCode?: string): number {
+    console.log('applying coupon...', this.cart);
+    const coupon = COUPONS.find(coup => coup.couponCode === couponCode);
+    if (coupon) {
+      this.cart.coupon = coupon;
+      this.couponDiscount = coupon.discountAmount;
+      this.couponUsed = true;
+      this.couponValid = true;
+      this.getOrderSubtotal();
+      return this.cart.total * coupon.discountAmount;
+    } else if (!COUPONS.includes({ couponCode })) {
+      this.couponValid = false;
+      this.couponUsed = true;
+      this.couponDiscount = 0;
+    }
+  }
+
+  getOrderSubtotal() {
+    const prices = this.items.map(item => this.getProductPrice(item));
+    const cartTotal = prices.length
+      ? prices.reduce((prev: number, curr: number) => this.addNums(prev, curr))
+      : 0;
+    this.taxAmount = this.getTax(cartTotal, OHIO_SALES_TAX);
+    const discount = this.couponValid ? cartTotal * this.couponDiscount : 0;
+    this.subtotal =
+      this.addNums(cartTotal, this.taxAmount) + this.shippingCost - discount;
+    return {
+      tax: this.taxAmount,
+      shipping: this.shippingCost,
+      subtotal: this.subtotal,
+      discount,
+    };
+  }
+
+  private getTax(total, tax) {
+    return total * tax;
+  }
+
+  private addNums(a: number, b: number) {
+    return a + b;
+  }
+
+  getProductDetails(productId?: string): Product {
+    if (!productId) {
+      return;
+    }
+    console.log('getting cart item details...');
     const item = this.availableProducts.filter(i => i.productId === productId);
-    console.log('filtered product', item[0]);
     return item.length ? item[0] : null;
   }
 
-  updateCart(userId: string, cart: Cart) {
-    this.userService.updateUser(this.userId, { cart });
+  getProductPrice(item?: Product) {
+    console.log('getting cart item total...');
+    if (!item) {
+      return;
+    } else {
+      const count = item.options.quantity;
+      const total = item.price * count;
+      return total;
+    }
   }
 
-  addToCart(userId: string, productId: string, cart: Cart) {
-    cart.items.push(productId);
-    console.log('user cart', cart);
-    this.userService.updateUser(this.userId, { cart });
+  getCartTotal() {
+    const total = this.items
+      .map(item => this.getProductPrice(item))
+      .reduce((prev, curr) => this.addNums(prev, curr), 0);
+    console.log('cart total', this.cart.total);
+    const tax = this.getTax(this.cart.total, OHIO_SALES_TAX);
+    this.cart.total = total;
+    this.cart.tax = tax;
+    this.updateCart(this.cart);
+    return total;
   }
 
-  // applyCoupon(couponCode: string) {
-  //   this.afs.doc('coupons/available').valueChanges().pipe(
-  //     map(coupons => {
-  //       const couponIsValid = coupons.filter(c => c.couponCode === couponCode).length !== 0;
-  //     }),
-  //   )
-  // }
+  addToCart(productId?: string) {
+    this.cart.items.push(productId);
+    this.items = this.cart.items.map(id => this.getProductDetails(id));
+    this.getCartTotal();
+    this.getOrderSubtotal();
+    console.log('item added to cart', productId);
+  }
+  removeItemFromCart(item: Product, idx: number) {
+    this.cart.items.splice(idx, 1);
+    this.updateCart(this.cart);
+    this.items = this.cart.items.map(itm => this.getProductDetails(itm));
+    this.getCartTotal();
+    this.getOrderSubtotal();
+    return this.items;
+  }
+
+  updateCart(cart: Cart) {
+    this.cart$.next(cart);
+  }
 }

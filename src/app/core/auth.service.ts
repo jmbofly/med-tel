@@ -3,7 +3,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestoreDocument } from '@angular/fire/firestore';
 import { auth } from 'firebase/app';
 import { UserService } from '../core/user.service';
-import { UserModel } from '../core/user.model';
+import { UserModel } from '../core/interfaces/user';
 import { map, switchMap } from 'rxjs/operators';
 
 @Injectable({
@@ -46,7 +46,7 @@ export class AuthService {
     return await this.afAuth.auth
       .signInWithEmailAndPassword(email, password)
       .catch(error => {
-        console.log(error);
+        // console.log(error);
       });
   }
 
@@ -65,7 +65,7 @@ export class AuthService {
         return this.getOrAddUser(res.user.uid, res, name, password);
       })
       .catch(error => {
-        console.log(error);
+        // console.log(error);
       });
   }
 
@@ -78,6 +78,6 @@ export class AuthService {
   // Split name string into first and last
   // Set user defaults
   getOrAddUser(userId: string, resData: any, name: string, password = null) {
-    this.userService.getUserData(userId, resData, name, password);
+    // this.userService.getUserData(userId, resData, name, password);
   }
 }

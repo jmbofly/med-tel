@@ -8,6 +8,7 @@ import { StoreComponent } from './store/store.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { UserCartComponent } from './shared/user-cart/user-cart.component';
 import { AccountComponent } from './account/account.component';
+import { ThankYouComponent } from './shared/thank-you/thank-you.component';
 import { AuthGuard } from './core/guards/auth.guard';
 
 const routes: Routes = [
@@ -32,18 +33,16 @@ const routes: Routes = [
     component: StoreComponent,
   },
   {
-    path: 'account',
-    component: AccountComponent,
-    canActivate: [AuthGuard],
-  },
-  {
     path: 'checkout',
     component: CheckoutComponent,
-    canActivate: [AuthGuard],
   },
   {
     path: 'cart',
     component: UserCartComponent,
+  },
+  {
+    path: 'thank-you',
+    component: ThankYouComponent,
   },
   {
     path: 'home',

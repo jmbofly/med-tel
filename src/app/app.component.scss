@@ -1,9 +1,21 @@
+/* THEME COLOR VARIABLES */
+
+$secondary: #3F5E7F;
+$primary: #007bff;
+
+$primary-gradient: linear-gradient(90deg,
+  rgb(90, 123, 255), rgb(0, 123, 255));
+
+#wrapper {}
+
 #sidebar-wrapper {
   min-height: calc(100vh + 64px);
-  position: fixed;
   z-index: 900;
-  top: 70px;
+  top: 65px;
+  position: fixed;
   left: 0;
+  background-image: $primary-gradient;
+  border-right: solid 0.3px rgba(255, 255, 255, .23);
   overflow-x: hidden;
   -webkit-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.23);
   -moz-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.23);
@@ -12,19 +24,46 @@
   -moz-transition: all .25s ease-out;
   -o-transition: all .25s ease-out;
   transition: all .25s ease-out;
-
-  @media (max-width: 760px) {
-    // top: 12.5%;
-  }
 }
 
-#sidebar-wrapper .sidebar-heading {
-  padding: 1.25rem;
-  font-size: 1.2rem;
 
-  #brand-button {
-    z-index: 2002;
+#sidebar-wrapper .sidebar-heading {
+  padding: 1.25rem 0 0 2.75rem;
+}
+
+#messageTicker {
+  ::ng-deep .newsticker {
+    position: fixed;
+    width: 100vw;
+    height: 50px !important;
+    z-index: 1000;
+    bottom: 0;
+    border-color: $primary !important;
+
+    .label {
+      color: red;
+    }
+
+    .nt-title {
+      background-color: $primary !important;
+      height: 50px !important;
+      padding-top: .3rem !important;
+
+      span {
+        border-left-color: $primary !important;
+        top: 15px !important;
+      }
+    }
+
+    .nt-content {
+      left: 12rem !important;
+      height: 50px !important;
+      padding-top: .3rem !important;
+
+
+    }
   }
+
 }
 
 #sidebar-wrapper .list-group {
@@ -41,9 +80,11 @@
   overflow-x: hidden !important;
 }
 
-@media (max-width: 760px) {
+@media (max-width: 990px) {
   #sidebar-wrapper {
     margin-left: -100%;
+    position: fixed;
+    top: 65px;
   }
 
   #wrapper.toggled #sidebar-wrapper {
@@ -56,14 +97,13 @@
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 991px) {
   #sidebar-wrapper {
-    width: 20rem;
-    margin-left: -20rem;
+    width: 14.5rem;
+    margin-left: -14.5rem;
   }
 
   #wrapper.toggled #sidebar-wrapper {
     margin-left: 0;
-
   }
 }

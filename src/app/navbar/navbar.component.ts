@@ -4,6 +4,7 @@ import {
   Input,
   ErrorHandler,
   TemplateRef,
+  ElementRef,
   ViewChild,
 } from '@angular/core';
 
@@ -20,14 +21,19 @@ import {
 import { NgbModal, NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 
 import { AuthService } from '../core/auth.service';
-
-import { UserModel } from '../core/user.model';
-
+import { STATES_HASH as states } from '../core/data/states';
+import { UserModel } from '../core/interfaces/user';
 import { UserService } from '../core/user.service';
+import { ShopService } from '../core/shop.service';
 
 import { Observable, BehaviorSubject } from 'rxjs';
 
-import { map, filter } from 'rxjs/operators';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  map,
+  filter,
+} from 'rxjs/operators';
 
 @Component({
   selector: 'app-navbar',
@@ -37,59 +43,42 @@ import { map, filter } from 'rxjs/operators';
 export class NavbarComponent implements OnInit {
   @ViewChild('loader') loader: any;
   @ViewChild('nav') navbar: any;
-  hideMobileMenu = true;
-  hideLoginMenu: BehaviorSubject<boolean>;
-  userMenu = false;
-  loggedIn: Observable<boolean>;
+  hideMobileMenu: boolean;
   status: string;
+  query: string;
+  search: any;
   navStart: Observable<NavigationStart>;
   navAuthError: Observable<any>;
-  username: string;
   navCart: UserModel['cart'];
   navClientWidth$: BehaviorSubject<number>;
 
   constructor(
-    private authService: AuthService,
     private userService: UserService,
+    private shopService: ShopService,
     private modalService: NgbModal,
     private router: Router,
     public route: ActivatedRoute
   ) {
-    this.hideLoginMenu = new BehaviorSubject(true);
     this.navStart = router.events.pipe(
       filter(evt => evt instanceof NavigationStart)
     ) as Observable<NavigationStart>;
-    this.navAuthError = router.events.pipe(map(evt => console.log(evt)));
-  }
-
-  async createAccount(name: string, email: string, password: string) {
-    await this.authService
-      .createUserWithEmailAndPassword(name, email, password)
-      .then(response => {
-        this.authStateHasChanged();
-        console.log('registration response', response);
-      })
-      .catch(err => console.log('error creating new account', err));
-  }
-
-  login(email: string, password: string) {
-    this.authService
-      .loginWithEmail(email, password)
-      .then(response => {
-        this.authStateHasChanged();
-        // console.log('login response', response);
-      })
-      .catch(err => console.log('error logging in', err));
-  }
-
-  googleLogin() {
-    this.authService
-      .googleLogin()
-      .then(user => {
-        console.log('google user', user);
-        this.authStateHasChanged();
-      })
-      .catch(err => console.log('error logging in with Google', err));
+    this.navAuthError = router.events.pipe(
+      filter(evt => evt instanceof NavigationError)
+    ) as Observable<NavigationError>;
+    this.search = (text$: Observable<string>) =>
+      text$.pipe(
+        debounceTime(200),
+        distinctUntilChanged(),
+        map(term =>
+          term.length < 2
+            ? []
+            : states
+                .filter(
+                  v => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1
+                )
+                .slice(0, 10)
+        )
+      );
   }
 
   animateLogo(): Observable<any> {
@@ -102,89 +91,43 @@ export class NavbarComponent implements OnInit {
     return animate;
   }
 
-  authStateHasChanged(url = '/account') {
-    this.navigateTo(url);
-    this.modalService.dismissAll();
-  }
-
   getMenuPos(targetButton: HTMLElement) {
     return targetButton.offsetLeft;
   }
 
   navigateTo(url: string, urlTree?: any[]) {
+    if (url === '/cart' && !this.navCart.items.length) {
+      return;
+    }
     this.hideMobileMenu = true;
-    this.hideLoginMenu.next(true);
-    this.userMenu = false;
-
     this.loader.load({
       url,
     });
   }
-
-  openLoginModal(content: TemplateRef<any>, setStatus: string) {
-    this.status = setStatus;
-
-    const modalRef = this.modalService.open(content, {
-      ariaLabelledBy: 'modal-login-title',
-      size: 'lg'
-    });
-    modalRef.result.then(results => console.log('modal results', results));
-  }
-
-  async signOut() {
-    if (!this.hideMobileMenu) {
-      this.toggleMobileMenu();
-    }
-    await this.router
-      .navigateByUrl('/')
-      .then(res => {
-        this.navCart = null;
-      })
-      .finally(() => this.authService.signOut())
-      .catch(err => console.log('ERROR', err));
-  }
-
-  toggleLoginMenu() {
-    const hidden = this.hideLoginMenu.getValue();
-    this.hideLoginMenu.next(!hidden);
-  }
-
-  toggleUserMenu() {
-    this.userMenu = !this.userMenu;
-  }
-
   toggleMobileMenu() {
     this.hideMobileMenu = !this.hideMobileMenu;
   }
 
   ngOnInit() {
-    this.navClientWidth$ = new BehaviorSubject(this.navbar.clientWidth);
-    this.navClientWidth$
-    .pipe(
-      map((val, idx) => val !== this.navbar.ClientWidth ? this.navbar.clientHeight : val));
-    this.username = '';
-    this.loggedIn = this.authService.loggedIn();
+    this.hideMobileMenu = true;
+    this.query = '';
+    this.navClientWidth$ = new BehaviorSubject(
+      this.navbar.nativeElement.clientWidth
+    );
+
     this.navStart.subscribe(evt => {
       if (evt) {
-        this.userMenu = this.loader.load();
+        this.loader.load();
       }
     });
-
-    this.authService
-      .getUserId()
-      .subscribe(uid => {
-          if (uid) {
-            this.userService
-              .getUserById(uid)
-              .valueChanges()
-              .subscribe(user => {
-                  if (user) {
-                    this.username =
-                    user.username || user.firstName || 'New User';
-                    this.navCart = user.cart;
-                  }
-                });
-          }
-        });
+    this.shopService.initNewShopper();
+    this.navCart = this.shopService.cart;
+    this.navClientWidth$.subscribe(val => {
+      if (val < 1200) {
+        this.hideMobileMenu = true;
+      } else {
+        this.hideMobileMenu = false;
+      }
+    });
   }
 }

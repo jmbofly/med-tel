@@ -5,10 +5,11 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
 import { UserService } from '../core/user.service';
-import { AuthService } from '../core/auth.service';
 import { ShopService } from '../core/shop.service';
-import { Products, Product } from '../core/products.data';
-import { UserModel } from '../core/user.model';
+import { Products } from '../core/data/products';
+import { Product } from '../core/interfaces/product';
+import { Cart } from '../core/interfaces/cart';
+import { UserModel } from '../core/interfaces/user';
 
 @Component({
   selector: 'app-store',
@@ -22,9 +23,11 @@ export class StoreComponent implements OnInit {
   loggedIn: Observable<boolean>;
   userId: string;
   user: UserModel;
+
+  storeConfig: any;
+  cart: Cart;
   constructor(
     private userService: UserService,
-    private authService: AuthService,
     private modalService: NgbModal,
     private shopService: ShopService,
     private router: Router,
@@ -32,39 +35,8 @@ export class StoreComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.loggedIn = this.authService.loggedIn();
-    this.authService
-      .getUserId()
-      .pipe(
-        map(id => {
-          this.shopService.initNewShopper(id).user.subscribe(user => {
-            this.user = user;
-          });
-        })
-      )
-      .subscribe();
-
+    this.cart = this.shopService.cart;
     this.productList = Array.from(Products);
-    if (this.user) {
-      this.wishList = this.user.wishList;
-    }
-  }
-
-  addToWishList(productId: string, currentList: string[]) {
-    if (!this.user) {
-      return;
-    }
-    const wishList = this.user.wishList;
-    wishList.push(productId);
-    this.userService.updateUser(this.user.uid, { wishList });
-  }
-
-  removeFromWishList(wishList: string[], productId) {
-    const item = wishList.indexOf(productId);
-    wishList.splice(item);
-    this.userService.updateUser(this.user.uid, {
-      ...wishList,
-    });
   }
 
   sortProducts(category: string) {
@@ -82,7 +54,7 @@ export class StoreComponent implements OnInit {
   }
 
   productSelected(event, content: TemplateRef<any>) {
-    console.log('selected product', event);
+    // console.log('selected product', event);
     this.selectedProduct = this.shopService.getProductDetails(event);
     this.openDetailsModal(content, this.selectedProduct);
   }
@@ -95,7 +67,7 @@ export class StoreComponent implements OnInit {
   }
 
   addToCart(productId: string) {
-    this.shopService.addToCart(this.user.uid, productId, this.user.cart);
+    this.shopService.addToCart(productId);
     this.modalService.dismissAll();
   }
 }

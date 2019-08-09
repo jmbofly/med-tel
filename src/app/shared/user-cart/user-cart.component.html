@@ -1,25 +1,56 @@
-<section #cartSection class="cart bgwhite p-t-70 p-b-100" id="cartSection" *ngIf="cart">
-  <div class="container">
-    <div class="pt-4">
-      <div class="text-center p-5 m-auto" [hidden]="items">
-        <h4 class="text-bold">No ITems In Cart!</h4>
-        <button class="btn btn-primary mt-1" (click)="navigateTo('/store')">
-          Go to store
-        </button>
+<section
+  #cartSection
+  class="cart bgwhite pb-4"
+  id="cartSection"
+  *ngIf="cart"
+  [style.padding-top]="isCheckout ? '0' : '70px'"
+>
+  <div [ngClass]="isCheckout ? '' : 'container'">
+    <div class="p-2 pt-0">
+      <div
+      class="card"
+      *ngIf="!items.length"
+      >
+      <div class="card-header m-0">
+        <h4 class="card-title bg-warning text-light">No Items In Cart!</h4>
       </div>
-
-      <div class="col-md-6 order-md-2 m-auto" *ngIf="items">
+      <div class="card-body">
+        <p class="text-center">Please add some items to your cart</p>
+        
+      </div>
+      <div class="card-footer justify-content-center">
+          <button class="btn bg-danger" (click)="navigateTo('/store')">
+            Go to store <i class="fa fa-cart-plus"></i>
+          </button>
+      </div>
+      </div>
+      <hr />
+      <div
+        class="order-md-2 m-auto"
+        *ngIf="items"
+        [ngClass]="isCheckout ? '' : 'col-md-6'"
+        [style.margin-top]="items ? '-4rem' : '0'"
+      >
         <h4 class="d-flex justify-content-between align-items-center mb-3">
           <span class="text-muted">Your cart</span>
-          <span class="badge badge-secondary badge-pill">{{items?.length || 0}}</span>
+          <span class="badge badge-secondary badge-pill">{{
+            items?.length || 0
+          }}</span>
         </h4>
         <ul class="list-group mb-3">
-          <li class="list-group-item d-flex justify-content-between align-items-center  lh-condensed"
-            *ngFor="let item of items; let i = index;">
-            <img [src]="item?.imgUrl" alt="" [width]="80" class="img-thumbnail img-fluid">
+          <li
+            class="list-group-item d-flex justify-content-between align-items-center  lh-condensed"
+            *ngFor="let item of items; let i = index"
+          >
+            <img
+              [src]="item?.imgUrl"
+              alt=""
+              [width]="80"
+              class="img-thumbnail img-fluid"
+            />
             <div class="pull-left">
-              <h6 class="my-0">{{item?.productName}}</h6>
-              <small class="text-muted">{{item?.caption}}</small>
+              <h6 class="my-0">{{ item?.productName }}</h6>
+              <small class="text-muted">{{ item?.caption }}</small>
             </div>
             <!-- <button class="btn-num-product-down color1 flex-c-m size7 bg8 eff2" (click)="decreaseQuantity(i)">
 										<i class="fs-12 fa fa-minus" aria-hidden="true"></i>
@@ -30,63 +61,135 @@
 									<button class="btn-num-product-up color1 flex-c-m size7 bg8 eff2" (click)="increaseQuantity(i)">
 										<i class="fs-12 fa fa-plus" aria-hidden="true"></i>
 									</button> -->
-            <span class="text-muted pt-4">${{item?.price}}</span>
-            <button class="btn btn-link btn-sm p-0" (click)="removeItemFromCart(userId, item)"><i
-                class="fa fa-trash"></i></button>
+            <span class="text-muted pt-4">${{ item?.price }}</span>
+            <button
+              class="btn btn-link btn-sm p-0"
+              (click)="removeItemFromCart(item, i)"
+            >
+              <i class="fa fa-trash"></i>
+            </button>
           </li>
-          <li class="list-group-item d-flex justify-content-between bg-light" *ngIf="couponUsed && couponValid">
+          <li
+            class="list-group-item d-flex justify-content-between bg-light"
+            *ngIf="couponUsed && couponValid"
+          >
             <div class="text-success">
               <h6 class="my-0">Promo code</h6>
-              <small>{{cart?.coupon?.couponCode}}</small>
+              <small>{{ cart?.coupon?.couponCode }}</small>
             </div>
-            <span class="text-success">-${{cart?.coupon?.discountAmount}}</span>
+            <span class="text-success"
+              >{{ cart?.coupon?.discountName }}</span
+            >
           </li>
         </ul>
 
         <form class="card p-0">
           <div class="input-group">
-            <input #coupon type="text" class="form-control" placeholder="Promo code">
+            <input
+              #coupon
+              type="text"
+              class="form-control"
+              placeholder="Promo code"
+            />
             <div class="input-group-addon">
-              <button [hidden]="couponUsed" (click)="applyCoupon(coupon.value)"
-                style="border-radius: 0;" class="btn btn-primary">Redeem</button>
-              <button *ngIf="coupon.value && couponUsed" class="btn btn-secondary"
-                style="border-radius: 0;" (click)="removeCoupon(coupon)">
+              <button
+                [hidden]="couponUsed"
+                (click)="applyCoupon(coupon.value)"
+                style="border-radius: 0;"
+                class="btn btn-primary"
+              >
+                Redeem
+              </button>
+              <button
+                *ngIf="coupon.value && couponUsed"
+                class="btn btn-secondary"
+                style="border-radius: 0;"
+                (click)="removeCoupon(coupon)"
+              >
                 Remove
               </button>
             </div>
           </div>
         </form>
-        <div [hidden]="!couponUsed || couponUsed && couponValid"
-          class="card-body text-center text-light bg-dark p-2 mt-1 fadeInDown animate">Invalid Coupon Code! Check
-          spelling or enter a new code <br />
-          <button class="btn btn-outline-danger" (click)="removeCoupon(coupon)">Remove Coupon</button>
+        <div
+          [hidden]="!couponUsed || (couponUsed && couponValid)"
+          class="card-body text-center text-light bg-dark p-2 mt-1 fadeInDown animate"
+        >
+          Invalid Coupon Code! Check spelling or enter a new code <br />
+          <button class="btn btn-outline-danger" (click)="removeCoupon(coupon)">
+            Remove Coupon
+          </button>
         </div>
       </div>
     </div>
 
-    <div *ngIf="items" class="col-md-6 order-md-2 m-auto pt-4">
+    <div
+      *ngIf="items"
+      class="order-md-2 m-auto pt-4"
+      [ngClass]="isCheckout ? '' : 'col-md-6'"
+    >
       <h4 class="d-flex justify-content-between align-items-end mb-3">
         <span class="text-muted">Cart Totals</span>
       </h4>
 
       <div class="flex-w flex-sb-m p-b-12">
         <span class="s-text18 w-size19 w-full-sm">
-          Subtotal:
+          Total:
         </span>
 
         <span [hidden]="couponUsed" class="m-text21 w-full-sm">
-          {{getCartSubtotal(items) | currency}}
+          {{ cart?.total | currency }}
         </span>
-        <span [hidden]="!couponUsed && !couponValid" class="m-text21 w-full-sm" *ngIf="cart?.coupon?.couponCode">
-          {{getDiscountTotal(cart?.coupon?.couponCode) | currency}}&nbsp; Discounted {{cart?.coupon?.discountAmount}}
+        <span
+          [hidden]="!couponUsed && !couponValid"
+          class="m-text21 w-full-sm"
+          *ngIf="cart?.coupon?.couponCode"
+        >
+          {{ getDiscountTotal(cart?.coupon?.couponCode) | currency }}&nbsp;
+        SAVE {{ cart?.total * cart?.coupon?.discountAmount | currency }}
         </span>
       </div>
-      <div class="d-flex">
-        <button [disabled]="subtotal === 0" class="m-1 btn btn-outline-primary col-md-6 col-sm-12"
-          (click)="navigateTo('/checkout')">
+      <div class="flex-w flex-sb-m p-b-12">
+        <span class="s-text18 w-size19 w-full-sm">
+          Tax:
+        </span>
+        <span class="m-text21 w-full-sm">
+          + {{ taxAmount | currency }}
+        </span>
+      </div>
+      <div class="flex-w flex-sb-m p-b-12">
+        <span class="s-text18 w-size19 w-full-sm">
+          S&H:
+        </span>
+        <span class="m-text21 w-full-sm">
+          + {{ shippingCost | currency }}
+        </span>
+      </div>
+      <div class="flex-w flex-sb-m p-b-12" *ngIf="couponUsed && couponValid">
+        <span class="s-text18 w-size19 w-full-sm">
+          Coupon:
+        </span>
+        <span class="m-text21 w-full-sm">
+          <b class="text-danger text-bold">-</b>{{ cart?.total * cart?.coupon?.discountAmount | currency }}
+        </span>
+      </div>
+      <hr>
+      <div class="flex-w flex-sb-m p-b-12">
+        <span class="s-text18 w-size19 w-full-sm">
+          Subtotal:
+        </span>
+        <span class="m-text21 w-full-sm">
+          {{ subtotal | currency }}
+        </span>
+      </div>
+      <div class="d-flex" *ngIf="!isCheckout && cart?.items?.length">
+        <button
+          class="m-1 btn btn-outline-primary"
+          (click)="navigateTo('/checkout')"
+        >
           Checkout
         </button>
-        <button class="m-1 btn btn-secondary col-md-6 col-sm-12" (click)="navigateTo('/store')">
+        <button class="m-1 btn btn-secondary" (click)="navigateTo('/store')">
           Shop
         </button>
       </div>

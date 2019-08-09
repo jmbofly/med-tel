@@ -13,7 +13,8 @@ import { map } from 'rxjs/operators';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { UserService } from '../../core/user.service';
-import { UserModel, PaymentMethod, Card } from '../../core/user.model';
+import { PaymentMethod, Card } from '../../core/interfaces/payment';
+import { UserModel } from '../../core/interfaces/user';
 
 @Component({
   selector: 'app-payment-methods',
@@ -66,7 +67,6 @@ export class PaymentMethodsComponent implements OnInit, OnDestroy {
       this.updatePaymentMethods.emit(methods);
     }
   }
-  //  TODO: @params {preference: 'default' | 'alternate'}
   formatViewableCardData(
     cardNumber?: Card['cardNumber'],
     email?: string,
@@ -145,7 +145,6 @@ export class PaymentMethodsComponent implements OnInit, OnDestroy {
       const cvv = card.cvv;
       const expired = Date.UTC(exp.year, exp.month) < Date.now();
       // If true check that ALL card fields have values
-      // TODO: check field values are valid
       if (card && !expired && cvv && cvv.length === 3 && card.cardNumber) {
         console.log(expired, card, method);
         return true;
