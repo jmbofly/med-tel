@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { HomeComponent } from './home/home.component';
 import { ContactComponent } from './contact/contact.component';
 import { FaqComponent } from './faq/faq.component';
@@ -48,6 +49,10 @@ const routes: Routes = [
     path: 'home',
     pathMatch: 'full',
     redirectTo: '',
+  },
+  {
+    path: '**',
+    component: PageNotFoundComponent,
   },
 ];
 

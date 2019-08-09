@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
 import { ParallaxModule } from 'ngx-parallax';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
@@ -16,9 +17,10 @@ import { StoreModule } from './store/store.module';
 import { CheckoutModule } from './checkout/checkout.module';
 import { AccountModule } from './account/account.module';
 import { NgxAnimatedGradientModule } from 'ngx-animated-gradient';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, PageNotFoundComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -37,7 +39,8 @@ import { NgxAnimatedGradientModule } from 'ngx-animated-gradient';
     AccountModule,
     NgxAnimatedGradientModule,
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent],
+  entryComponents: [PageNotFoundComponent],
 })
 export class AppModule {}

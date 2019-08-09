@@ -177,7 +177,7 @@ export class PaymentService {
   public payPalConfig(cart, showSuccess): IPayPalConfig {
     return {
       currency: 'USD',
-      clientId: this.payPalClientId,
+      clientId: this.sandBoxClientId,
       createOrderOnClient: data => this.createOrderOnClient(data, cart),
       advanced: {
         commit: 'true',
