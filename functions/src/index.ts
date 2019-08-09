@@ -21,8 +21,48 @@ const mailTransport: nodemailer.Transporter = nodemailer.createTransport({
 // Company name to include in the emails
 const APP_NAME = 'MedTelPlus';
 
-// TODO: Add newsletter subscription method
-/** method for sending email to subscriber */
+/**
+ * method for sending transaction data (invoice) email
+ */
+
+exports.sendNewTransactionToVendor = functions.firestore
+  .document('transactions/{transactionId}')
+  .onCreate((snap, context) => {
+    let transaction: any;
+    if (snap.exists) {
+      transaction = snap.data();
+      return sendNewTransactionToVendor(transaction);
+    } else {
+      return null;
+    }
+  });
+
+async function sendNewTransactionToVendor(transaction: any) {
+  const list: any[] = transaction.order.items.forEach(
+    (item: any) => item.productName
+  );
+  const mailOptions: nodemailer.SendMailOptions = {
+    from: `"medTelPlus" info@medtelplus.com`,
+    to: 'bp.mcfadden@gmail.com',
+    cc: [
+      'jimi@medtelplus.com',
+      /* 'evantsirlin@gmail.com',
+      'kevin@medtelplus.com', */
+    ],
+    subject: 'TEST-----New Order Placed-----TEST',
+    html: `<h3>TEST_-_-_-_-_The following Items have been ordered and need fullfilled/shipped: _-_-_-_-_TEST</h3>
+            <p>${list.join(', ')}</p>
+            <h3>Shipping Address :</h3>
+            <p>${transaction.order.address}</p>`,
+  };
+  await mailTransport.sendMail(mailOptions);
+  console.log('New transaction email sent to vendor');
+  return null;
+}
+
+/**
+ * method for sending email to subscriber
+ */
 exports.sendNewsletterToSubscriber = functions.firestore
   .document(`subscribers/{subscriberId}`)
   .onCreate((snap, context) => {
