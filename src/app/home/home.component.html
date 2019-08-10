@@ -27,18 +27,20 @@
             </p>
           </div>
         </div>
-        <form action="#" class="subscription-form">
-          <div class="form-group">
+        <form class="subscription-form">
+          <div class="input-group p-0">
             <input
             #email
               type="email"
               name="email"
-              placeholder="Enter your email"
+              placeholder="Get Newsletter"
               class="form-control"
             />
-            <button type="button" class="btn border-light btn-primary" (click)="sendNewsletter(email.value)">
-              Get Newsletter
-            </button>
+            <div class="input-group-append">
+              <button type="button" class="btn border-0 btn-primary" (click)="sendNewsletter(email.value)">
+                <i class="fa fa-paper-plane"></i> {{hero.clientWidth > 990 ? 'Get Newsletter': ''}}
+              </button>
+            </div>
           </div>
         </form>
       </div>
@@ -221,17 +223,3 @@
 <app-divider #dividerThree [content]="dividers[2]"></app-divider>
 <!-- end Divider-->
 
-<div *ngIf="newsletterSent" class="jumbotron text-xs-center bg-light m-auto animate slideInRight" style="position: fixed; height: 100%; width: 100%; top: 80px; left: 0;">
-    <button class="btn btn-sm pull-right" (click)="newsletterSent === false">
-      <i class="fa fa-times"></i>
-    </button>
-    <h1 class="display-3">Thank You!</h1>
-    <p class="lead"><strong>Please check your email</strong> for MedTelPlus monthly newsletter.</p>
-    <hr>
-    <p>
-      Having trouble? <a href="mailto:info@medtelplus.com" class="text-small">Contact Us</a>
-    </p>
-    <p class="lead">
-      <button class="btn btn-primary btn-sm" (click)="navigateTo('/')">Back to Home</button>
-    </p>
-  </div>

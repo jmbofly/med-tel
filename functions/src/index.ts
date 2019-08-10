@@ -42,10 +42,10 @@ async function sendNewTransactionToVendor(transaction: any) {
     (item: any) => item.productName
   );
   const mailOptions: nodemailer.SendMailOptions = {
-    from: `"medTelPlus" info@medtelplus.com`,
-    to: 'bp.mcfadden@gmail.com',
+    from: `"MedTelPlus ECommerce." info@medtelplus.com`,
+    to: 'jimi@medtelplus.com',
     cc: [
-      'jimi@medtelplus.com',
+      'kevin@medtelplus.com',
       /* 'evantsirlin@gmail.com',
       'kevin@medtelplus.com', */
     ],

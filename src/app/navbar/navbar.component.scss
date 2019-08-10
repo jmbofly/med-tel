@@ -11,12 +11,12 @@ $primary: #007bff;
 
 .navbar[data-aos="fixed-header"] {
   top: 0;
-  height: 64px;
+  padding: .333rem !important;
   position: absolute;
   width: 100%;
   z-index: 1000;
   background: transparent !important;
-  transition: all 0.75s;
+  transition: all 0.35s;
 
   .navbar-item.btn-link {
     color: rgb(29, 29, 29) !important;
@@ -38,9 +38,17 @@ $primary: #007bff;
     background: #CCE4FF !important;
     position: fixed;
     height: auto;
+    padding: .733rem .533rem !important;
     -webkit-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.23);
     -moz-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.23);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.23);
+
+    // .form-group {
+  //   transition: all .35s ease-out;
+  //   -moz-transition: all .35s ease-out;
+  //   -webkit-transition: all .35s ease-out;
+  //   -o-transition: all .35s ease-out;
+  // }
 
     .header-icon1 {
       color: $secondary !important;

@@ -45,29 +45,22 @@ export class CheckoutComponent implements OnInit {
         admin_area_2: '',
         admin_area_1: '',
         postal_code: '',
+        given_name: '',
+        surname: '',
+        email: '',
       },
-    };
-    this.shippingTo = {
-      email: '',
-      given_name: '',
-      surname: '',
     };
     this.cart = this.shopService.cart;
     this.payPalConfig = this.initConfig(this.cart);
-    if (this.showSuccess) {
-      console.log('success', this.payPalConfig);
-    }
   }
 
-  addShippingAddress(address, name?: any) {
-    name.full_name = `${name.given_name} ${name.surname}`;
-    this.paymentService.addShippingAddress(address, name);
+  addShippingAddress(input: any) {
+    input.full_name = `${input.given_name} ${input.surname}`;
+    this.paymentService.addShippingAddress(input);
   }
 
   initConfig(cart: Cart): IPayPalConfig {
-    const cartItems = cart.items.map(id =>
-      this.shopService.getProductDetails(id)
-    );
+    const cartItems = this.shopService.items;
     const total = cart.total;
     const tax = cart.tax;
     const shipping = this.shopService.shippingCost;
@@ -78,13 +71,9 @@ export class CheckoutComponent implements OnInit {
       subtotal: subtotal.toFixed(2),
       tax: tax.toFixed(2),
       shipping: shipping.toFixed(2),
-      discount: (cart.total * cart.coupon.discountAmount).toFixed(2),
+      discount: (total * cart.coupon.discountAmount).toFixed(2),
     };
-    const payPal = this.paymentService.payPalConfig(
-      unloadCart,
-      this.showSuccess
-    );
-    return payPal;
+    return this.paymentService.payPalConfig(unloadCart, this.showSuccess);
   }
 
   public openPaymentResponse(content?: TemplateRef<any>, options?) {
@@ -101,7 +90,5 @@ export class CheckoutComponent implements OnInit {
     this.showPaymentWindow = !this.showPaymentWindow;
   }
 
-  public openPaymentModal(content: TemplateRef<any> | any, options, data) {
-    this.payPalConfig = this.initConfig(data);
-  }
+  public openPaymentModal(content: TemplateRef<any> | any, options, data) {}
 }

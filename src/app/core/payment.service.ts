@@ -18,6 +18,7 @@ import * as firebase from 'firebase';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { UserService } from './user.service';
+import { ShopService } from './shop.service';
 import { UserModel } from './interfaces/user';
 import { Cart } from './interfaces/cart';
 import { Payment } from './interfaces/payment';
@@ -66,6 +67,7 @@ export class PaymentService {
 
   constructor(
     private userService: UserService,
+    private shopService: ShopService,
     public router: Router,
     private route: ActivatedRoute,
     private ngZone: NgZone
@@ -73,6 +75,7 @@ export class PaymentService {
 
   private createOrderOnClient(data?: any, cart?: any): ICreateOrderRequest {
     this.purchaseItems = cart.items;
+    console.log('creating order on client...', data, cart);
     const orderObject: ICreateOrderRequest = {
       intent: 'CAPTURE',
       purchase_units: [
@@ -102,24 +105,18 @@ export class PaymentService {
         },
       ],
     };
+    console.log('order object: ', orderObject);
     return orderObject;
   }
 
-  addShippingAddress(address: any, name?: any) {
-    this.shippingConfig = { address, name };
+  addShippingAddress(input: any) {
+    this.shippingConfig = input;
   }
 
   private onApprove(data, actions): void {
-    console.log(
-      'onApprove - transaction was approved, but not authorized',
-      data,
-      actions
-    );
+    console.log('onApprove: ', data, actions);
     actions.order.get().then(details => {
-      console.log(
-        'onApprove - you can get full order details inside onApprove: ',
-        details
-      );
+      console.log('onApprove actions.order.get(): ', details);
     });
   }
 
@@ -127,29 +124,26 @@ export class PaymentService {
     data?: IClientAuthorizeCallbackData,
     success?: boolean
   ): Promise<any> {
+    console.log('onAuth start...', data);
     const payer = data.payer;
     const order: any = {
-      email: this.shippingConfig.name.email
-        ? this.shippingConfig.name.email
-        : payer.email_address,
-      name: this.shippingConfig.name
-        ? this.shippingConfig.name
-        : { first: payer.name.given_name, last: payer.name.surname },
-      address: this.shippingConfig.address
-        ? this.shippingConfig.address
-        : data.payer.address,
+      email: payer.email_address,
+      name: payer.name,
+      address: data.payer.address,
       id: payer.payer_id,
       items: this.purchaseItems,
       timestamp: data.create_time,
     };
-    console.log(
-      'onClientAuthorization - you should probably inform your server about completed transaction at this point',
-      data
-    );
+    // if (this.shippingConfig) {
+    //   order.order = this.shippingConfig;
+    // }
+    console.log('onClientAuthorization', data, order);
     success = true;
-    return await this.addNewPayment({ data, order }).then(() => {
-      return this.ngZone.run(() => {
-        this.showSuccess = true;
+    return this.addNewPayment({ data, order }).then(() => {
+      this.ngZone.run(() => {
+        this.showSuccess = success;
+        this.shopService.removeCookie('currentShopperCart');
+        this.shopService.emptyCart();
         return this.router.navigateByUrl('/thank-you', {
           relativeTo: this.route,
         });
@@ -177,7 +171,7 @@ export class PaymentService {
   public payPalConfig(cart, showSuccess): IPayPalConfig {
     return {
       currency: 'USD',
-      clientId: this.sandBoxClientId,
+      clientId: this.payPalClientId,
       createOrderOnClient: data => this.createOrderOnClient(data, cart),
       advanced: {
         commit: 'true',

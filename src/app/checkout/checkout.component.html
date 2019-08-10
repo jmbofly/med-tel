@@ -14,28 +14,27 @@
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label for="firstName">First name(<b class="text-danger">*</b>)</label>
-                <input [(ngModel)]="shippingTo.given_name" type="text" class="form-control" id="firstName" name="first" placeholder="Last" required>
+                <input [(ngModel)]="shippingAddress.given_name" type="text" class="form-control" id="firstName" name="first" placeholder="First" required>
                 <div class="invalid-feedback">
                   Valid first name is required.
                 </div>
               </div>
               <div class="col-md-6 mb-3">
                 <label for="lastName">Last name(<b class="text-danger">*</b>)</label>
-                <input [(ngModel)]="shippingTo.surname" type="text" class="form-control" name="last" id="lastName" placeholder="" required>
+                <input [(ngModel)]="shippingAddress.surname" type="text" class="form-control" name="last" id="lastName" placeholder="Last" required>
                 <div class="invalid-feedback">
                   Valid last name is required.
                 </div>
               </div>
             </div>
-  
-  
+            
             <div class="mb-3">
-              <label for="email">Email <span class="text-muted">(Optional)</span></label>
-              <input [(ngModel)]="shippingTo.email" type="email" class="form-control" id="email" name="email" placeholder="you@example.com">
-              <div class="invalid-feedback">
-                Please enter a valid email address for shipping updates.
-              </div>
+            <label for="email">Email <span class="text-muted">(Optional)</span></label>
+            <input [(ngModel)]="shippingAddress.email" type="email" class="form-control" id="email" name="email" placeholder="you@example.com">
+            <div class="invalid-feedback">
+              Please enter a valid email address for shipping updates.
             </div>
+          </div>
   
             <div class="mb-3">
               <label for="address">Address(<b class="text-danger">*</b>)</label>
@@ -55,7 +54,7 @@
             </div>
             <div class="mb-3">
               <label for="state">State(<b class="text-danger">*</b>)</label>
-                <select class="form-control" [(ngModel)]="shippingAddress.address.admin_area_1"  name="state" id="state" required>
+                <select class="form-control p-0" [(ngModel)]="shippingAddress.address.admin_area_1"  name="state" id="state" required>
                   <option *ngFor="let state of states" [value]="state.abbreviation">{{state.name}}</option>
                 </select>
             </div>
@@ -64,7 +63,7 @@
                 <input [(ngModel)]="shippingAddress.address.postal_code" type="text" max="5" class="form-control" placeholder="City or Province" name="zipcode" id="cityzipcode" required>
             </div>
             <hr>
-            <button class="btn btn-primary" (click)="addShippingAddress(shippingAddress, shippingTo)">Save</button>
+            <button class="btn btn-primary" (click)="addShippingAddress(shippingAddress)">Save</button>
           </form>
           
         </div>

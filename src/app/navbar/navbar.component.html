@@ -1,10 +1,10 @@
 <nav
   #nav
-  class="navbar navbar-nav"
+  class="navbar navbar-nav animated slideInDown"
   data-aos="fixed-header"
   data-aos-offset="1200"
 >
-  <div class="container d-inline-flex">
+  <div class="container-fluid d-inline-flex">
     <!-- Navbar Menu Toggle -->
     <div
       id="nav-icon1"
@@ -30,14 +30,18 @@
     >
       <input
         type="text"
+        id="navSearch"
+        (focus)="animateElement('navSearch', 'width', '420px', 0.35)"
+        (blur)="animateElement('navSearch', 'width', '200px', 0.25)"
         placeholder="Search"
         class="w-full form-control"
+        style="background-clip: inherit;"
         name="queryString"
         [(ngModel)]="query"
         [ngbTypeahead]="search"
       />
       <div class="input-group-addon">
-        <button class="btn btn-primary text-light border-0 outline-">
+        <button class="btn btn-secondary text-light border-0 outline-">
           <i class="fa fa-search"></i>
         </button>
       </div>

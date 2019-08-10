@@ -18,10 +18,8 @@ import { UserModel } from '../core/interfaces/user';
 })
 export class StoreComponent implements OnInit {
   productList: any[];
-  wishList: string[];
   selectedProduct: Product;
   loggedIn: Observable<boolean>;
-  userId: string;
   user: UserModel;
 
   storeConfig: any;
@@ -35,8 +33,12 @@ export class StoreComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.cart = this.shopService.cart;
+    this.shopService.cart$.subscribe(cart => (this.cart = cart));
     this.productList = Array.from(Products);
+  }
+
+  clearCart() {
+    this.shopService.emptyCart();
   }
 
   sortProducts(category: string) {
@@ -53,17 +55,23 @@ export class StoreComponent implements OnInit {
     }
   }
 
-  productSelected(event, content: TemplateRef<any>) {
-    // console.log('selected product', event);
-    this.selectedProduct = this.shopService.getProductDetails(event);
-    this.openDetailsModal(content, this.selectedProduct);
+  async navigateTo(url = '/checkout') {
+    return await this.router.navigateByUrl(url);
   }
 
-  openDetailsModal(content: TemplateRef<any>, product: Product) {
+  async productSelected(event, content: TemplateRef<any>) {
+    // console.log('selected product', event);
+    this.selectedProduct = this.shopService.getProductDetails(event);
+    return await this.openDetailsModal(content, this.selectedProduct);
+  }
+
+  async openDetailsModal(content: TemplateRef<any>, product: Product) {
     const modalRef = this.modalService.open(content, {
       ariaLabelledBy: 'modal-product-title',
     });
-    modalRef.result.then(results => console.log('modal results', results));
+    return await modalRef.result.then(results =>
+      console.log('modal results', results)
+    );
   }
 
   addToCart(productId: string) {

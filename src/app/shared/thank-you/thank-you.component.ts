@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
-
+import { Router } from '@angular/router';
 export interface Response {
   instructions?: string;
   subject?: string;
@@ -11,10 +11,14 @@ export interface Response {
 })
 export class ThankYouComponent implements OnInit {
   @Input() content: Response = {
-    instructions: `Please check your eamil`,
-    subject: `getting more information regarding your inquery.`,
+    instructions: `Please check your email,`,
+    subject: `for more information regarding your purchase or inquiry.`,
   };
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit() {}
+
+  public navigateTo(url = '/') {
+    return this.router.navigateByUrl(url);
+  }
 }

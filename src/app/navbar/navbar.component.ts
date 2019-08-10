@@ -91,8 +91,15 @@ export class NavbarComponent implements OnInit {
     return animate;
   }
 
-  getMenuPos(targetButton: HTMLElement) {
-    return targetButton.offsetLeft;
+  animateElement(
+    elementId: string,
+    styleProp: string,
+    styleVal: string,
+    duration: number
+  ) {
+    const el = document.getElementById(elementId);
+    el.style[styleProp] = styleVal;
+    el.style.transition = styleProp + ` ${duration}s`;
   }
 
   navigateTo(url: string, urlTree?: any[]) {
@@ -121,7 +128,7 @@ export class NavbarComponent implements OnInit {
       }
     });
     this.shopService.initNewShopper();
-    this.navCart = this.shopService.cart;
+    this.shopService.cart$.subscribe(cart => (this.navCart = cart));
     this.navClientWidth$.subscribe(val => {
       if (val < 1200) {
         this.hideMobileMenu = true;

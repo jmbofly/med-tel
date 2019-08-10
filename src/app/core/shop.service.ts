@@ -1,7 +1,10 @@
+// TODO: refactor this.cart as Observables
+// TODO: refactor components and services that use shopService.cart
+
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map, every, pairwise, filter } from 'rxjs/operators';
-
+import { CookieService } from 'ngx-cookie-service';
 import {
   AngularFirestore,
   AngularFirestoreCollection,
@@ -90,6 +93,11 @@ export class ShopService {
   /*
    *
    */
+  /** cookie storage key */
+  cookieKey = 'currentShopperCart';
+  /*
+   *
+   */
   /** constructor */
   constructor(
     /*
@@ -100,8 +108,8 @@ export class ShopService {
     /*
      *
      */
-    /** private - inject UserService */
-    private userService: UserService
+    /** private - inject Ngx CookieService */
+    private cookieService: CookieService
   ) {
     this.cart$ = new BehaviorSubject(null);
   }
@@ -110,19 +118,25 @@ export class ShopService {
    */
   /** initiate Observable streams */
   initNewShopper() {
-    this.cart = {
-      items: [],
-      coupon: {
-        couponCode: null,
-        discountAmount: 0,
-        expiresOn: null,
-      },
-      total: 0,
-      tax: 0,
-      readyForCheckout: false,
-    };
-    this.items = this.cart.items.map(id => this.getProductDetails(id));
-    this.updateCart(this.cart);
+    if (this.checkIfCookie(this.cookieKey)) {
+      this.cart = this.getCookie(this.cookieKey);
+      this.items = this.cart.items.map(item => this.getProductDetails(item));
+      this.getOrderSubtotal();
+      this.getCartTotal();
+    } else {
+      this.cart = {
+        items: [],
+        coupon: {
+          couponCode: null,
+          discountAmount: 0,
+          expiresOn: null,
+        },
+        total: 0,
+        tax: 0,
+        readyForCheckout: false,
+      };
+    }
+    this.updateCart(this.cart, true);
   }
 
   addToTotal(price: number) {
@@ -149,7 +163,7 @@ export class ShopService {
 
   getOrderSubtotal() {
     const prices = this.items.map(item => this.getProductPrice(item));
-    const cartTotal = prices.length
+    const cartTotal = prices[0]
       ? prices.reduce((prev: number, curr: number) => this.addNums(prev, curr))
       : 0;
     this.taxAmount = this.getTax(cartTotal, OHIO_SALES_TAX);
@@ -192,6 +206,18 @@ export class ShopService {
     }
   }
 
+  emptyCart() {
+    this.items = null;
+    this.cart = null;
+    this.subtotal = 0;
+    this.taxAmount = 0;
+    this.couponValid = false;
+    this.couponUsed = true;
+    this.couponDiscount = 0;
+    this.updateCart(null, true);
+    this.initNewShopper();
+  }
+
   getCartTotal() {
     const total = this.items
       .map(item => this.getProductPrice(item))
@@ -204,6 +230,23 @@ export class ShopService {
     return total;
   }
 
+  setCookie(key: string, cart: Cart) {
+    this.cookieService.set(key, JSON.stringify(cart));
+  }
+
+  getCookie(key: string) {
+    const objectString = this.cookieService.get(key);
+    return JSON.parse(objectString);
+  }
+
+  removeCookie(key) {
+    this.cookieService.delete('currentShopperCart');
+  }
+
+  checkIfCookie(key: string) {
+    return this.cookieService.check('currentShopperCart');
+  }
+
   addToCart(productId?: string) {
     this.cart.items.push(productId);
     this.items = this.cart.items.map(id => this.getProductDetails(id));
@@ -213,14 +256,23 @@ export class ShopService {
   }
   removeItemFromCart(item: Product, idx: number) {
     this.cart.items.splice(idx, 1);
-    this.updateCart(this.cart);
-    this.items = this.cart.items.map(itm => this.getProductDetails(itm));
-    this.getCartTotal();
-    this.getOrderSubtotal();
-    return this.items;
+    if (this.cart.items.length) {
+      this.items = this.cart.items.map(itm => this.getProductDetails(itm));
+      this.getCartTotal();
+      this.getOrderSubtotal();
+      return this.items;
+    } else {
+      this.emptyCart();
+      return null;
+    }
   }
 
-  updateCart(cart: Cart) {
-    this.cart$.next(cart);
+  updateCart(cart: Cart, remove = false) {
+    if (!cart && remove) {
+      this.removeCookie(this.cookieKey);
+      return this.cart$.next(cart);
+    }
+    this.setCookie(this.cookieKey, cart);
+    return this.cart$.next(cart);
   }
 }

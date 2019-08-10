@@ -94,6 +94,18 @@
           (productSelected)="productSelected($event, product)"
           (addedToCart)="addToCart($event)"
         ></app-product-list>
+        <hr />
+        <div
+          class="card-footer d-flex justify-content-end"
+          *ngIf="cart?.items?.length"
+        >
+          <button class="btn btn-primary mr-1" (click)="navigateTo()">
+            Checkout <i class="fa fa-check"></i>
+          </button>
+          <button class="btn btn-secondary ml-1" (click)="clearCart()">
+            Clear Cart <i class="fa fa-times-circle"></i>
+          </button>
+        </div>
       </div>
     </div>
   </div>

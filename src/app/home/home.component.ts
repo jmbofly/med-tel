@@ -36,10 +36,7 @@ export class HomeComponent implements OnInit {
 
   async sendNewsletter(email: string) {
     return await this.userService.addNewSubscriber(email).then(ref => {
-      setTimeout(() => {
-        this.newsletterSent = false;
-      }, 5000);
-      this.newsletterSent = true;
+      return this.navigateTo('/thank-you');
     });
   }
 

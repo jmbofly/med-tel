@@ -1,0 +1,29 @@
+TODO:
+  App:
+    ☐ toaster service
+    ☐ sidebar open when screen size is 760px or more @low
+  Home:
+    ☐ style change for shop list item productname div @low
+    ☐ store navigation to shop list items @low
+  Store:
+    ☐ navigate user to login/registration when click on create account @high
+  Account:
+    ☐ change active/hover text color of 'Your Details' menu @low
+  Checkout:
+    ☐ add payment service @today
+    PaymentConfig: @today
+
+  Navbar:
+    Login Modal:
+      ☐ add Facebook @critical
+      ☐ add first and last name inputs @high
+      ☐ add toaster to handle auth errors @high
+      ☐ link to switch to registration modal @low
+
+    Registration Modal:
+      ☐ add Facebook @critical
+      ☐ add password validation for passwords input 1 and 2 @high
+      ☐ add toaster to handle auth errors @high
+      ☐ link to switch to login modal @low
+
+
