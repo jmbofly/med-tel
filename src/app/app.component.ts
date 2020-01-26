@@ -31,42 +31,11 @@ export const MOCK_HEADER_MESSAGE_DATA: string[] = [
   `<b class="text-danger">Sale</b> -- Buy 2 911 Help Now Medical Alerts for the price of 1(ONE)! LIMITED SUPPLY`,
   `<b class="text-danger">Coming Soon</b> -- CGX & PGX Cancer Screening. Fast, Safe, and Easy.`,
 ];
-/**
- *  Routable animations
- */
-export const slideInAnimation = trigger('routeAnimation', [
-  transition('heroes <=> hero', [
-    style({ position: 'relative', transition: 'all .75s' }),
-    query(':enter, :leave', [
-      style({
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%',
-      }),
-    ]),
-    query(':enter', [style({ left: '-100%' })]),
-    query(':leave', animateChild()),
-    group([
-      query(':leave', [
-        animate(
-          '300ms ease-out',
-          style({ transform: 'tanslate3d(100%, 0 0)' })
-        ),
-      ]),
-      query(':enter', [
-        animate('300ms ease-out', style({ transform: 'tanslate3d(0, 0 0)' })),
-      ]),
-    ]),
-    query(':enter', animateChild()),
-  ]),
-]);
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  animations: [slideInAnimation],
 })
 export class AppComponent implements OnInit {
   @ViewChild('navbar') nav: ElementRef<NavbarComponent>;

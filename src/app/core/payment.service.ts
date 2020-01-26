@@ -121,7 +121,7 @@ export class PaymentService {
   }
 
   private async onClientAuthorization(
-    data?: IClientAuthorizeCallbackData,
+    data?: IClientAuthorizeCallbackData | any,
     success?: boolean
   ): Promise<any> {
     console.log('onAuth start...', data);
@@ -129,15 +129,17 @@ export class PaymentService {
     const order: any = {
       email: payer.email_address,
       name: payer.name,
-      address: data.payer.address,
+      address: data.purchase_units[0].shipping.address,
       id: payer.payer_id,
       items: this.purchaseItems,
       timestamp: data.create_time,
     };
-    // if (this.shippingConfig) {
-    //   order.order = this.shippingConfig;
-    // }
-    console.log('onClientAuthorization', data, order);
+    if (this.shippingConfig) {
+      order.order = this.shippingConfig;
+      order.address = this.shippingConfig.address;
+    }
+    (order.address = data.purchase_units[0].shipping.address),
+      console.log('onClientAuthorization', data, order);
     success = true;
     return this.addNewPayment({ data, order }).then(() => {
       this.ngZone.run(() => {
@@ -171,7 +173,7 @@ export class PaymentService {
   public payPalConfig(cart, showSuccess): IPayPalConfig {
     return {
       currency: 'USD',
-      clientId: this.payPalClientId,
+      clientId: this.sandBoxClientId,
       createOrderOnClient: data => this.createOrderOnClient(data, cart),
       advanced: {
         commit: 'true',

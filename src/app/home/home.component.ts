@@ -1,12 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { Observable, BehaviorSubject } from 'rxjs';
 import { UserService } from '../core/user.service';
+import { ToastService } from '../core/toast.service';
 import { Products } from '../core/data/products';
 import { Divider, DIVIDERS } from './home.data';
-
-export type RGBValue = [number, number, number];
 
 @Component({
   selector: 'app-home',
@@ -23,7 +22,8 @@ export class HomeComponent implements OnInit {
   constructor(
     private userService: UserService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public toastService: ToastService
   ) {}
 
   ngOnInit() {
@@ -35,20 +35,29 @@ export class HomeComponent implements OnInit {
   }
 
   async sendNewsletter(email: string) {
+    if (!email) {
+      this.showError('You must provide your email address!', {
+        type: 'danger',
+        dismissible: true,
+      });
+      return;
+    }
     return await this.userService.addNewSubscriber(email).then(ref => {
-      return this.navigateTo('/thank-you');
+      return this.showSuccess(
+        'Thank you for subscribing! Check your email every month for MedTelPlus Newsletter',
+        {
+          type: 'success',
+          dismissible: true,
+        }
+      );
     });
   }
 
-  colors(gradient?: any): RGBValue[] {
-    // console.log('gradient', gradient)
-    return [
-      [0, 123, 255],
-      [46, 112, 222],
-      [115, 97, 174],
-      [161, 86, 142],
-      [207, 76, 110],
-      [231, 71, 94],
-    ];
+  private showError(textOrTpl: string | TemplateRef<any>, options: any = {}) {
+    this.toastService.show(textOrTpl, options);
+  }
+
+  private showSuccess(textOrTpl: string | TemplateRef<any>, options: any = {}) {
+    this.toastService.show(textOrTpl, options);
   }
 }

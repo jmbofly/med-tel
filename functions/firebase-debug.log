@@ -1,0 +1,42 @@
+[debug] [2019-08-15T04:00:03.213Z] ----------------------------------------------------------------------
+[debug] [2019-08-15T04:00:03.219Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Ideliverphones\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve --only functions
+[debug] [2019-08-15T04:00:03.221Z] CLI Version:   7.2.2
+[debug] [2019-08-15T04:00:03.221Z] Platform:      win32
+[debug] [2019-08-15T04:00:03.221Z] Node Version:  v10.15.3
+[debug] [2019-08-15T04:00:03.224Z] Time:          Thu Aug 15 2019 00:00:03 GMT-0400 (Eastern Daylight Time)
+[debug] [2019-08-15T04:00:03.225Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-08-15T04:00:03.251Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-08-15T04:00:03.253Z] > authorizing via signed-in user
+[debug] [2019-08-15T04:00:03.254Z] [iam] checking project med-tel-plus for permissions ["firebase.projects.get"]
+[debug] [2019-08-15T04:00:03.259Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/med-tel-plus:testIamPermissions  
+
+[debug] [2019-08-15T04:00:03.705Z] <<< HTTP RESPONSE 200
+[debug] [2019-08-15T04:00:03.710Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/med-tel-plus  
+ 
+[debug] [2019-08-15T04:00:04.097Z] <<< HTTP RESPONSE 200
+[info] +  functions: Using node@10 from host.
+[debug] [2019-08-15T04:00:04.160Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/med-tel-plus/adminSdkConfig  
+ 
+[debug] [2019-08-15T04:00:04.504Z] <<< HTTP RESPONSE 200
+[info] +  functions: Emulator started at http://localhost:5000
+[info] i  functions: Watching "C:\Users\Ideliverphones\Desktop\websites\med-tel\functions" for Cloud Functions...
+[debug] [2019-08-15T04:00:06.509Z] [runtime-status] Functions runtime initialized. {"cwd":"C:\\Users\\Ideliverphones\\Desktop\\websites\\med-tel\\functions","node_version":"10.15.3"}
+[debug] [2019-08-15T04:00:06.510Z] [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-08-15T04:00:06.520Z] [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.2.0","resolution":"C:\\Users\\Ideliverphones\\Desktop\\websites\\med-tel\\functions\\node_modules\\firebase-admin\\lib\\index.js"}
+[debug] [2019-08-15T04:00:06.525Z] [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.0.2","resolution":"C:\\Users\\Ideliverphones\\Desktop\\websites\\med-tel\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[debug] [2019-08-15T04:00:06.528Z] [runtime-status] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.0.2","resolution":"C:\\Users\\Ideliverphones\\Desktop\\websites\\med-tel\\functions\\node_modules\\firebase-functions\\lib\\index.js"}
+[warn] !  TypeError: Cannot read property 'email' of undefined
+    at Object.<anonymous> (C:\Users\Ideliverphones\Desktop\websites\med-tel\functions\lib\index.js:8:42)
+    at Module._compile (internal/modules/cjs/loader.js:701:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:712:10)
+    at Module.load (internal/modules/cjs/loader.js:600:32)
+    at tryModuleLoad (internal/modules/cjs/loader.js:539:12)
+    at Function.Module._load (internal/modules/cjs/loader.js:531:3)
+    at Module.require (internal/modules/cjs/loader.js:637:17)
+    at require (internal/modules/cjs/helpers.js:22:18)
+    at C:\Users\Ideliverphones\AppData\Roaming\npm\node_modules\firebase-tools\lib\emulator\functionsEmulatorRuntime.js:660:33
+    at Generator.next (<anonymous>)
+[warn] !  We were unable to load your functions code. (see above)
+   - It appears your code is written in Typescript, which must be compiled before emulation.
+   - You may be able to run "npm run build" in your functions directory to resolve this.

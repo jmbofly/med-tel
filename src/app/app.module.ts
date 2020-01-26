@@ -18,6 +18,7 @@ import { CheckoutModule } from './checkout/checkout.module';
 import { AccountModule } from './account/account.module';
 import { NgxAnimatedGradientModule } from 'ngx-animated-gradient';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { ToastsModule } from './toasts/toasts.module';
 
 @NgModule({
   declarations: [AppComponent, PageNotFoundComponent],
@@ -38,6 +39,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     CheckoutModule,
     AccountModule,
     NgxAnimatedGradientModule,
+    ToastsModule,
   ],
   providers: [CookieService],
   bootstrap: [AppComponent],

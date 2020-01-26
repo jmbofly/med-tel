@@ -19,7 +19,6 @@ import { LoaderComponent } from './loader/loader.component';
 import { ParallaxDirective } from './directives/parallax.directive';
 import { BrandButtonComponent } from './brand-button/brand-button.component';
 import { PaymentMethodsComponent } from './payment-methods/payment-methods.component';
-
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 import { UserCartComponent } from './user-cart/user-cart.component';
 @NgModule({

@@ -34,6 +34,7 @@ export class LoaderComponent implements OnInit {
         }, 1000);
       }
     });
+    window.scrollTo(0, 0);
     return false;
   }
 

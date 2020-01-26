@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "scripts": {
     "ng": "ng",
+    "serve": "cd functions && npm run build && cd .. && firebase serve",
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
@@ -20,7 +21,7 @@
     "@angular/platform-browser": "~7.2.0",
     "@angular/platform-browser-dynamic": "~7.2.0",
     "@angular/router": "~7.2.0",
-    "@ng-bootstrap/ng-bootstrap": "^4.1.1",
+    "@ng-bootstrap/ng-bootstrap": "^4.2.1",
     "@sentry/browser": "^5.5.0",
     "@sentry/node": "^5.5.0",
     "angularfire2": "^5.2.1",

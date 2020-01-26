@@ -3,11 +3,7 @@
 <header class="header">
   <app-navbar #navbar></app-navbar>
 </header>
-<div
-  class="d-flex"
-  id="wrapper"
-  [ngClass]="navbar.hideMobileMenu ? '' : 'toggled'"
->
+<div class="d-flex" id="wrapper" [ngClass]="navbar.hideMobileMenu ? '' : 'toggled'">
   <!-- Sidebar -->
   <div id="sidebar-wrapper" class="">
     <div class="sidebar-heading">
@@ -16,66 +12,56 @@
       </p>
     </div>
     <ul class="list-group">
-      <li
-        class="list-group-item hvr hvr-sweep-to-right"
-        (click)="navbar.navigateTo('home')"
-      >
+      <li class="list-group-item hvr hvr-sweep-to-right" (click)="navbar.navigateTo('home')">
         <button class="btn btn-link nav-link">
           <i class="fa fa-home"></i> Home
         </button>
       </li>
       <!-- Link-->
-      <li
-        class="list-group-item hvr hvr-sweep-to-right"
-        (click)="navbar.navigateTo('faq')"
-      >
+      <li class="list-group-item hvr hvr-sweep-to-right" (click)="navbar.navigateTo('about')">
         <button class="btn btn-link nav-link">
-          <i class="fa fa-info-circle"></i> Faq
+          <i class="fa fa-list"></i> About
         </button>
       </li>
       <!-- Link-->
-      <li
-        class="list-group-item hvr hvr-sweep-to-right"
-        (click)="navbar.navigateTo('contact')"
-      >
+      <li class="list-group-item hvr hvr-sweep-to-right" (click)="navbar.navigateTo('contact')">
         <button class="btn btn-link nav-link">
           <i class="fa fa-envelope"></i> Contact
         </button>
       </li>
       <!-- Link-->
-      <li
-        class="list-group-item hvr hvr-sweep-to-right"
-        (click)="navbar.navigateTo('about')"
-      >
+      <li class="list-group-item hvr hvr-sweep-to-right" (click)="navbar.navigateTo('faq')">
         <button class="btn btn-link nav-link">
-          <i class="fa fa-list"></i> About
+          <i class="fa fa-info-circle"></i> Faq
         </button>
       </li>
-      <li
-        class="list-group-item hvr hvr-sweep-to-right border-0"
-        (click)="navbar.navigateTo('store')"
-      >
+      <!-- Link-->
+      <li class="list-group-item hvr hvr-sweep-to-right border-0" (click)="navbar.navigateTo('store')">
         <button class="btn btn-link nav-link">
           <i class="fa fa-shopping-cart"></i> Store
         </button>
       </li>
+      <!-- Link-->
+      <a href="https://blog.medtelplus.com" target="_blank" rel="noopener noreferrer">
+        <li class="list-group-item hvr hvr-sweep-to-right">
+          <button class="btn btn-link nav-link">
+            <i class="fa fa-info-circle"></i> Blog
+          </button>
+        </li>
+      </a>
     </ul>
   </div>
   <!-- /#sidebar-wrapper -->
   <!-- Page Content -->
   <main #wrapper id="page-content-wrapper">
-    <router-outlet #routerOutlet="outlet" id="mainContent"></router-outlet>
+    <router-outlet id="mainContent"></router-outlet>
   </main>
 </div>
 
 <app-footer class="pt-4"></app-footer>
 <!-- <button class="btn btn-back-to-top animate" data-aos="fade-right"></button> -->
 <div class="d-none d-md-block">
-  <ngx-newsticker
-    id="messageTicker"
-    [title]="'GST Updates'"
-    [events]="sidebarHeaderMessages"
-    [showCounter]="false"
-    ><i class="fa fa-user"></i
-  ></ngx-newsticker>
+  <ngx-newsticker id="messageTicker" [title]="'GST Updates'" [events]="sidebarHeaderMessages" [showCounter]="false"><i
+      class="fa fa-user"></i></ngx-newsticker>
 </div>
+<app-toasts></app-toasts>

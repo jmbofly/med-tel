@@ -65,6 +65,7 @@ export class NavbarComponent implements OnInit {
     this.navAuthError = router.events.pipe(
       filter(evt => evt instanceof NavigationError)
     ) as Observable<NavigationError>;
+    const stateNames = states.map(state => state.name.toLowerCase());
     this.search = (text$: Observable<string>) =>
       text$.pipe(
         debounceTime(200),
@@ -72,10 +73,8 @@ export class NavbarComponent implements OnInit {
         map(term =>
           term.length < 2
             ? []
-            : states
-                .filter(
-                  v => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1
-                )
+            : stateNames
+                .filter(v => v.indexOf(term.toLowerCase()) > -1)
                 .slice(0, 10)
         )
       );
@@ -129,12 +128,12 @@ export class NavbarComponent implements OnInit {
     });
     this.shopService.initNewShopper();
     this.shopService.cart$.subscribe(cart => (this.navCart = cart));
-    this.navClientWidth$.subscribe(val => {
-      if (val < 1200) {
-        this.hideMobileMenu = true;
-      } else {
-        this.hideMobileMenu = false;
-      }
-    });
+    // this.navClientWidth$.subscribe(val => {
+    //   if (val < 1200) {
+    //     this.hideMobileMenu = true;
+    //   } else {
+    //     this.hideMobileMenu = false;
+    //   }
+    // });
   }
 }
