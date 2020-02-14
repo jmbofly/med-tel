@@ -56,7 +56,7 @@ export class AppComponent implements OnInit {
 
   colors(gradient?: any): RGBValue[] {
     // console.log('gradient', gradient)
-    return [
+    return gradient ? gradient : [
       [0, 123, 255],
       [0, 123, 255],
       [46, 112, 222],
