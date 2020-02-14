@@ -25,6 +25,7 @@ import { Shipping } from './interfaces/shipping';
 import { PurchaseHistory } from './interfaces/purchases';
 import { AuthService } from './auth.service';
 import { User } from 'firebase';
+import 'firebase/firestore';
 export const OHIO_SALES_TAX = 0.075;
 @Injectable({
   providedIn: 'root',

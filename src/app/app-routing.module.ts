@@ -24,6 +24,7 @@ const routes: Routes = [
   {
     path: 'faq',
     component: FaqComponent,
+
   },
   {
     path: 'contact',
@@ -60,4 +61,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

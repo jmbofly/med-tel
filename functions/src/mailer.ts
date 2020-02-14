@@ -4,7 +4,6 @@ import * as emailTemplates from 'email-templates';
 export class Mailer {
   template: any = null;
   transport: any = null;
-  constructor() {}
   public init(config: any) {
     this.template = new emailTemplates(config.views);
     this.transport = nodemailer.createTransport(config.transport);

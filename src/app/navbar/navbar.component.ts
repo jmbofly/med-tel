@@ -41,8 +41,8 @@ import {
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
-  @ViewChild('loader') loader: any;
-  @ViewChild('nav') navbar: any;
+  @ViewChild('loader', { static: true }) loader: any;
+  @ViewChild('nav', { static: true }) navbar: any;
   hideMobileMenu: boolean;
   status: string;
   query: string;

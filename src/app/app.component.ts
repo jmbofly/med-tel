@@ -38,7 +38,7 @@ export const MOCK_HEADER_MESSAGE_DATA: string[] = [
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  @ViewChild('navbar') nav: ElementRef<NavbarComponent>;
+  @ViewChild('navbar', { static: true }) nav: ElementRef<NavbarComponent>;
   title = 'MedTelPlus';
   sidebarHeaderMessages: any;
   constructor() {

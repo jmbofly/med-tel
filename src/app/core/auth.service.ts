@@ -5,7 +5,7 @@ import { auth } from 'firebase/app';
 import { UserService } from '../core/user.service';
 import { UserModel } from '../core/interfaces/user';
 import { map, switchMap } from 'rxjs/operators';
-
+import 'firebase/firestore';
 @Injectable({
   providedIn: 'root',
 })
@@ -17,7 +17,7 @@ export class AuthService {
   constructor(
     public afAuth: AngularFireAuth,
     public userService: UserService
-  ) {}
+  ) { }
 
   async googleLogin() {
     const provider = new auth.GoogleAuthProvider();

@@ -28,7 +28,7 @@ import { Coupon } from './interfaces/coupon';
 import { Contact } from './interfaces/contact';
 import { BillingModel } from './interfaces/billing';
 import { Product } from './interfaces/product';
-
+import 'firebase/firestore';
 @Injectable({
   providedIn: 'root',
 })
@@ -71,7 +71,7 @@ export class PaymentService {
     public router: Router,
     private route: ActivatedRoute,
     private ngZone: NgZone
-  ) {}
+  ) { }
 
   private createOrderOnClient(data?: any, cart?: any): ICreateOrderRequest {
     this.purchaseItems = cart.items;
