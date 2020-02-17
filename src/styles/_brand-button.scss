@@ -1,0 +1,126 @@
+// SVG ANIMATION
+
+.svg-container {
+
+    #brand-button {
+        border-top-color: none !important;
+border-bottom-color: none !important;
+border-left-color: none !important;
+border-right-color: none !important;
+text-decoration-color: none !important;
+border-image: none !important;
+outline: none !important;
+    }
+
+    &.fin:not(.show-on-init),
+    &:hover:not(.show-on-init),
+    &:focus:not(.show-on-init) {
+
+        .path-1 {
+            stroke-dashoffset: 0;
+            fill: rgba(255, 255, 255, .5);
+            stroke-width: 1px;
+
+        }
+
+        .path-2 {
+            stroke-dashoffset: 0;
+            fill: $primary;
+            stroke: rgba(255, 255, 255, .5);
+            transform: translateX(0);
+            -moz-transform: translateX(0);
+            -webit-transform: translateX(0);
+        }
+
+        .path-3 {
+            fill: #000;
+            stroke-dashoffset: 0;
+            stroke-width: .9px;
+        }
+    }
+
+    &.show-on-init {
+        .path-1 {
+            stroke-dashoffset: 0;
+            fill: rgba(255, 255, 255, .5);
+            stroke-width: 1px;
+
+        }
+
+        .path-2 {
+            stroke-dashoffset: 0;
+            fill: $primary;
+            stroke: rgba(255, 255, 255, .5);
+            transform: translateX(0);
+            -moz-transform: translateX(0);
+            -webit-transform: translateX(0);
+        }
+
+        .path-3 {
+            fill: $primary;
+            stroke-dashoffset: 0;
+            stroke-width: .9px;
+        }
+    }
+}
+
+
+.aos-animate[data-aos="fixed-header"] {
+    .path-1 {
+        stroke-dashoffset: 0;
+        fill: $primary;
+        stroke: none;
+        stroke-width: 1px;
+    }
+
+    .path-2 {
+        stroke-dashoffset: 0;
+        fill: $primary;
+        transform: translateX(0);
+        -moz-transform: translateX(0);
+        -webit-transform: translateX(0);
+    }
+
+    .path-3 {
+        fill: $primary;
+        stroke-dashoffset: 0;
+        stroke-width: .9px;
+    }
+}
+
+// Element init styles
+.path {
+    fill: none;
+    stroke: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.path-1 {
+    stroke: #131313;
+    stroke-dasharray: 200;
+    stroke-dashoffset: 200;
+    transition: .65s linear .5s;
+}
+
+.path-2 {
+    fill: none;
+    stroke-dasharray: 200;
+    stroke-dashoffset: 200;
+    transition: .25s ease-out;
+    transform: translateX(-100%);
+    -moz-transform: translateX(-100%);
+    -webit-transform: translateX(-100%);
+}
+
+.path-3 {
+    stroke: rgba(0, 0, 0, 65);
+    fill: $primary;
+    stroke-width: .76px;
+    stroke-dasharray: 100 20;
+    stroke-dashoffset: 100;
+    transition: 3s ease-in-out;
+    transform: translateX(-100%);
+    -moz-transform: translateX(-100%);
+    -webit-transform: translateX(-100%);
+}

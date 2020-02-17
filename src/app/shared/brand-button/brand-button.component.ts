@@ -22,10 +22,9 @@ export class BrandButtonComponent implements OnInit {
   ngOnInit() {
     const path = document.getElementById('logo-container');
     const classList = path.classList;
-    const svg = this.animateSvg(path, classList);
     this.widthIsFull.next(this.logoHidden);
     if (this.showOnInit) {
-      setTimeout(svg, 0);
+      setTimeout(this.animateSvg(path, classList), 0);
     } else {
       setTimeout(() => classList.add('fin'), 500);
     }

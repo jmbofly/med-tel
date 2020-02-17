@@ -25,7 +25,7 @@ import { Cart } from '../../core/interfaces/cart';
   styleUrls: ['./user-cart.component.scss'],
 })
 export class UserCartComponent implements OnInit, OnDestroy {
-  @ViewChild('coupon', { static: false }) coupon: any;
+  @ViewChild('coupon') coupon: any;
   @Input() isCheckout = false;
   private OHIO_SALES_TAX = 0.075;
   cart: Cart;

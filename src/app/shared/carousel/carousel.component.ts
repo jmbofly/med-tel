@@ -17,7 +17,7 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./carousel.component.scss'],
 })
 export class CarouselComponent implements OnInit {
-  @ViewChild('carousel', { static: false }) carousel;
+  @ViewChild('carousel') carousel;
   @Input() section: 'hero' | 'store' | 'testimonial' | 'simple';
   @Input() classes: string[];
   @Input() options: Owl['options'];
