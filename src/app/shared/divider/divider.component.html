@@ -1,30 +1,19 @@
 <!-- Divider Section-->
-<section
-  #section
-  [style.height]="section.clientWidth < 760 ? '450px' : '650px'"
-  class="box-shadow text-center"
-  [ngClass]="dividerColors?.bgColor"
->
-  <div
-    *ngIf="dividerContent.imageURL"
-    [style.height]="section.clientWidth < 760 ? '450px' : '650px'"
-    [style.background-image]="'url(' + dividerContent.imageURL + ')'"
-    class="divider-background-image img-fluid"
-  ></div>
+<section #section [style.height]="'650px'" class="box-shadow text-center"
+  [ngClass]="dividerColors?.bgColor">
+  <div *ngIf="dividerContent.imageURL" [style.height]="'650px'"
+    [style.background-image]="'url(' + dividerContent.imageURL + ')'" class="divider-background-image img-fluid"></div>
 
-  <div class="pt-4">
-    <h2 [ngClass]="dividerColors?.title">
+  <div class="p-4">
+    <h2 [ngClass]="dividerColors?.title" class="font-weight-bold">
       {{ dividerContent?.title }}
     </h2>
     <div class="row">
-      <div class="col-lg-3"></div>
-      <div class="col-lg-6">
-        <p
-          class="lead mt-2 mb-4"
-          [ngClass]="dividerColors?.text"
-          [innerHTML]="dividerContent?.text | safeHtml"
-        ></p>
-        <button class="mt-4 btn-outline-light" [ngClass]="dividerColors?.cta">
+      <!-- <div class="col-lg-3"></div> -->
+      <div class="mx-auto">
+        <p class="lead mt-2 mb-4 px-2" [ngClass]="dividerColors?.text" [innerHTML]="dividerContent?.text | safeHtml"></p>
+        <button class="mt-4 btn-outline-light" [ngClass]="dividerColors?.cta"
+          (click)="navigateTo(dividerContent?.ctaLink)">
           Learn More
         </button>
       </div>

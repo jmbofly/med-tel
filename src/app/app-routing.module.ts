@@ -31,10 +31,6 @@ const routes: Routes = [
     component: ContactComponent,
   },
   {
-    path: 'store',
-    component: StoreComponent,
-  },
-  {
     path: 'checkout',
     component: CheckoutComponent,
   },

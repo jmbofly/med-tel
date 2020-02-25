@@ -43,7 +43,7 @@ export class UserCartComponent implements OnInit, OnDestroy {
     private shopService: ShopService,
     private router: Router,
     public route: ActivatedRoute
-  ) {}
+  ) { }
 
   private getCart() {
     this.shopService.cart$.subscribe();
@@ -143,5 +143,5 @@ export class UserCartComponent implements OnInit, OnDestroy {
     // this.couponDiscount = this.shopService.couponDiscount;
   }
 
-  ngOnDestroy() {}
+  ngOnDestroy() { }
 }

@@ -146,7 +146,7 @@ export class ShopService {
   }
 
   applyCoupon(couponCode?: string): number {
-    console.log('applying coupon...', this.cart);
+    // console.log('applying coupon...', this.cart);
     const coupon = COUPONS.find(coup => coup.couponCode === couponCode);
     if (coupon) {
       this.cart.coupon = coupon;
@@ -191,13 +191,13 @@ export class ShopService {
     if (!productId) {
       return;
     }
-    console.log('getting cart item details...');
+    // console.log('getting cart item details...');
     const item = this.availableProducts.filter(i => i.productId === productId);
     return item.length ? item[0] : null;
   }
 
   getProductPrice(item?: Product) {
-    console.log('getting cart item total...');
+    // console.log('getting cart item total...');
     if (!item) {
       return;
     } else {
@@ -223,7 +223,7 @@ export class ShopService {
     const total = this.items
       .map(item => this.getProductPrice(item))
       .reduce((prev, curr) => this.addNums(prev, curr), 0);
-    console.log('cart total', this.cart.total);
+    // console.log('cart total', this.cart.total);
     const tax = this.getTax(this.cart.total, OHIO_SALES_TAX);
     this.cart.total = total;
     this.cart.tax = tax;
@@ -253,7 +253,7 @@ export class ShopService {
     this.items = this.cart.items.map(id => this.getProductDetails(id));
     this.getCartTotal();
     this.getOrderSubtotal();
-    console.log('item added to cart', productId);
+    // console.log('item added to cart', productId);
   }
   removeItemFromCart(item: Product, idx: number) {
     this.cart.items.splice(idx, 1);

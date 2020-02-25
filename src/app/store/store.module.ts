@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
 
-import { StoreRoutingModule } from './store-routing.module';
 import { StoreComponent } from './store.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { ProductFilterComponent } from './product-filter/product-filter.component';
+import { StoreRoutingModule } from './store-routing.module';
 // import { StoreService } from './store.service';
 
 @NgModule({
@@ -15,11 +15,14 @@ import { ProductFilterComponent } from './product-filter/product-filter.componen
     ProductListComponent,
     ProductFilterComponent,
   ],
-  imports: [SharedModule],
+  imports: [
+    SharedModule,
+    StoreRoutingModule
+  ],
   exports: [
     ProductDetailsComponent,
     ProductListComponent,
-    ProductFilterComponent,
+    ProductFilterComponent
   ],
   entryComponents: [
     ProductDetailsComponent,
@@ -28,4 +31,4 @@ import { ProductFilterComponent } from './product-filter/product-filter.componen
   ],
   // providers: [StoreService]
 })
-export class StoreModule {}
+export class StoreModule { }

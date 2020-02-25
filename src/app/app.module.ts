@@ -28,7 +28,6 @@ import { ToastsModule } from './toasts/toasts.module';
     ParallaxModule,
     SharedModule,
     CoreModule,
-    AppRoutingModule,
     NavbarModule,
     HomeModule,
     ContactModule,
@@ -40,9 +39,10 @@ import { ToastsModule } from './toasts/toasts.module';
     AccountModule,
     NgxAnimatedGradientModule,
     ToastsModule,
+    AppRoutingModule,
   ],
   providers: [CookieService],
   bootstrap: [AppComponent],
   entryComponents: [PageNotFoundComponent],
 })
-export class AppModule {}
+export class AppModule { }

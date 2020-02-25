@@ -3,51 +3,30 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-12 col-md-4 col-lg-3">
-        <div
-          class="card leftbar border-0"
-          data-aos="page-nav-sticky"
-          data-aos-offset="1100"
-        >
+        <div class="card leftbar border-0" data-aos="page-nav-sticky" data-aos-offset="1100">
           <div class="card-header border-top bg-transparent">
             <h4 class="card-title pt-0">
               Categories
             </h4>
           </div>
           <div class="card-body">
-            <button
-              (click)="sortProducts('all')"
-              class="hvr hvr-sweep-to-right btn btn-block nav-link"
-            >
+            <button (click)="sortProducts('all')" class="hvr hvr-sweep-to-right btn btn-block nav-link">
               All
             </button>
 
-            <button
-              (click)="sortProducts('devices')"
-              class="hvr hvr-sweep-to-right btn btn-block nav-link"
-            >
-              Devices
+            <button (click)="sortProducts('gummies')" class="hvr hvr-sweep-to-right btn btn-block nav-link">
+              Gummies
             </button>
-
-            <button
-              disabled
-              (click)="sortProducts('cancer-screening')"
-              class="hvr hvr-sweep-to-right btn btn-block nav-link"
-            >
-              CancerScreening<br />
-              <small class="text-danger">Available soon</small>
+            <button (click)="sortProducts('hard-candy')" class="hvr hvr-sweep-to-right btn btn-block nav-link">
+              Hard Candy
             </button>
-
-            <button
-              (click)="sortProducts('telemedicine')"
-              class="hvr hvr-sweep-to-right btn btn-block nav-link"
-            >
+            <hr>
+            <small class="ml-3 text-danger">Available soon</small>
+            <button (click)="sortProducts('telemedicine')" class="btn btn-block nav-link" disabled>
               TeleMedicine
             </button>
 
-            <button
-              (click)="sortProducts('accessories')"
-              class="hvr hvr-sweep-to-right btn btn-block nav-link"
-            >
+            <button (click)="sortProducts('accessories')" class="btn btn-block nav-link" disabled>
               Accessories
             </button>
           </div>
@@ -86,19 +65,12 @@
 							Showing 1–12 of 16 results
 						</span>
 					</div> -->
-
+        <!-- <router-outlet></router-outlet> -->
         <!-- Products Component -->
-        <app-product-list
-          [userCart]="cart"
-          [productList]="productList"
-          (productSelected)="productSelected($event, product)"
-          (addedToCart)="addToCart($event)"
-        ></app-product-list>
+        <app-product-list [userCart]="cart" [productList]="productList"
+          (productSelected)="productSelected($event, product)" (addedToCart)="addToCart($event)"></app-product-list>
         <hr />
-        <div
-          class="card-footer d-flex justify-content-end"
-          *ngIf="cart?.items?.length"
-        >
+        <div class="card-footer d-flex justify-content-end" *ngIf="cart?.items?.length">
           <button class="btn btn-primary mr-1" (click)="navigateTo()">
             Checkout <i class="fa fa-check"></i>
           </button>
@@ -116,36 +88,19 @@
     <h4 class="modal-title" id="modal-product-title">
       {{ selectedProduct.productName }}
     </h4>
-    <button
-      type="button"
-      class="close"
-      aria-label="Close"
-      (click)="modal.dismiss('Cross click')"
-    >
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-content">
-    <app-product-details
-      [product]="selectedProduct"
-      class="card-body"
-    ></app-product-details>
+    <app-product-details [product]="selectedProduct" class="card-body"></app-product-details>
   </div>
   <div class="modal-footer">
-    <button
-      (click)="addToCart(selectedProduct.productId)"
-      type="button"
-      class="btn btn-primary"
-    >
+    <button (click)="addToCart(selectedProduct.productId)" type="button" class="btn btn-primary">
       Add To Cart
     </button>
-    <button
-      aria-label="Close"
-      (click)="modal.dismiss('Close click')"
-      type="button"
-      class="btn btn-secondary-outline"
-      data-dismiss="modal"
-    >
+    <button aria-label="Close" (click)="modal.dismiss('Close click')" type="button" class="btn btn-secondary-outline"
+      data-dismiss="modal">
       Close
     </button>
   </div>

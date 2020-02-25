@@ -11,7 +11,7 @@ export class BrandButtonComponent implements OnInit {
   @Input() logoHidden = false;
   @Input() height = '44px';
   @Input() width = '300px';
-  @Input() primaryColor?: string;
+  @Input() primaryColor = '#007bff';
   @Input() secondaryColor?: string;
   @Input() showOnInit = true;
   widthIsFull: BehaviorSubject<boolean>;

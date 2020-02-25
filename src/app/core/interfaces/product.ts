@@ -11,6 +11,7 @@ export interface Product {
   price?: number;
   reviews?: ProductReview[];
   tags?: string[];
+  sku?: string;
 }
 
 export class ProductImage {

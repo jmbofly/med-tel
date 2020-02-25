@@ -5,6 +5,8 @@ import {
   CarouselSlideDirective,
 } from 'ngx-owl-carousel-o';
 import { Product, ProductImage } from '../../core/interfaces/product';
+import { ShopService } from 'src/app/core/shop.service';
+import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-product-details',
@@ -12,7 +14,7 @@ import { Product, ProductImage } from '../../core/interfaces/product';
   styleUrls: ['./product-details.component.scss'],
 })
 export class ProductDetailsComponent implements OnInit {
-  @Input() product: Product;
+  @Input() product?: Product;
   imageList: ProductImage[];
   imageListDefault: ProductImage;
   collapseSections = {
@@ -46,7 +48,14 @@ export class ProductDetailsComponent implements OnInit {
   activeSlides: SlidesOutputData;
 
   slidesStore: any[];
-  constructor() {}
+  constructor(private shopService: ShopService, private router: Router, private route: ActivatedRoute) {
+    // this.route.paramMap.subscribe((params: ParamMap) => {
+    //   if (params.keys.length > 0) {
+    //     console.log('store list params', params);
+    //     this.product = this.shopService.getProductDetails(params.get('productId'))
+    //   }
+    // });
+  }
 
   toggleCollapsed(section: string) {
     this.collapseSections[section] = !this.collapseSections[section];

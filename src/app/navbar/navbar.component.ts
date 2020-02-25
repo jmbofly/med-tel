@@ -74,8 +74,8 @@ export class NavbarComponent implements OnInit {
           term.length < 2
             ? []
             : stateNames
-                .filter(v => v.indexOf(term.toLowerCase()) > -1)
-                .slice(0, 10)
+              .filter(v => v.indexOf(term.toLowerCase()) > -1)
+              .slice(0, 10)
         )
       );
   }
@@ -102,7 +102,7 @@ export class NavbarComponent implements OnInit {
   }
 
   navigateTo(url: string, urlTree?: any[]) {
-    if (url === '/cart' && !this.navCart.items.length) {
+    if (url === '/cart' && this.navCart.items.length === 0) {
       return;
     }
     this.hideMobileMenu = true;

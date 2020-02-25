@@ -15,6 +15,45 @@
     color: lighten($primary, 20) !important;
 }
 
+/*[ BACK TO TOP ]
+///////////////////////////////////////////////////////////
+*/
+.btn-back-to-top {
+    position: fixed;
+    width: 40px;
+    height: 40px;
+    bottom: 40px;
+    right: 40px;
+    background-color: $secondary;
+    opacity: 0.5;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    border-radius: 4px;
+    transition: all 0.4s;
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+}
+
+.symbol-btn-back-to-top {
+    font-size: 22px;
+    color: white;
+    line-height: 1em;
+}
+
+.btn-back-to-top:hover {
+    opacity: 1;
+    cursor: pointer;
+}
+
+@media (max-width: 576px) {
+    .btn-back-to-top {
+        bottom: 15px;
+        right: 15px;
+    }
+}
+
 section {
     padding: 7rem 0;
 
@@ -284,12 +323,12 @@ button {
 * =====================================================
 */
 .hero {
-    overflow-x: hidden;
+    overflow: hidden;
     padding-top: 8.5rem;
     background-repeat: no-repeat;
     background-size: cover;
     width: 100%;
-    height: 100vh;
+    height: 80vh;
 
     &:not(.home-page) {
         opacity: .8;
@@ -301,25 +340,74 @@ button {
 
     .hero-heading,
     .lead {
-        color: $white;
+        color: $primary;
+        font-weight: 800;
     }
 
-    @media all and (min-width: 1200px) {}
+}
+
+@media all and (max-width: 760px) {
+
+    .hero,
+    .background {
+        height: calc(90vh - 5rem);
+    }
 }
 
 .background {
     position: absolute;
-    top: 4rem;
-    opacity: .75;
-    background-repeat: no-repeat;
-    width: 100vw;
-    height: calc(100vh - 4rem);
+    top: 5rem;
+    opacity: .45;
+    background-repeat: repeat;
+    width: 100%;
+    overflow: hidden;
+    height: calc(80vh - 5rem);
     background-size: cover;
     background-position: center;
+    background-attachment: fixed;
+
+}
+
+.overlay {
+    position: relative;
+    overflow: hidden;
+}
+
+.panel {
+    margin: 0 auto;
+    width: 100%;
+
+    .panel-images {
+        max-height: 30vh;
+        margin: 3rem auto;
+        display: inline-flex;
+
+        @media (max-width: 760px) {
+            display: none;
+        }
+
+        .panel-image {
+            cursor: pointer !important;
+
+            &:hover {
+                animation: heartBeat 1750ms infinite;
+            }
+        }
+    }
+
+    .panel-body {
+        padding: 0 2rem;
+    }
+
+    .bg-opacity-5 {
+        position: absolute;
+        bottom: 0;
+        background: rgba(0, 0, 0, .5) !important;
+    }
 }
 
 .downArrow {
-    margin: 200px auto 0 auto;
+    margin: 3rem auto;
     color: lighten($primary, 40);
 }
 
@@ -1780,6 +1868,11 @@ a.text-light:focus {
 a.text-dark:hover,
 a.text-dark:focus {
     color: #1d2124 !important;
+}
+
+.badge {
+    border-radius: 0 !important;
+    margin: 0 1px;
 }
 
 .badge-primary {

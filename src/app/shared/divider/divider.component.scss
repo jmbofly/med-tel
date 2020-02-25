@@ -6,16 +6,17 @@
   -moz-background-position: center center;
   -webkit-background-position: center center;
   background-attachment: fixed;
+  background-repeat: no-repeat;
   opacity: .23;
   position: absolute;
   width: 100vw;
   max-height: 650px;
   margin: -5rem 0;
+  overflow: hidden;
   // z-index: ;
 
   @media (max-width: 760px) {
     width: 100vw;
-    max-height: 50%;
   }
 
   @media (min-width: 991px) {

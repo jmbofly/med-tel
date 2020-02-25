@@ -1,8 +1,8 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { map, filter } from 'rxjs/operators';
+import { map, filter, switchMap } from 'rxjs/operators';
 
 import { UserService } from '../core/user.service';
 import { ShopService } from '../core/shop.service';
@@ -30,11 +30,21 @@ export class StoreComponent implements OnInit {
     private shopService: ShopService,
     private router: Router,
     public route: ActivatedRoute
-  ) {}
+  ) {
+    // this.route.paramMap.subscribe(params => {
+    //   console.log('store params', params);
+    //   if (params.keys.length > 0) {
+    //     if (params.has('catId')) {
+    //       this.sortProducts(params.get('catId'))
+    //     }
+    //     console.log('store list params', params);
+    //   }
+    // });
+  }
 
   ngOnInit() {
-    this.shopService.cart$.subscribe(cart => (this.cart = cart));
-    this.productList = Array.from(Products);
+    this.shopService.cart$.subscribe(cart => this.cart = cart);
+    this.productList = this.shopService.availableProducts;
   }
 
   clearCart() {
@@ -42,10 +52,11 @@ export class StoreComponent implements OnInit {
   }
 
   sortProducts(category: string) {
+    const list = this.shopService.availableProducts;
     if (category === 'all') {
-      this.productList = Products;
+      this.productList = list;
     } else {
-      this.productList = this.productList.filter(item => {
+      this.productList = list.filter(item => {
         for (const i of item.category) {
           if (i === category) {
             return item;

@@ -54,6 +54,13 @@ export class AppComponent implements OnInit {
     });
   }
 
+  backToTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    })
+  }
+
   colors(gradient?: any): RGBValue[] {
     // console.log('gradient', gradient)
     return gradient ? gradient : [

@@ -1,32 +1,47 @@
 <!-- Hero Section-->
 <!-- TODO: Hero Slider ??? -->
 <section #hero class="hero home-page bg-gradient-primary">
-  <div style="background-image: url(assets/images/hero-bg.png); opacity: .35" class="background img-fluid"></div>
-  <div class="container">
+  <div style="background-image: url(assets/images/masthead/masthead-bg_1.jpg); opacity: .75" class="background">
+  </div>
+  <div class="overlay container">
     <div class="row align-items-center justify-content-center">
-      <div class="col-lg-6">
-        <h1 class="hero-heading text-uppercase text-center mb-0 animate" data-aos="fade-up">
-          TeleCare.<br />
-          <small>ReInvented.</small>
-        </h1>
+      <div class="col-lg-8 mb-5">
+        <h2 class="hero-heading text-uppercase text-center mb-5 animate" data-aos="fade-up" data-aos-delay="1000">
+          Healthcare, Reinvented
+        </h2>
         <div class="row">
-          <div class="col-lg-12">
-            <p class="lead text-center mt-4 mb-4 animate" data-aos="fade-right" data-aos-delay=".5">
-              Want to Learn more about MedTelPlus products?<br />Subscribe to our monthly newsletter.
-            </p>
-          </div>
-        </div>
-        <form class="subscription-form">
-          <div class="input-group p-0">
-            <input #email type="email" name="email" placeholder="Enter Email" class="form-control" />
-            <div class="input-group-append">
-              <button [disabled]="!email.value && email.value.length < 3" type="button" class="btn border-0 btn-primary"
-                (click)="sendNewsletter(email.value)">
-                <i class="fa fa-paper-plane"></i> {{hero.clientWidth > 990 ? 'Subscribe': ''}}
-              </button>
+          <div class="panel">
+            <div class="panel-body">
+              <h3 class="text-center text-white" data-aos="fade-left" data-aos-delay="500">We provide the highest
+                quality healthcare services as well as many health and accessibility
+                products.
+              </h3>
+              <h5 class="text-white text-center mt-4 mb-4 animate" data-aos="fade-right" data-aos-offset="0"
+                data-aos-delay="1500">
+                Learn more about <span class="text-primary">MedTelPlus</span><br />Subscribe to our
+                newsletter.
+              </h5>
+              <form class="subscription-form">
+                <div class="input-group p-0">
+                  <input #email type="email" name="email" placeholder="Enter Email" class="form-control" />
+                  <div class="input-group-append">
+                    <button [disabled]="!email.value && email.value.length < 3" type="button"
+                      class="btn border-0 btn-secondary" (click)="sendNewsletter(email.value)">
+                      <i class="fa fa-paper-plane"></i> {{hero.clientWidth > 990 ? 'Subscribe': ''}}
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="panel-images">
+              <div class="row">
+                <img *ngFor="let image of panelImages; let idx = index;" data-aos="fade-up" data-aos-delay="idx * 500"
+                  [src]="image.src" [alt]="image.name + ' image'" [title]="image.id"
+                  class="animate panel-image col-md-4" (click)="navigateTo('store')">
+              </div>
             </div>
           </div>
-        </form>
+        </div>
       </div>
     </div>
     <div class="row">
@@ -49,74 +64,28 @@
   </button>
 </div>
 
-<section id="homeBanner" class="banner bgwhite text-center pb-0 pt-0">
+<section class="mt-5 bg-light text-center pb-0 pt-0">
   <div class="container">
     <div class="row">
       <!--  -->
-      <div class="col-sm-10 col-md-8 col-lg-4 m-l-r-auto">
+      <div class="col-sm-10 col-md-8 col-lg-4 mx-auto" *ngFor="let item of products; let i = index;">
         <!-- block1 -->
-        <div class="block1 hov-img-zoom pos-relative m-b-30" *ngFor="let item of bannerRow1Products">
-          <img [src]="item.imgUrl" [alt]="item.productName" />
+        <div class="card">
+          <img class="card-img" [src]="item.imgUrl" [alt]="item.productName" />
 
-          <div class="block1-wrapbtn w-size2">
+          <div class="card-footer">
             <!-- Button -->
-            <a href="#" class="flex-c-m size2 m-text2 bg3 hov1 trans-0-4">
-              {{ item.caption }}
-            </a>
+            {{ item.caption }}
+            <button class="w-100 btn btn-outline-primary py-2" (click)="navigateTo('store')">
+              View
+            </button>
           </div>
         </div>
 
         <!-- block2 -->
       </div>
       <!--  -->
-      <div class="col-sm-10 col-md-8 col-lg-4 m-l-r-auto">
-        <!-- block1 -->
-        <div class="block1 hov-img-zoom pos-relative m-b-30" *ngFor="let item of bannerRow2Products">
-          <img [src]="item.imgUrl" [alt]="item.productName" />
 
-          <div class="block1-wrapbtn w-size2">
-            <!-- Button -->
-            <a href="#" class="flex-c-m size2 m-text2 bg3 hov1 trans-0-4">
-              {{ item.caption }}
-            </a>
-          </div>
-        </div>
-
-        <!-- block2 -->
-      </div>
-      <!--  -->
-      <div class="col-sm-10 col-md-8 col-lg-4 m-l-r-auto">
-        <div class="block1 hov-img-zoom pos-relative m-b-30" *ngFor="let item of bannerRow3Products">
-          <img [src]="item.imgUrl" [alt]="item.productName" />
-
-          <div class="block1-wrapbtn w-size2">
-            <!-- Button -->
-            <a href="#" class="flex-c-m size2 m-text2 bg3 hov1 trans-0-4">
-              {{ item.caption }}
-            </a>
-          </div>
-        </div>
-        <div class="block2 wrap-pic-w pos-relative m-b-30 bg-gray">
-          <div class="block2-content sizefull flex-col-c-m pb-5">
-            <h4 class="m-text4 t-center w-size3 p-b-8">
-              Sign up & get 10% off your first purchase
-            </h4>
-
-            <p class="t-center w-size4">
-              Be the first to know about the best TeleCare and Medical Alert
-              Devices on the market
-            </p>
-
-            <div class="w-size2 p-t-25">
-              <!-- Button -->
-              <button class="flex-c-m size2 bg4 bo-rad-23 hov1 m-text3 trans-0-4"
-                (click)="dividerOne.navigateTo('store')">
-                Sign Up
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </section>
@@ -124,47 +93,20 @@
 <!-- Intro Section-->
 <section class="intro-section">
   <div class="container">
-    <div class="text-center">
-      <h2>
-        Why We're the Best!
-      </h2>
-      <p class="lead text-muted mt-2">
-        With more packages to choose from, MedTelPlus gives you what you
-        need.<br />
-        No fees. No tricks.<br />Period.
-      </p>
-      <button class="btn btn-primary btn-outline-dark" (click)="navigateTo('about')">Learn More</button>
-    </div>
     <div class="row">
-      <div class="card col-lg-4 col-md-12 mt-5 card animate" data-aos="fade-up">
-        <img class="card-img-top" src="assets/images/doctor.png" style="width: 50%;" alt="Doctor Icon" />
-        <div class="card-body text-center">
-          <h4 class="card-title">Trusted Providers</h4>
-          <p class="card-text">
-            Customized Telemedicine that offers the best care from licensed
-            Doctors and Nurses.
-          </p>
-        </div>
+      <div class="col-md-6">
+        <img src="assets/images/doc-pat.jpg" alt="" class="img-fluid">
       </div>
-      <div class="card col-lg-4 col-md-12 mt-5 card animate" data-aos="fade-up">
-        <img class="card-img-top" src="assets/images/police.png" style="width: 50%" alt="Police Officer Icon" />
-        <div class="card-body text-center">
-          <h4 class="card-title">Peace of Mind</h4>
-          <p class="card-text">
-            Get direct contact with a 911 dispatcher.<br />
-            Avoid wasting precious time.
-          </p>
-        </div>
-      </div>
-      <div class="card col-lg-4 col-md-12 mt-5 card animate" data-aos="fade-up">
-        <img class="card-img-top" src="assets/images/agent.png" style="width: 50%" alt="Agent Icon" />
-        <div class="card-body text-center">
-          <h4 class="card-title">24/7 Support</h4>
-          <p class="card-text">
-            Our trained agents are always available, so you're never on your
-            own.
-          </p>
-        </div>
+      <div class="col-md-6 text-center my-auto pt-sm-5">
+        <h2>
+          Why We're the Best!
+        </h2>
+        <p class="lead text-muted mt-2">
+          With more services and products to choose from, MedTelPlus gives you what you
+          need.<br />
+          No hidden fees. No tricks.<br />Period.
+        </p>
+        <button class="btn btn-primary btn-outline-dark" (click)="navigateTo('about')">Learn More</button>
       </div>
     </div>
   </div>
