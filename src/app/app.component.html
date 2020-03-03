@@ -24,9 +24,9 @@
         </button>
       </li> -->
       <!-- Link-->
-      <li class="list-group-item hvr hvr-sweep-to-right" (click)="navbar.navigateTo('contact')">
+      <li class="list-group-item hvr hvr-sweep-to-right" (click)="navbar.navigateTo('store')">
         <button class="btn btn-link nav-link">
-          <i class="fa fa-envelope"></i> Contact
+          <i class="fa fa-shopping-cart"></i> Store
         </button>
       </li>
       <!-- Link-->
@@ -36,9 +36,9 @@
         </button>
       </li> -->
       <!-- Link-->
-      <li class="list-group-item hvr hvr-sweep-to-right border-0" (click)="navbar.navigateTo('store')">
+      <li class="list-group-item hvr hvr-sweep-to-right border-0" (click)="navbar.navigateTo('contact')">
         <button class="btn btn-link nav-link">
-          <i class="fa fa-shopping-cart"></i> Store
+          <i class="fa fa-envelope"></i> Contact
         </button>
       </li>
       <!-- Link-->
@@ -61,8 +61,8 @@
 <app-footer class="pt-4"></app-footer>
 <button class="btn-back-to-top animate" data-aos="fade-up"><i class="fa fa-chevron-up symbol-btn-back-to-top"
     (click)="backToTop()"></i></button>
-<div class="d-none d-md-block">
-  <ngx-newsticker id="messageTicker" [title]="'GST Updates'" [events]="sidebarHeaderMessages" [showCounter]="false"><i
-      class="fa fa-user"></i></ngx-newsticker>
+<div class="d-sm-none d-md-block fixed-bottom">
+  <ngx-newsticker id="messageTicker" [title]="'MedTelPlus'" [events]="sidebarHeaderMessages" [showCounter]="false">
+  </ngx-newsticker>
 </div>
 <app-toasts></app-toasts>

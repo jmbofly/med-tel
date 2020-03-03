@@ -33,10 +33,11 @@ import 'firebase/firestore';
   providedIn: 'root',
 })
 export class PaymentService {
-  private payPalClientId =
+  protected payPalClientId =
     'Aa8Wmt9UpVpXPdrPgBMxPG3ETj8c8DtP_26fa3YCZMxMuGgaHqT8sMnvTGVjsPxkA0KclfI0MOpjFc15';
-  private sandBoxClientId =
+  protected sandBoxClientId =
     'AWXToabbiO7T9KRXdLSHy6loQXvH9FLslq91LS-Ah8dW0C5Mo0hFwMSNfuJG8D3hmFrnRO1wMWDkcAXx';
+  protected stripeKey = `pk_test_9b6go30wgQUtYs7ErElUh5Fy00zgrLxYaE`;
   showSuccess = false;
   purchaseAmount: any;
   /*
@@ -111,6 +112,18 @@ export class PaymentService {
 
   addShippingAddress(input: any) {
     this.shippingConfig = input;
+  }
+
+  getPurchaseUnitItems(cart: Cart) {
+    return cart.items.map((item: Product) => ({
+      name: item.productName,
+      quantity: item.options.quantity,
+      category: 'PHYSICAL_GOODS',
+      unit_amount: {
+        currency_code: 'USD',
+        value: item.price,
+      },
+    }))
   }
 
   private onApprove(data, actions): void {

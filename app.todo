@@ -4,12 +4,18 @@ TODO:
     ✔ sidebar open when screen size is 760px or more @low @done(19-08-14 21:31)
     ☐ search service for site search/ filter
     ☐ image / product sliders
-  Home:
+    ☐ age verification @critical
+    Home:
     ✔ style change for shop list item productname div @low @done(19-08-14 21:32)
     ✔ store navigation to shop list items @low @done(19-08-14 21:32)
-  Store:
+    Store:
+    ☐ crate subscriptions @critical
     ☐ discount / promo code input
+    About:
+      ☐ complete page copy
   Checkout:
+  ☐ update view on any changes to cart @critical 
+  ☐ update cart totals => total is blank @high
     ☐ discount service or function to add discount based on input and reflect in subtotal
     ☐ send email to admin, vendor, and customer on purchase verification
     ✔ add payment service @today @done(19-08-14 21:32)
@@ -18,4 +24,10 @@ TODO:
   Navbar:
     ☐ Add search feature
 
+  Subscriptions:
+    ☐ create a page with route for subscribable services/products
+  
+    Crates:
+      ☐ create crate subscription assets
+      ☐ addat least 3 different crate subscriptions/levels
 

@@ -27,10 +27,10 @@ export type RGBValue = [number, number, number];
  * mock data for header messages
  */
 export const MOCK_HEADER_MESSAGE_DATA: string[] = [
-  `<b class="text-danger">MedTelPlus</b> -- Offering top level care at an affordable price`,
-  `<b class="text-danger">Sale</b> -- Buy 2 911 Help Now Medical Alerts for the price of 1(ONE)! LIMITED SUPPLY`,
-  `<b class="text-danger">Coming Soon</b> -- CGX & PGX Cancer Screening. Fast, Safe, and Easy.`,
-];
+  `<b class="text-danger">MedTelPlus</b> -- Quality Healthcare Products & Solutions`,
+  `<b class="text-danger">NEW</b> -- <a href="/store">CBD Crate Subscription. Delivered every month.</a>`,
+  `<b class="text-danger">Coming Soon</b> -- Telemedicine powered by my911`,
+].map(item => item.trim());
 
 @Component({
   selector: 'app-root',
@@ -89,6 +89,6 @@ export class AppComponent implements OnInit {
   }
 
   outletData(event?: any) {
-    // console.log('evnt', event);
+    console.log('event', event);
   }
 }

@@ -1,4 +1,14 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  Input,
+  Output,
+  EventEmitter,
+  TemplateRef,
+  ElementRef
+} from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import {
   IPayPalConfig,
   ICreateOrderRequest,
@@ -6,6 +16,7 @@ import {
   IOnApproveCallbackData,
   IOnClickCallbackActions,
 } from 'ngx-paypal';
+import { StripeService, StripeCardComponent, ElementOptions, ElementsOptions } from "@nomadreservations/ngx-stripe";
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 import { AuthService } from '../core/auth.service';
@@ -20,21 +31,44 @@ import { STATES_HASH as STATES } from '../core/data/states';
   styleUrls: ['./checkout.component.scss'],
 })
 export class CheckoutComponent implements OnInit {
+  @ViewChild('stripeElement', { static: true }) element: ElementRef<StripeCardComponent> | any;
   userId: string;
   userCart$: Observable<Cart>;
   cart: Cart;
   showSuccess = false;
   payPalConfig: IPayPalConfig;
+  stripeKey = `pk_test_9b6go30wgQUtYs7ErElUh5Fy00zgrLxYaE`;
   showPaymentWindow = false;
   newShippingAddress = false;
   shippingAddress: any;
   shippingTo: any;
   states = STATES;
+  cardOptions: ElementOptions = {
+    style: {
+      base: {
+        iconColor: '#276fd3',
+        color: '#31325F',
+        lineHeight: '40px',
+        fontWeight: 300,
+        fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+        fontSize: '18px',
+        '::placeholder': {
+          color: '#CFD7E0'
+        }
+      }
+    }
+  };
+  elementsOptions: ElementsOptions = {
+    locale: 'en'
+  };
+  error: any;
+  complete = false;
   constructor(
     private userService: UserService,
     private shopService: ShopService,
-    private paymentService: PaymentService
-  ) {}
+    private paymentService: PaymentService,
+    private _stripe: StripeService
+  ) { }
 
   ngOnInit() {
     this.shippingAddress = {
@@ -52,6 +86,37 @@ export class CheckoutComponent implements OnInit {
     };
     this.cart = this.shopService.cart;
     this.payPalConfig = this.initConfig(this.cart);
+  }
+
+  cardUpdated(result) {
+    console.log('updated card', result)
+    this.element = result.element;
+    this.complete = result.card.complete;
+    if (this.complete) {
+      console.log('stripe element', this.element)
+
+      // this._stripe.createToken(this.element, result)
+    }
+    this.error = undefined;
+  }
+
+  keyUpdated() {
+    this._stripe.changeKey(this.stripeKey);
+  }
+
+  getCardToken() {
+    this._stripe.createToken(this.element, {
+      name: 'tested_ca',
+      address_line1: '123 A Place',
+      address_line2: 'Suite 100',
+      address_city: 'Irving',
+      address_state: 'BC',
+      address_zip: 'VOE 1H0',
+      address_country: 'CA'
+    }).subscribe(result => {
+      // Pass token to service for purchase.
+      console.log(result);
+    });
   }
 
   addShippingAddress(input: any) {
@@ -90,5 +155,5 @@ export class CheckoutComponent implements OnInit {
     this.showPaymentWindow = !this.showPaymentWindow;
   }
 
-  public openPaymentModal(content: TemplateRef<any> | any, options, data) {}
+  public openPaymentModal(content: TemplateRef<any> | any, options, data) { }
 }
