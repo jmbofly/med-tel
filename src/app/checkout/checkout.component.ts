@@ -9,13 +9,6 @@ import {
   ElementRef
 } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import {
-  IPayPalConfig,
-  ICreateOrderRequest,
-  IClientAuthorizeCallbackData,
-  IOnApproveCallbackData,
-  IOnClickCallbackActions,
-} from 'ngx-paypal';
 import { StripeService, StripeCardComponent, ElementOptions, ElementsOptions } from "@nomadreservations/ngx-stripe";
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
@@ -25,6 +18,7 @@ import { PaymentService } from '../core/payment.service';
 import { UserService } from '../core/user.service';
 import { Cart } from '../core/interfaces/cart';
 import { STATES_HASH as STATES } from '../core/data/states';
+import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.component.html',
@@ -36,34 +30,20 @@ export class CheckoutComponent implements OnInit {
   userCart$: Observable<Cart>;
   cart: Cart;
   showSuccess = false;
-  payPalConfig: IPayPalConfig;
   stripeKey = `pk_test_9b6go30wgQUtYs7ErElUh5Fy00zgrLxYaE`;
   showPaymentWindow = false;
   newShippingAddress = false;
   shippingAddress: any;
   shippingTo: any;
   states = STATES;
-  cardOptions: ElementOptions = {
-    style: {
-      base: {
-        iconColor: '#276fd3',
-        color: '#31325F',
-        lineHeight: '40px',
-        fontWeight: 300,
-        fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-        fontSize: '18px',
-        '::placeholder': {
-          color: '#CFD7E0'
-        }
-      }
-    }
-  };
+  cardOptions: ElementOptions;
   elementsOptions: ElementsOptions = {
     locale: 'en'
   };
   error: any;
   complete = false;
   constructor(
+    public modal: NgbModal,
     private userService: UserService,
     private shopService: ShopService,
     private paymentService: PaymentService,
@@ -71,32 +51,46 @@ export class CheckoutComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.cardOptions = {
+      style: {
+        base: {
+          iconColor: '#276fd3',
+          color: '#31325F',
+          lineHeight: '40px',
+          fontWeight: 300,
+          fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+          fontSize: '18px',
+          '::placeholder': {
+            color: '#CFD7E0'
+          }
+        }
+      }
+    };
     this.shippingAddress = {
+      email: '',
+      phone: '',
       address: {
-        country_code: 'US',
-        address_line_1: '',
-        address_line_2: null,
-        admin_area_2: '',
-        admin_area_1: '',
-        postal_code: '',
-        given_name: '',
-        surname: '',
-        email: '',
+        address_country: 'US',
+        address_line1: '',
+        address_line2: '',
+        address_city: '',
+        address_state: '',
+        address_zip: '',
+        name: '',
+        currency: 'usd'
       },
     };
     this.cart = this.shopService.cart;
-    this.payPalConfig = this.initConfig(this.cart);
   }
 
   cardUpdated(result) {
-    console.log('updated card', result)
+    console.log(`Updated ${result.card.elementType}`, result)
     this.element = result.element;
     this.complete = result.card.complete;
     if (this.complete) {
       console.log('stripe element', this.element)
-
-      // this._stripe.createToken(this.element, result)
     }
+    // this._stripe.createToken(this.element, result)
     this.error = undefined;
   }
 
@@ -105,26 +99,17 @@ export class CheckoutComponent implements OnInit {
   }
 
   getCardToken() {
-    this._stripe.createToken(this.element, {
-      name: 'tested_ca',
-      address_line1: '123 A Place',
-      address_line2: 'Suite 100',
-      address_city: 'Irving',
-      address_state: 'BC',
-      address_zip: 'VOE 1H0',
-      address_country: 'CA'
-    }).subscribe(result => {
+    this._stripe.createToken(this.element, this.shippingAddress.address).subscribe(result => {
       // Pass token to service for purchase.
       console.log(result);
     });
   }
 
   addShippingAddress(input: any) {
-    input.full_name = `${input.given_name} ${input.surname}`;
     this.paymentService.addShippingAddress(input);
   }
 
-  initConfig(cart: Cart): IPayPalConfig {
+  initConfig(cart: Cart) {
     const cartItems = this.shopService.items;
     const total = cart.total;
     const tax = cart.tax;
@@ -138,7 +123,6 @@ export class CheckoutComponent implements OnInit {
       shipping: shipping.toFixed(2),
       discount: (total * cart.coupon.discountAmount).toFixed(2),
     };
-    return this.paymentService.payPalConfig(unloadCart, this.showSuccess);
   }
 
   public openPaymentResponse(content?: TemplateRef<any>, options?) {
@@ -155,5 +139,7 @@ export class CheckoutComponent implements OnInit {
     this.showPaymentWindow = !this.showPaymentWindow;
   }
 
-  public openPaymentModal(content: TemplateRef<any> | any, options, data) { }
+  public openPaymentModal(content: TemplateRef<any> | any, options: NgbModalOptions = { size: 'lg' }, data) {
+    const modalref = this.modal.open(content, options);
+  }
 }

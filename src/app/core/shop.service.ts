@@ -202,8 +202,7 @@ export class ShopService {
       return;
     } else {
       const count = item.options.quantity;
-      const total = item.price * count;
-      return total;
+      return (item.price * count);
     }
   }
 
@@ -223,7 +222,7 @@ export class ShopService {
     const total = this.items
       .map(item => this.getProductPrice(item))
       .reduce((prev, curr) => this.addNums(prev, curr), 0);
-    // console.log('cart total', this.cart.total);
+    console.log('cart total', this.cart.total);
     const tax = this.getTax(this.cart.total, OHIO_SALES_TAX);
     this.cart.total = total;
     this.cart.tax = tax;

@@ -1,3 +1,5 @@
+// TODO: Add item quantity counter
+// TODO: Get new taxTotal when item is added or removed 
 import {
   Component,
   OnInit,

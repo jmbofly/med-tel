@@ -9,13 +9,14 @@ const mainEmail: any = functions.config().main.email;
 const mainPassword: any = functions.config().main.password;
 const mailTransport: nodemailer.Transporter = nodemailer.createTransport({
   name: 'medtelplus.com',
-  host: 'gator3234.hostgator.com',
+  host: 'smtp.zoho.com',
+  service: 'Zoho',
   port: 465,
   secure: true,
   debug: true,
   auth: {
     user: mainEmail,
-    pass: mainPassword,
+    pass: mainPassword, /* nG9hMF1KfQ7v */
   },
 });
 
@@ -107,9 +108,7 @@ exports.sendNewsletterToSubscriber = functions.firestore
     let user: any;
     if (snap.exists) {
       user = snap.data();
-      return sendNewSubscriberEmail(user.email).then(() =>
-        sendAdminNotice({ ...user, type: 'Subscriber' })
-      );
+      return sendNewSubscriberEmail(user.email);
     } else {
       return null;
     }
@@ -118,25 +117,14 @@ exports.sendNewsletterToSubscriber = functions.firestore
 async function sendNewSubscriberEmail(email: string) {
   const mailOptions: nodemailer.SendMailOptions = {
     from: `"MedTelPlus" info@medtelplus.com`,
-    to: email,
-    attachments: [
-      {
-        path: `https://medtelplus.com/assets/images/logo_full.png`,
-        filename: 'logo_full.png',
-      },
-      {
-        path: `https://medtelplus.com/assets/images/about-bg.jpg`,
-        filename: 'about-bg.jpg',
-      },
-    ],
-    html: template,
+    to: email
   };
 
   // The user sent a contact form.
-  mailOptions.subject = `Thanks for subscribeing to the ${APP_NAME} newsletter!`;
-  mailOptions.text = `Hey! Thanks for subscribing! Keep an eye out for your monthly newsletter with tons of great content.`;
+  mailOptions.subject = `Thanks for subscribing to ${APP_NAME} updates!`;
+  mailOptions.text = `Welcome! MedTelPlus is excited to be in the final phase of launching our services. Keep an eye out for updates about this amazing site! We will offer tons of great health products, plus our Telemedicine platform. No more waiting hours, surrounded by sick patients, in urgent care or the emergency room. Get access to a doctor 24/7 on your phone. Perfect for protecting you and your loved ones from COVID-19! We look forward to a wonderful relationship, and please feel free to reply to this email with any questions!`;
   await mailTransport.sendMail(mailOptions);
-  console.log('New contact email sent to:', email);
+  console.log('New updates sent to:', email);
   return null;
 }
 
