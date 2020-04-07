@@ -18,11 +18,11 @@
         </button>
       </li>
       <!-- Link-->
-      <!-- <li class="list-group-item hvr hvr-sweep-to-right" (click)="navbar.navigateTo('about')">
+      <li class="list-group-item hvr hvr-sweep-to-right" (click)="navbar.navigateTo('about')">
         <button class="btn btn-link nav-link">
           <i class="fa fa-list"></i> About
         </button>
-      </li> -->
+      </li>
       <!-- Link-->
       <li class="list-group-item hvr hvr-sweep-to-right" (click)="navbar.navigateTo('contact')">
         <button class="btn btn-link nav-link">
@@ -30,18 +30,11 @@
         </button>
       </li>
       <!-- Link-->
-      <!-- <li class="list-group-item hvr hvr-sweep-to-right" (click)="navbar.navigateTo('faq')">
+      <li class="list-group-item hvr hvr-sweep-to-right" (click)="navbar.navigateTo('faq')">
         <button class="btn btn-link nav-link">
           <i class="fa fa-info-circle"></i> Faq
         </button>
-      </li> -->
-      <!-- Link-->
-      <li class="list-group-item hvr hvr-sweep-to-right border-0" (click)="navbar.navigateTo('store')">
-        <button class="btn btn-link nav-link">
-          <i class="fa fa-shopping-cart"></i> Store
-        </button>
       </li>
-      <!-- Link-->
       <!-- <a href="https://blog.medtelplus.com" target="_blank" rel="noopener noreferrer">
         <li class="list-group-item hvr hvr-sweep-to-right">
           <button class="btn btn-link nav-link">
@@ -58,9 +51,8 @@
   </main>
 </div>
 
-<app-footer class="pt-4"></app-footer>
-<button class="btn-back-to-top animate" data-aos="fade-up"><i class="fa fa-chevron-up symbol-btn-back-to-top"
-    (click)="backToTop()"></i></button>
+<app-footer class="pt-4" style="margin-bottom: 50px;"></app-footer>
+<button class="btn btn-back-to-top text-center" data-aos="fade-up"(click)="backToTop()"><i class="fa fa-chevron-up"></i></button>
 <div class="d-none d-md-block">
   <ngx-newsticker id="messageTicker" [title]="'GST Updates'" [events]="sidebarHeaderMessages" [showCounter]="false"><i
       class="fa fa-user"></i></ngx-newsticker>

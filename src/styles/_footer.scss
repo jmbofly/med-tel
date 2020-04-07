@@ -1,13 +1,8 @@
-$secondary: #E7475E;
-$primary: #007bff;
-$primary-gradient: linear-gradient(90deg,
-    rgb(90, 123, 255), rgb(0, 123, 255));
+
 
 footer.main-footer {
-    padding: 7rem 0;
-    background: $primary-gradient;
-    color: #fff;
-    padding-bottom: 0;
+    padding: 7rem 0 3rem 0;
+    color: $dark;
 }
 
 .footer-logo {
@@ -15,7 +10,7 @@ footer.main-footer {
 }
 
 .footer-link {
-    color: #fff;
+    color: $dark;
     font-size: 0.9rem;
     font-weight: 300;
     margin: 0.3rem 0;
@@ -23,17 +18,17 @@ footer.main-footer {
 
 .footer-link:hover,
 .footer-link:focus {
-    color: #fff;
+    color: $secondary;
 }
 
 .social-link {
-    color: #fff;
+    color: $secondary;
     font-size: 0.9rem;
     margin: 0 0.625rem;
 }
 
 .social-link:hover {
-    color: #fff;
+    color: $dark;
 }
 
 .footer-heading {

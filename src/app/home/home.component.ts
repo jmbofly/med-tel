@@ -4,7 +4,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { UserService } from '../core/user.service';
 import { ToastService } from '../core/toast.service';
-import { Products } from '../core/data/products';
 import { Divider, DIVIDERS } from './home.data';
 
 @Component({
@@ -14,11 +13,6 @@ import { Divider, DIVIDERS } from './home.data';
 })
 export class HomeComponent implements OnInit {
   dividers: any[];
-  products = Products
-  // bannerRow1Products = Products.filter((item, idx) => idx <= 1);
-  // bannerRow2Products = Products.filter((item, idx) => idx >= 2 && idx <= 3);
-  // bannerRow3Products = Products.filter((item, idx) => idx === 4);
-
   newsletterSent = false;
   panelImages: any[];
   constructor(
@@ -30,19 +24,6 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.dividers = DIVIDERS;
-    this.getPanelImages();
-  }
-
-  getPanelImages() {
-    const dir = 'assets/images/masthead';
-    const imagePrefix = 'Smokiez_OM_CBD_';
-    const imageType = 'png';
-    this.panelImages = [
-      'Blackberry',
-      'Blue_Raspberry',
-      'Watermelon'
-    ].map(img => ({ id: `SMOKIEZ_GUMMIES_${img.toUpperCase()}`, src: `${dir}/${imagePrefix}${img}.${imageType}` }));
-    console.log(this.panelImages);
   }
 
   navigateTo(url: string, params?: any) {

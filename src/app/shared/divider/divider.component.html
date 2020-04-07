@@ -1,22 +1,21 @@
 <!-- Divider Section-->
-<section #section [style.height]="'650px'" class="box-shadow text-center"
+<section #section [style.height]="'650px'" class="box-shadow text-center divider"
   [ngClass]="dividerColors?.bgColor">
-  <div *ngIf="dividerContent.imageURL" [style.height]="'650px'"
-    [style.background-image]="'url(' + dividerContent.imageURL + ')'" class="divider-background-image img-fluid"></div>
-
-  <div class="p-4">
-    <h2 [ngClass]="dividerColors?.title" class="font-weight-bold">
+  <div class="p-4 divider-body">
+    <h2 [ngClass]="dividerColors?.title" class="font-weight-bold" data-aos="fade-right">
       {{ dividerContent?.title }}
     </h2>
     <div class="row">
       <!-- <div class="col-lg-3"></div> -->
-      <div class="mx-auto">
-        <p class="lead mt-2 mb-4 px-2" [ngClass]="dividerColors?.text" [innerHTML]="dividerContent?.text | safeHtml"></p>
-        <button class="mt-4 btn-outline-light" [ngClass]="dividerColors?.cta"
-          (click)="navigateTo(dividerContent?.ctaLink)">
+      <div class="container mx-auto">
+        <p class="lead mt-2 mb-4 mx-auto px-2" [ngClass]="dividerColors?.text" [innerHTML]="dividerContent?.text | safeHtml" data-aos="fade-left" data-aos-delay="250"></p>
+        <button class="mt-4" [ngClass]="dividerColors?.cta"
+          (click)="navigateTo(dividerContent?.ctaLink)" data-aos="fade-up" data-aos-delay="350">
           Learn More
         </button>
       </div>
     </div>
   </div>
+  <div *ngIf="dividerContent.imageURL" [style.height]="'650px'"
+    [style.background-image]="'url(' + dividerContent.imageURL + ')'" class="divider-background-image img-fluid"></div>
 </section>

@@ -1,10 +1,10 @@
 export const DIVIDERS: Divider[] = [
   {
-    title: `MedTelPlus Crate Subscriptions`,
-    text: `Every month brings a new crate filled with our favorite CBD items delivered to your doorstep. <br/>
-         The perfect gift for friends and family, but don't forget to treat yourself!`,
-    ctaLink: 'store',
-    imageURL: 'assets/images/masthead/masthead-bg_1@2x.jpg',
+    title: `PPE & More`,
+    text: `All over the world, healthcare workers, and public servants are putting their lives on the line to help keep others healthy and safe. They do not have the protective equipment that is essential. Our goal is to remedy this.<br>
+    A direct connection to manufacturers ensures that we can pass the time and savings on to our customers.`,
+    ctaLink: 'contact',
+    imageURL: 'assets/images/divider/n95.jpg',
     colors: {
       bgColor: 'bg-primary',
       title: 'text-black',
@@ -13,9 +13,9 @@ export const DIVIDERS: Divider[] = [
     },
   },
   {
-    title: 'Telemedicine platform coming soon!',
+    title: 'Telemedicine: Coming Soon!',
     text: `MedTelPlus cares about your well-being, and we are working hard to complete a telecare platform that offers real doctors available 24/7, with highly trained associates ready to listen with empathy, and respond quickly without all of the unnecessary and expensive reactions that most patients have experienced when needing medical care.`,
-    ctaLink: 'store',
+    ctaLink: 'contact',
     colors: {
       bgColor: 'bg-white',
       title: 'text-primary',
@@ -24,15 +24,15 @@ export const DIVIDERS: Divider[] = [
     },
   },
   {
-    title: 'Lose frusteration...not money',
-    text: `MedTelPlus is a division of Global Technology Services, LLC. A company that specializes in the research & development of technology designed to enhance or replace products and services in several industries with the sole purpose of meeting top-shelf qaulity expectations, at a price that can fit every budget.`,
-    ctaLink: 'store',
+    title: 'Where We Came From',
+    text: `MedTelPlus is a division of Global Technology Services LLC.<br> A company that specializes in the research & development of technology built to enhance or replace products and solutions in several industries with high-quality results, and meeting all expectations.`,
+    ctaLink: 'about',
     imageURL: 'https://firebasestorage.googleapis.com/v0/b/gts-site-80a8a.appspot.com/o/img%2Fgts_logo_alt_short_2.png?alt=media&token=137c99b9-6dd2-443e-933c-ae29c15198be',
     colors: {
       bgColor: 'bg-dark',
       title: 'text-primary',
       text: `text-light`,
-      cta: `btn btn-outline-white`,
+      cta: `btn btn-outline-light`,
     },
   },
 ];

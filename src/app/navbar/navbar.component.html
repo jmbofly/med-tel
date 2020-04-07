@@ -1,14 +1,5 @@
 <nav #nav class="navbar navbar-nav animated slideInDown" data-aos="fixed-header" data-aos-offset="1200">
-  <div class="container-fluid d-inline-flex">
-    <!-- Navbar Menu Toggle -->
-    <div id="nav-icon1" (click)="toggleMobileMenu()" [ngClass]="!hideMobileMenu ? 'open' : ''">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-    <div class="navbar-brand m-0">
-      <app-brand-button id="brand-button" [height]="'40px'" [width]="'210'" [showOnInit]="true"></app-brand-button>
-    </div>
+  <div class="container d-inline-flex">
     <!-- <div class="form-group form-inline mb-0 ml-auto mr-2" [hidden]="nav.clientWidth < 760">
       <input type="text" id="navSearch" (focus)="animateElement('navSearch', 'width', '420px', 0.35)"
         (blur)="animateElement('navSearch', 'width', '200px', 0.25)" placeholder="Search" class="w-full form-control"
@@ -19,11 +10,16 @@
         </button>
       </div>
     </div> -->
-    <!-- Navbar Cart Button -->
-    <button *ngIf="navCart?.items?.length" class="btn btn-link p-0 mx-2" (click)="navigateTo('/cart')">
-      <span class="header-icons-noti">{{ navCart?.items?.length || 0 }}</span>
-      <img src="assets/images/icons/icon-header-03.png" width="30" height="30" alt="" class="header-icon1" />
-    </button>
+    <!-- Navbar Brand Button -->
+    <div class="navbar-brand m-0">
+      <app-brand-button id="brand-button" [height]="'40px'" [width]="'210'" [showOnInit]="true"></app-brand-button>
+    </div>
+    <!-- Navbar Menu Toggle -->
+    <div id="nav-icon1" (click)="toggleMobileMenu()" [ngClass]="!hideMobileMenu ? 'open' : ''">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
   </div>
 </nav>
 

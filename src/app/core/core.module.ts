@@ -9,10 +9,9 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 
-import { AuthService } from './auth.service';
-import { UserService } from './user.service';
-import { ShopService } from './shop.service';
-import { ToastService } from './toast.service';
+// import { AuthService } from './auth.service';
+// import { UserService } from './user.service';
+// import { ToastService } from './toast.service';
 
 import { environment } from '../../environments/environment';
 

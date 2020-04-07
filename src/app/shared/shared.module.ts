@@ -5,7 +5,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { ParallaxModule } from 'ngx-parallax';
-import { NgxPayPalModule } from 'ngx-paypal';
 import { NgxNewstickerAlbeModule } from 'ngx-newsticker-albe';
 import { NgxAnimatedGradientModule } from 'ngx-animated-gradient';
 import { CarouselComponent } from './carousel/carousel.component';
@@ -18,9 +17,7 @@ import { ThankYouComponent } from './thank-you/thank-you.component';
 import { LoaderComponent } from './loader/loader.component';
 import { ParallaxDirective } from './directives/parallax.directive';
 import { BrandButtonComponent } from './brand-button/brand-button.component';
-import { PaymentMethodsComponent } from './payment-methods/payment-methods.component';
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
-import { UserCartComponent } from './user-cart/user-cart.component';
 @NgModule({
   declarations: [
     CarouselComponent,
@@ -33,9 +30,7 @@ import { UserCartComponent } from './user-cart/user-cart.component';
     LoaderComponent,
     ParallaxDirective,
     BrandButtonComponent,
-    PaymentMethodsComponent,
     SafeHtmlPipe,
-    UserCartComponent,
   ],
   imports: [
     CommonModule,
@@ -43,7 +38,6 @@ import { UserCartComponent } from './user-cart/user-cart.component';
     NgbModule,
     NgxSkeletonLoaderModule,
     CarouselModule,
-    NgxPayPalModule,
     NgxNewstickerAlbeModule,
     NgxAnimatedGradientModule,
   ],
@@ -55,7 +49,6 @@ import { UserCartComponent } from './user-cart/user-cart.component';
     NgxAnimatedGradientModule,
     CarouselModule,
     ParallaxModule,
-    NgxPayPalModule,
     NgxNewstickerAlbeModule,
     CarouselComponent,
     TabberComponent,
@@ -67,9 +60,7 @@ import { UserCartComponent } from './user-cart/user-cart.component';
     LoaderComponent,
     ParallaxDirective,
     BrandButtonComponent,
-    PaymentMethodsComponent,
     SafeHtmlPipe,
-    UserCartComponent,
   ],
   entryComponents: [
     CarouselComponent,
@@ -81,7 +72,6 @@ import { UserCartComponent } from './user-cart/user-cart.component';
     ThankYouComponent,
     LoaderComponent,
     BrandButtonComponent,
-    UserCartComponent,
   ],
 })
 export class SharedModule {}

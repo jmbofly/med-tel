@@ -20,27 +20,26 @@
 */
 .btn-back-to-top {
     position: fixed;
-    width: 40px;
-    height: 40px;
-    bottom: 40px;
-    right: 40px;
+    bottom: 50px;
+    right: 15px;
     background-color: $secondary;
     opacity: 0.5;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+    z-index: 11000;
     border-radius: 4px;
     transition: all 0.4s;
     -webkit-transition: all 0.4s;
     -o-transition: all 0.4s;
     -moz-transition: all 0.4s;
+
+    .fa {
+        font-size: 22px;
+        color: white;
+        line-height: 1em;
+    }
 }
 
-.symbol-btn-back-to-top {
-    font-size: 22px;
-    color: white;
-    line-height: 1em;
-}
 
 .btn-back-to-top:hover {
     opacity: 1;
@@ -49,8 +48,8 @@
 
 @media (max-width: 576px) {
     .btn-back-to-top {
-        bottom: 15px;
-        right: 15px;
+        bottom: 0;
+        
     }
 }
 
@@ -60,14 +59,6 @@ section {
     .box-shadow {
         -moz-box-shadow: 0 3px 3px rgba(0, 0, 0, .23);
         box-shadow: 0 3px 3px rgba(0, 0, 0, .23);
-    }
-}
-
-.main-footer {
-    .footer-logo {}
-
-    ul li {
-        cursor: pointer !important;
     }
 }
 
@@ -212,11 +203,11 @@ button {
 
 #sidebar-wrapper {
     min-height: calc(100vh + 64px);
-    z-index: 900;
-    top: 65px;
+    z-index: 9000;
+    top: 64px;
     position: fixed;
-    left: 0;
-    background-image: $primary-gradient;
+    right: 0;
+    background: darken($light, 20);
     border-right: solid 0.3px rgba(255, 255, 255, .23);
     overflow-x: hidden;
     -webkit-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.23);
@@ -244,14 +235,15 @@ button {
 
 @media (max-width: 990px) {
     #sidebar-wrapper {
-        margin-left: -100%;
+        margin-right: -100%;
         position: fixed;
         top: 65px;
+        overflow-x: hidden !important;
     }
 
     #wrapper.toggled #sidebar-wrapper {
         width: 100vw;
-        margin-left: 0;
+        margin-right: 0;
 
         #sidebar-wrapper .list-group {
             width: 100%;
@@ -261,12 +253,12 @@ button {
 
 @media (min-width: 991px) {
     #sidebar-wrapper {
-        width: 14.5rem;
-        margin-left: -14.5rem;
+        width: 23.5rem;
+        margin-right: -23.5rem;
     }
 
     #wrapper.toggled #sidebar-wrapper {
-        margin-left: 0;
+        margin-right: 0;
     }
 }
 
@@ -277,16 +269,16 @@ button {
 
 /* MESSAGE TICKER */
 #messageTicker {
-    ::ng-deep .newsticker {
+    .newsticker {
+        z-index: 12000 !important;
         position: fixed;
         width: 100vw;
         height: 50px !important;
-        z-index: 1000;
         bottom: 0;
         border-color: $primary !important;
 
         .label {
-            color: red;
+            color: $secondary;
         }
 
         .nt-title {
@@ -1463,6 +1455,7 @@ body {
     line-height: 1.5;
     color: #212529;
     background-color: #fff;
+    overflow-x: hidden;
 }
 
 a {
