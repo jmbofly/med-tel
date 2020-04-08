@@ -2,7 +2,8 @@
 
 footer.main-footer {
     padding: 7rem 0 3rem 0;
-    color: $dark;
+    background-color: $gray-700;
+    color: $gray-400;
 }
 
 .footer-logo {
@@ -10,10 +11,11 @@ footer.main-footer {
 }
 
 .footer-link {
-    color: $dark;
+    color: $gray-400;
     font-size: 0.9rem;
     font-weight: 300;
     margin: 0.3rem 0;
+    cursor: pointer !important;
 }
 
 .footer-link:hover,
@@ -22,13 +24,13 @@ footer.main-footer {
 }
 
 .social-link {
-    color: $secondary;
+    color: $gray-400;
     font-size: 0.9rem;
     margin: 0 0.625rem;
 }
 
 .social-link:hover {
-    color: $dark;
+    color: $secondary;
 }
 
 .footer-heading {

@@ -40,6 +40,7 @@ import { SafeHtmlPipe } from './pipes/safe-html.pipe';
     CarouselModule,
     NgxNewstickerAlbeModule,
     NgxAnimatedGradientModule,
+    ParallaxModule,
   ],
   exports: [
     CommonModule,

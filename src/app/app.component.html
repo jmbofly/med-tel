@@ -12,27 +12,27 @@
       </p>
     </div>
     <ul class="list-group">
-      <li class="list-group-item hvr hvr-sweep-to-right" (click)="navbar.navigateTo('home')">
+      <li class="list-group-item" (click)="navbar.navigateTo('home')">
         <button class="btn btn-link nav-link">
-          <i class="fa fa-home"></i> Home
+          <i class="fa fa-home fa-2x"></i> Home
         </button>
       </li>
       <!-- Link-->
-      <li class="list-group-item hvr hvr-sweep-to-right" (click)="navbar.navigateTo('about')">
-        <button class="btn btn-link nav-link">
-          <i class="fa fa-list"></i> About
+      <li class="list-group-item" (click)="navbar.navigateTo('about')">
+        <button class="icon btn btn-link nav-link">
+          <i class="fa fa-handshake-o fa-2x"></i> About
         </button>
       </li>
       <!-- Link-->
-      <li class="list-group-item hvr hvr-sweep-to-right" (click)="navbar.navigateTo('contact')">
+      <li class="list-group-item" (click)="navbar.navigateTo('contact')">
         <button class="btn btn-link nav-link">
-          <i class="fa fa-envelope"></i> Contact
+          <i class="fa fa-envelope fa-2x"></i> Contact
         </button>
       </li>
       <!-- Link-->
-      <li class="list-group-item hvr hvr-sweep-to-right" (click)="navbar.navigateTo('faq')">
+      <li class="list-group-item" (click)="navbar.navigateTo('faq')">
         <button class="btn btn-link nav-link">
-          <i class="fa fa-info-circle"></i> Faq
+          <i class="fa fa-info-circle fa-2x"></i> Faq
         </button>
       </li>
       <!-- <a href="https://blog.medtelplus.com" target="_blank" rel="noopener noreferrer">
@@ -51,10 +51,12 @@
   </main>
 </div>
 
-<app-footer class="pt-4" style="margin-bottom: 50px;"></app-footer>
-<button class="btn btn-back-to-top text-center" data-aos="fade-up"(click)="backToTop()"><i class="fa fa-chevron-up"></i></button>
-<div class="d-none d-md-block">
+<app-footer class="pt-4"></app-footer>
+<div class="d-flex w-100 back-to-top-wrapper">
+  <button class="btn btn-primary text-center" data-aos="fade-up"(click)="backToTop()"><i class="fa fa-chevron-up"></i></button>
+</div>
+<!-- <div class="d-none d-md-block">
   <ngx-newsticker id="messageTicker" [title]="'GST Updates'" [events]="sidebarHeaderMessages" [showCounter]="false"><i
       class="fa fa-user"></i></ngx-newsticker>
-</div>
+</div> -->
 <app-toasts></app-toasts>

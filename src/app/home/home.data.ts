@@ -7,9 +7,9 @@ export const DIVIDERS: Divider[] = [
     imageURL: 'assets/images/divider/n95.jpg',
     colors: {
       bgColor: 'bg-primary',
-      title: 'text-black',
+      title: 'text-dark',
       text: `text-white`,
-      cta: 'btn btn-outline-light',
+      cta: 'btn btn-outline-dark',
     },
   },
   {
@@ -18,9 +18,9 @@ export const DIVIDERS: Divider[] = [
     ctaLink: 'contact',
     colors: {
       bgColor: 'bg-white',
-      title: 'text-primary',
+      title: 'text-secondary',
       text: `text-black`,
-      cta: `btn btn-outline-dark`,
+      cta: `btn btn-outline-secondary`,
     },
   },
   {
@@ -29,9 +29,9 @@ export const DIVIDERS: Divider[] = [
     ctaLink: 'about',
     imageURL: 'https://firebasestorage.googleapis.com/v0/b/gts-site-80a8a.appspot.com/o/img%2Fgts_logo_alt_short_2.png?alt=media&token=137c99b9-6dd2-443e-933c-ae29c15198be',
     colors: {
-      bgColor: 'bg-dark',
-      title: 'text-primary',
-      text: `text-light`,
+      bgColor: 'bg-gray',
+      title: 'text-light',
+      text: `text-dark`,
       cta: `btn btn-outline-light`,
     },
   },

@@ -3,12 +3,12 @@
         // background-size: cover;
         // -moz-background-size: cover;
         // -webkit-background-size: cover;
-        background-position: center center;
-        -moz-background-position: center center;
-        -webkit-background-position: center center;
+        background-position: top center;
+        -moz-background-position: top center;
+        -webkit-background-position: top center;
         background-attachment: fixed;
         background-repeat: no-repeat;
-        opacity: .23;
+        opacity: .4;
         position: absolute;
         width: 100vw;
         max-height: 650px;
@@ -29,6 +29,7 @@
     .divider-body {
         width: 100vw;
         z-index: 5000 !important;
+        overflow-x: hidden !important;
         position: absolute !important;
     }
 

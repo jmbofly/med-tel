@@ -1,5 +1,5 @@
 <section #hero class="hero"
-  style="background-image: url(assets/images/phone-bg.jpg);">
+  style="background-image: url(assets/images/masthead/masthead-bg_1.jpg);">
   <div class="container text-center">
     <!-- breadcrumb-->
     <nav aria-label="breadcrumb" class="d-flex justify-content-center">
@@ -8,12 +8,20 @@
         <li aria-current="page" class="breadcrumb-item active">Contact </li>
       </ol>
     </nav>
-    <h1 class="hero-heading animated" data-aos="fade-up">Talk with our sales team</h1>
-    <div class="row">
-      <div class="col-lg-7 mx-auto">
-        <p class="lead mt-2 animted" data-aos="fade-right" data-aos-delay=".5">Have questions or comments? The form
-          below is the best way to contact MedTelPlus for inquiries,One of our experienced and friendly staff will
-          contact you within 48 hours of your message.</p>
+    <div class="row align-items-center justify-content-center">
+      <div class="col-lg-8 mb-5">
+        <h2 class="text-uppercase text-center mb-5 animate" data-aos="fade-up" data-aos-delay="1000">
+          Contact
+        </h2>
+        <hr class="bg-secondary">
+        <div class="row">
+          <div class="panel">
+            <div class="panel-body">
+              <h3 class="text-center text-default" data-aos="fade-left" data-aos-delay="500">We are here to help. Please fill out the form below, and a MedTelPlus representative will be in touch as quckly as possible. 
+              </h3>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="row">
@@ -46,12 +54,11 @@
           <div class="form-group mb-4">
             <label>Email<sup class="text-danger">&#10033;</sup></label>
             <input [(ngModel)]="contact.email" #email="ngModel" type="email"
-              [pattern]="'[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+'" name="email" placeholder="you@email.com"
-              class="form-control" required>
+              name="email" placeholder="you@email.com" [pattern]="'[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+'" class="form-control" required>
             <p class="form-text text-danger" *ngIf="email?.errors?.required && (email.touched || email.dirty)">
               Your Email is Required
             </p>
-            <p class="form-text text-danger" *ngIf="email?.errors?.pattern && (email.pristine || email.untouched)">
+            <p class="form-text text-danger" *ngIf="email?.errors?.pattern && (email.touched || email.dirty)">
               Your Email is Not Valid
             </p>
           </div>
@@ -59,7 +66,7 @@
             <label>Subject<sup class="text-danger">&#10033;</sup></label>
             <input [(ngModel)]="contact.subject" #subject="ngModel" type="text" name="subject"
               placeholder="Briefly describe your question" class="form-control" required>
-            <p class="form-text text-danger" [hidden]="!subject.errors && (subject.touched || subject.dirty)">
+            <p class="form-text text-danger" *ngIf="subject?.errors && (subject.touched || subject.dirty)">
               A Subject is Required
             </p>
           </div>
@@ -67,7 +74,7 @@
             <label>Now let's hear the details<sup class="text-danger">&#10033;</sup></label>
             <textarea [(ngModel)]="contact.details" #details="ngModel" name="message"
               placeholder="Let us know what you need" class="form-control" required maxLength="250"></textarea>
-            <p class="form-text text-danger" [hidden]="!details.errors?.required && (details.touched || details.dirty)">
+            <p class="form-text text-danger" *ngIf="details?.errors && (details.touched || details.dirty)">
               Some Details Are Required
             </p>
           </div>
@@ -81,18 +88,18 @@
         <div class="box animate" data-aos="fade-left" data-aos-delay=".3">
           <div class="icon d-flex align-items-end"><img src="assets/img/placeholder.svg" alt="" class="img-fluid"></div>
           <h5>Address</h5>
-          <p class="text-small font-weight-light">1630 Turkey Run Drive, Newark, OH, 43055</p>
+          <p class="text-small font-weight-light">1630 E Turkey Run Drive, Newark, OH 43055</p>
         </div>
         <div class="box animate" data-aos="fade-left" data-aos-delay=".3">
           <div class="icon d-flex align-items-end"><img src="assets/img/technology.svg" alt="" class="img-fluid"></div>
-          <h5>Customer Service</h5>
+          <h5>Customer Support</h5>
           <p class="text-small font-weight-light">This number is toll free for your convenience, but electronic
-            communication is preferred.</p><strong class="text-muted">+1 844 879 4788</strong>
+            communication is preferred.</p><strong class="text-muted">+1 740 405 1633</strong>
         </div>
         <div class="box animate" data-aos="fade-left" data-aos-delay=".3">
           <div class="icon d-flex align-items-end"><img src="assets/img/multimedia.svg" alt="" class="img-fluid"></div>
-          <h5>Electronic support</h5>
-          <p class="text-small font-weight-light">Feel free to send us an message.</p>
+          <h5>Email Support</h5>
+          <p class="text-small font-weight-light">Feel free to send us an email.</p>
           <ul class="text-center">
             <li><a href="mailto:info@medtelplus.com" class="text-small">info@medtelplus.com</a></li>
           </ul>
@@ -107,7 +114,7 @@
       <i class="fa fa-times"></i>
     </button>
     <h1 class="display-3">Thank You!</h1>
-    <p class="lead"><strong>Please check your email</strong> for a response from a MedTelPlus associate in the next 48 hours.</p>
+    <p class="lead"><strong>Please check your email</strong> for a response from a MedTelPlus representative in the next 48 hours.</p>
     <hr>
     <p>
       Having trouble? <a href="mailto:info@medtelplus.com" class="text-small">Contact Us</a>

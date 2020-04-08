@@ -1,24 +1,14 @@
 <footer class="main-footer">
   <div class="container">
     <div class="row">
-      <div class="col-lg-3 mb-5 mb-lg-0">
+      <div class="d-none">
         <div class="footer-logo">
           <app-brand-button
             #brandButton
-            [height]="'35px'"
-            [width]="'180px'"
-            [primaryColor]="'#E7475E'"
-            [secondaryColor]="'#007BFF'"
           ></app-brand-button>
         </div>
-        <div class="footer-link">
-          <p><em>Disabled Veteran Owned</em></p>
-        </div>
-        <div class="footer-link">
-          <p><em>Division of Global Technology Services, LLC</em></p>
-        </div>
       </div>
-      <div class="col-lg-3 mb-5 mb-lg-0">
+      <div class="col-lg-4 mb-5 mb-lg-0">
         <h5 class="footer-heading">Site pages</h5>
         <ul class="list-unstyled">
           <li (click)="brandButton.navigateTo('home')" class="footer-link">
@@ -35,7 +25,7 @@
           </li>
         </ul>
       </div>
-      <div class="col-lg-3 mb-5 mb-lg-0">
+      <div class="col-lg-4 mb-5 mb-lg-0">
         <h5 class="footer-heading">Product</h5>
         <ul class="list-unstyled">
           <li (click)="brandButton.navigateTo('faq')" class="footer-link">
@@ -52,7 +42,7 @@
           </li>
         </ul>
       </div>
-      <div class="col-lg-3">
+      <div class="col-lg-4">
         <h5 class="footer-heading">Resources</h5>
         <ul class="list-unstyled">
           <li><a href="#" class="footer-link">Community</a></li>
@@ -66,12 +56,14 @@
   <div class="copyrights">
     <div class="container">
       <div class="row">
-        <div class="col-lg-6 text-center text-lg-left">
+        <div class="col-lg-8 text-center text-lg-left">
           <p class="copyrights-text mb-3 mb-lg-0">
-            &copy; All rights reserved. MedTelPlus 2019
+            &copy; 2020 <span class="text-secondary">MedTelPlus</span> <span style="font-size: 75%;"> a division of</span> <a href="https://www.thenewgts.tech" target="_blank"><img width="70"
+                src="https://firebasestorage.googleapis.com/v0/b/gts-site-80a8a.appspot.com/o/img%2Fgts_logo_alt_short_2.png?alt=media&token=137c99b9-6dd2-443e-933c-ae29c15198be"
+                alt="Global technology Services LLC Logo and link"> </a>&nbsp;<span style="font-size: 75%;">All rights reserved.</span> | &nbsp;SDOSB <img src="https://www.integrativestaffing.com/wp-content/uploads/2015/10/sdvosb_logo.jpg" class="rounded-circle" alt="" width="30" />
           </p>
         </div>
-        <div class="col-lg-6 text-center text-lg-right">
+        <div class="col-lg-4 text-center text-lg-right">
           <ul class="list-inline social mb-0">
             <li class="list-inline-item">
               <a href="https://facebook.com/medtelplus" class="social-link"><i class="fa fa-facebook"></i></a
