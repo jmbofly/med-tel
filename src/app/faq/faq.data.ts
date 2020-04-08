@@ -27,45 +27,27 @@ export interface FaqAnswer {
 
 export const FAQS = [
   {
-    query: 'How do I purchase MedTelPlus services?',
-    keywords: ['howto', 'services', 'purchase'],
+    query: 'Can I place an order by phone?',
+    keywords: ['howto', 'services', 'purchase', 'phone'],
     answer: {
-      content: `<ul class="list-group">
-              <li class="list-group-item">Navigate to Store page</li>
-              <li class="list-group-item">Select Services in Categories</li>
-              <li class="list-group-item">Find the service you need, and click ADD TO CART</li>
-              <li class="list-group-item">Continue shopping or go to checkout</li>
-            </ul>`,
-      links: ['store'],
+      content: `<b>Absolutely!</b> Please call us at 740-405-1633. We are avaialble Monday through Friday from 9 am to 5:30pm, EST`,
+      links: ['contact'],
       id: '0001',
     },
   },
   {
-    query: 'How do I activate my 911HelpNow alert device?',
-    keywords: ['howto', 'activation', '911HelpNow', 'devices'],
+    query: 'What products does MedTelPlus offer?',
+    keywords: ['howto', 'catelog', 'products', 'medical-supplies'],
     answer: {
-      content: `<ul class="list-group">
-              <li class="list-group-item">Simple. There is no activation required on the basic 911HelpNow alert devices.</li>
-            </ul>`,
+      content: `We are currently working on an online catelog that can be accessed on <a href="https://www.medtelplus.com" target="_blank" >medtelplus.com</a>. Because of the changing prices in the market, we must make adjustments to pices on our end. Keep in mind that we are not a comapny that hikes up prices. In this time of need we are doing our best to help, and that means selling at just above our cost, covering shipping and overhead. Nothing else.`,
       id: '0002',
     },
   },
   {
-    query: 'How do I contact MedTelPlus?',
+    query: 'How long will it take to recieve my order?',
     keywords: ['howto', 'contact', 'feedback', 'help'],
     answer: {
-      content: `<ul class="list-group">
-              <li class="list-group-item">Navigate to Contact page</li>
-              <li class="list-group-item">Enter required info into form fields</li>
-              <li class="list-group-item">Click SEND MESSAGE</li>
-            </ul> <br/>
-            <h4>Alternative</h4>
-            <ul class="list-group">
-              <li class="list-group-item">Call toll-free 1.844.879.4788</li>
-            </ul> <br/>
-            <ul class="list-group">
-              <li class="list-group-item">Email MedTelPlus at info@medtelplus.com</li>
-            </ul>`,
+      content: `Currently we are having slightly longer shipping times due to the demand created by <a href="https://www.cdc.gov/coronavirus/2019-nCoV/index.html">COVID-19</a>. But we are working hard to cut shipping times to no longer than 10 days, based on the size of the order.`,
       id: '0003',
     },
   },
@@ -73,28 +55,46 @@ export const FAQS = [
     query: 'How do I get a refund?',
     keywords: ['howto', 'payments', 'refund', 'returns'],
     answer: {
-      content: `<ul class="list-group">
-              <li class="list-group-item">For any issues with products or services,
-             call toll-free 1.844.879.4788, or email MedTelPlus at
-             info@medtelplus.com.</li>
-            </ul>`,
+      content: `Before returning any item, please contact us at 1-740-405-1633 to obtain the required Return Authorization (RA) Number.
+At the time of issue of the RA number, our customer service representative will also give you the address of our returns department. Please DO NOT ship returns to our corporate headquarters! - All returns sent to that address will be automatically returned to the sender.Please read our return policy <a target="_blank" href="assets/return-policy.html">here</a>.`,
       links: ['contact'],
       id: '0004',
     },
   },
   {
-    query: 'What is CGX and cancer screening?',
-    keywords: ['whatIs', 'cgx', 'cancer-screening', 'services'],
+    query: 'Payment Methods & Processing?',
+    keywords: ['whatIs', 'wire-transfer','money-order', 'credit-card', 'payments', 'payment-methods', 'solutions', 'processing'],
     answer: {
-      content: `<ul class="list-group">
-              <li class="list-group-item">
-              CGX is an easy and fast test for finding genetic
-               markers that put you at risk of having cancer</li>
-            </ul>`,
+      content: `We accept payments by wire-transfer, money-order, or credit card.<br> Before your first purcahse, MedTelPlus requires a credit check. If there aren't any problems with the credit check, the buyer sends us a purchase order with the following information:<br>
+      <ul class="unstyled-list">
+      <li class="group-list-item">Date <em>[Date of purchase]</em></li>
+      <li class="group-list-item">Name <em>[Your Name or Company Name]</em></li>
+      <li class="group-list-item">Shipping Address <em>[Hospital or Company Address]</em></li>
+      <li class="group-list-item">Contact email</li>
+      <li class="group-list-item">Product Id <em>Make / Model / UID / SN</em></li>
+      <li class="group-list-item">Quanity <em>Number of units to be purchased</em></li>
+      <li class="group-list-item">Price <em>Purchase Total</em></li>
+      </ul>If a sample is needed for inspection, we ship sample to the given shipping address, and await results. Once we get the okay, your order is filled and shipped within 24 hours.`,
       links: [
-        'https://www.cancer.gov/about-cancer/causes-prevention/genetics/genetic-testing-fact-sheet',
+        'assets/return-policy.html',
       ],
-      id: '0004',
+      id: '0005',
+    },
+  },
+  {
+    query: 'Who does MedTelPlus sell to?',
+    keywords: ['whatIs', 'ppe', 'medical-supplies', 'help', 'customers'],
+    answer: {
+      content: `At this time, due to COVID-19, we are prioritizing hospitals, State Governments, V.A. hospitals and clinics, as well as healthcare and public service workers.`,
+      id: '0006',
+    },
+  },
+  {
+    query: 'Is there a purchase unit minimum?',
+    keywords: ['whatIs', 'minimum', 'medical-supplies', 'help', 'purchasing'],
+    answer: {
+      content: `Because the demand is so high for many of the medical supplies we offer, especially PPE, we are asking that orders have a 10,000 unit minimum. However, we are willing to look at orders on a case-by-case basis, depending on need, location, and product availability`,
+      id: '0007',
     },
   },
 ];

@@ -8,10 +8,10 @@ import { ParallaxConfig } from 'ngx-parallax';
 })
 export class DividerComponent implements OnInit {
   @Input() content: any;
+  @Input() parallaxConfig: ParallaxConfig = {};
   // @Input() gradientColors?: () => any;
   dividerContent: any = {};
   dividerColors: any = {};
-  parallaxConfig: ParallaxConfig;
   constructor(private router: Router, private route: ActivatedRoute) {}
 
   navigateTo(url: string) {
@@ -19,10 +19,6 @@ export class DividerComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.parallaxConfig = {
-      maxValue: 0,
-      initialValue: -250, ratio: .25, 
-    };
     const content = this.content;
     const contentColors = content.colors;
     this.dividerColors = {

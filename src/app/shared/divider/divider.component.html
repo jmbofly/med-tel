@@ -17,5 +17,5 @@
     </div>
   </div>
   <div *ngIf="dividerContent.imageURL" [style.height]="'650px'"
-    [style.background-image]="'url('+dividerContent.imageURL+')'" class="divider-background-image img-fluid" parallax [config]="{initialValue: -250, ratio: .25}"></div>
+    [style.background-image]="'url('+dividerContent.imageURL+')'" class="divider-background-image img-fluid" parallax [config]="{maxValue: 250,minValue: -250,initialValue: -250,ratio: .15}"></div>
 </section>

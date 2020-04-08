@@ -30,9 +30,9 @@ export const DIVIDERS: Divider[] = [
     imageURL: 'https://firebasestorage.googleapis.com/v0/b/gts-site-80a8a.appspot.com/o/img%2Fgts_logo_alt_short_2.png?alt=media&token=137c99b9-6dd2-443e-933c-ae29c15198be',
     colors: {
       bgColor: 'bg-gray',
-      title: 'text-light',
-      text: `text-dark`,
-      cta: `btn btn-outline-light`,
+      title: 'text-dark',
+      text: `text-secondary`,
+      cta: `btn btn-outline-dark`,
     },
   },
 ];

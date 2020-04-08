@@ -48,14 +48,14 @@
               <div class="card bg-light mb-2" *ngFor="let faq of faqList; let i = index;">
                 <div class="card-header">
                   <h4 class="mb-0 accordion-heading bg-primary">
-                    <button (click)="toggleFaqContainer(i)" class="btn btn-link text-white"><i class="icon-light-bulb"></i><span> {{faq?.query}}</span><i class="fa fa-chevron-right ml-4"></i></button>
+                    <button (click)="toggleFaqContainer(i)" class="btn btn-link text-white"><i class="icon-light-bulb fa-2x"></i><span class="lead">{{faq?.query}}</span><i class="pull-right fa ml-4" [ngClass]="faq.show === 'hide' ? 'fa-chevron-right fadeIn':'fa-chevron-down fadeIn'"></i></button>
                   </h4>
                 </div>
-                <div *ngIf="faq.show === 'show'" [hidden]="faq.show === 'hide'" class="animate slide-in-down">
-                  <div class="card-body" [innerHTML]="faq?.answer?.content"></div>
-                  <div class="card-footer" *ngIf="faq?.answer?.links?.length">
+                <div [hidden]="faq.show === 'hide'" class="animated" [ngClass]="faq.show === 'hide' ? 'fadeOut':'fadeIn show'">
+                  <div class="text-dark card-body py-4" [innerHTML]="faq?.answer?.content"></div>
+                  <!-- <div class="card-footer" *ngIf="faq?.answer?.links?.length">
                     <button class="btn btn-outline-secondary" (click)="navigateTo(faq.answer.links[0])">Possible Solution</button>
-                  </div>
+                  </div> -->
                 </div>
               </div>
 
@@ -82,22 +82,22 @@
             <div class="sidebar-widget mb-4">
               <h4 class="sidebar-widget-heading">Questions Categories</h4>
               <ul class="list-unstyled pl-0 mt-4">
-                <li> <a href="#" class="categories-link">MedTelPlus Activation</a></li>
+                <li> <a href="#" class="categories-link">PPE Certification</a></li>
                 <li><a href="#" class="categories-link">Troubleshooting</a></li>
                 <li><a href="#" class="categories-link">Pricing &amp; Support</a></li>
-                <li><a href="#" class="categories-link">Tips &amp; Tricks</a></li>
-                <li><a href="#" class="categories-link">Managing Packages</a></li>
+                <li><a href="#" class="categories-link">SDOSB &amp; SDVOSB</a></li>
+                <li><a href="#" class="categories-link">Refund Policy</a></li>
               </ul>
             </div>
             <div class="sidebar-widget">
               <h4 class="sidebar-widget-heading">New Tags</h4>
               <ul class="list-inline pl-0 mt-4">
-                <li class="list-inline-item mr-0"><a href="#" class="tag-link">Medical Services</a></li>
+                <li class="list-inline-item mr-0"><a href="#" class="tag-link">Medical Solutions</a></li>
                 <li class="list-inline-item mr-0"><a href="#" class="tag-link">Telemedicine</a></li>
-                <li class="list-inline-item mr-0"><a href="#" class="tag-link">Mobile Emergency Device</a></li>
-                <li class="list-inline-item mr-0"><a href="#" class="tag-link">Mobile App</a></li>
-                <li class="list-inline-item mr-0"><a href="#" class="tag-link">Cancer Screening</a></li>
-                <li class="list-inline-item mr-0"><a href="#" class="tag-link">Super Bundle</a></li>
+                <li class="list-inline-item mr-0"><a href="#" class="tag-link">PPE</a></li>
+                <li class="list-inline-item mr-0"><a href="#" class="tag-link">Pricing</a></li>
+                <li class="list-inline-item mr-0"><a href="#" class="tag-link">Payment Methods</a></li>
+                <li class="list-inline-item mr-0"><a href="#" class="tag-link">PPE Bundles</a></li>
               </ul>
             </div>
           </aside>
