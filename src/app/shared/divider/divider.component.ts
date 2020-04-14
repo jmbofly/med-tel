@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-
+import { ParallaxConfig } from 'ngx-parallax';
 @Component({
   selector: 'app-divider',
   templateUrl: './divider.component.html',
@@ -8,6 +8,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class DividerComponent implements OnInit {
   @Input() content: any;
+  @Input() parallaxConfig: ParallaxConfig = {};
   // @Input() gradientColors?: () => any;
   dividerContent: any = {};
   dividerColors: any = {};

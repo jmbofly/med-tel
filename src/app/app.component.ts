@@ -26,11 +26,11 @@ export type RGBValue = [number, number, number];
 /**
  * mock data for header messages
  */
-export const MOCK_HEADER_MESSAGE_DATA: string[] = [
-  `<b class="text-danger">MedTelPlus</b> -- Offering top level care at an affordable price`,
-  `<b class="text-danger">Sale</b> -- Buy 2 911 Help Now Medical Alerts for the price of 1(ONE)! LIMITED SUPPLY`,
-  `<b class="text-danger">Coming Soon</b> -- CGX & PGX Cancer Screening. Fast, Safe, and Easy.`,
-];
+// export const MOCK_HEADER_MESSAGE_DATA: string[] = [
+//   `<b class="text-danger">Available</b> -- PPE, an`,
+//   `<b class="text-danger">Sale</b> -- Buy 2 911 Help Now Medical Alerts for the price of 1(ONE)! LIMITED SUPPLY`,
+//   `<b class="text-danger">Coming Soon</b> -- CGX & PGX Cancer Screening. Fast, Safe, and Easy.`,
+// ];
 
 @Component({
   selector: 'app-root',
@@ -42,7 +42,7 @@ export class AppComponent implements OnInit {
   title = 'MedTelPlus';
   sidebarHeaderMessages: any;
   constructor() {
-    this.sidebarHeaderMessages = MOCK_HEADER_MESSAGE_DATA;
+    // this.sidebarHeaderMessages = MOCK_HEADER_MESSAGE_DATA;
   }
 
   ngOnInit() {

@@ -24,7 +24,6 @@ import { AuthService } from '../core/auth.service';
 import { STATES_HASH as states } from '../core/data/states';
 import { UserModel } from '../core/interfaces/user';
 import { UserService } from '../core/user.service';
-import { ShopService } from '../core/shop.service';
 
 import { Observable, BehaviorSubject } from 'rxjs';
 
@@ -49,12 +48,10 @@ export class NavbarComponent implements OnInit {
   search: any;
   navStart: Observable<NavigationStart>;
   navAuthError: Observable<any>;
-  navCart: UserModel['cart'];
   navClientWidth$: BehaviorSubject<number>;
 
   constructor(
     private userService: UserService,
-    private shopService: ShopService,
     private modalService: NgbModal,
     private router: Router,
     public route: ActivatedRoute
@@ -102,9 +99,6 @@ export class NavbarComponent implements OnInit {
   }
 
   navigateTo(url: string, urlTree?: any[]) {
-    if (url === '/cart' && this.navCart.items.length === 0) {
-      return;
-    }
     this.hideMobileMenu = true;
     this.loader.load({
       url,
@@ -126,14 +120,6 @@ export class NavbarComponent implements OnInit {
         this.loader.load();
       }
     });
-    this.shopService.initNewShopper();
-    this.shopService.cart$.subscribe(cart => (this.navCart = cart));
-    // this.navClientWidth$.subscribe(val => {
-    //   if (val < 1200) {
-    //     this.hideMobileMenu = true;
-    //   } else {
-    //     this.hideMobileMenu = false;
-    //   }
-    // });
+    
   }
 }

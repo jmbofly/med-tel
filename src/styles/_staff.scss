@@ -1,0 +1,80 @@
+//STAFF
+.staff {
+    overflow: hidden;
+    margin-bottom: 30px;
+    @include transition(.3s);
+
+    .img-wrap {
+        height: 300px;
+    }
+
+    .img {
+        // height: 300px;
+        width: 100%;
+        max-width: 315px;
+        background-repeat: no-repeat;
+        display: block;
+        background-position: center;
+        @include transition(.3s);
+    }
+
+    .text {
+        position: relative;
+        background: $white;
+        @include transition(.3s);
+
+        h3 {
+            font-size: 24px;
+            font-weight: 500;
+            margin-bottom: 0;
+            @include transition(.3s);
+        }
+
+        .position {
+            text-transform: uppercase;
+            color: lighten($black, 70%);
+            display: block;
+            letter-spacing: 1px;
+        }
+
+        .faded {
+            opacity: 1;
+        }
+    }
+
+    .staff-social {
+        position: absolute;
+        list-style: none !important;
+        top: -30px;
+        left: 0;
+        right: 0;
+        padding: 15px 10px;
+        background: $white;
+        opacity: 0;
+        @include transition(.3s);
+
+        li {
+            a {
+                color: $secondary;
+            }
+        }
+    }
+
+    &:hover,
+    &:focus {
+        .staff-social {
+            opacity: 1;
+            top: -40px;
+        }
+
+        .img {
+            margin-top: -10px;
+        }
+
+        .text {
+            h3 {
+                color: $primary;
+            }
+        }
+    }
+}

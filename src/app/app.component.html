@@ -12,36 +12,35 @@
       </p>
     </div>
     <ul class="list-group">
-      <li class="list-group-item hvr hvr-sweep-to-right" (click)="navbar.navigateTo('home')">
+      <li class="list-group-item" (click)="navbar.navigateTo('home')">
         <button class="btn btn-link nav-link">
-          <i class="fa fa-home"></i> Home
+          <i class="fa fa-home fa-2x"></i> Home
         </button>
       </li>
       <!-- Link-->
-      <!-- <li class="list-group-item hvr hvr-sweep-to-right" (click)="navbar.navigateTo('about')">
-        <button class="btn btn-link nav-link">
-          <i class="fa fa-list"></i> About
-        </button>
-      </li> -->
-      <!-- Link-->
-      <li class="list-group-item hvr hvr-sweep-to-right" (click)="navbar.navigateTo('contact')">
-        <button class="btn btn-link nav-link">
-          <i class="fa fa-envelope"></i> Contact
+      <li class="list-group-item" (click)="navbar.navigateTo('about')">
+        <button class="icon btn btn-link nav-link">
+          <i class="fa fa-handshake-o fa-2x"></i> About
         </button>
       </li>
       <!-- Link-->
-      <!-- <li class="list-group-item hvr hvr-sweep-to-right" (click)="navbar.navigateTo('faq')">
+      <li class="list-group-item" (click)="navbar.navigateTo('contact')">
         <button class="btn btn-link nav-link">
-          <i class="fa fa-info-circle"></i> Faq
-        </button>
-      </li> -->
-      <!-- Link-->
-      <li class="list-group-item hvr hvr-sweep-to-right border-0" (click)="navbar.navigateTo('store')">
-        <button class="btn btn-link nav-link">
-          <i class="fa fa-shopping-cart"></i> Store
+          <i class="fa fa-envelope fa-2x"></i> Contact
         </button>
       </li>
       <!-- Link-->
+      <li class="list-group-item" (click)="navbar.navigateTo('faq')">
+        <button class="btn btn-link nav-link">
+          <i class="fa fa-info-circle fa-2x"></i> Faq
+        </button>
+      </li>
+      <!-- Link-->
+      <li class="list-group-item" (click)="navbar.navigateTo('covid-updates')">
+        <button class="btn btn-link nav-link">
+          <i class="fa fa-medkit fa-2x"></i> COVID-19 Updates
+        </button>
+      </li>
       <!-- <a href="https://blog.medtelplus.com" target="_blank" rel="noopener noreferrer">
         <li class="list-group-item hvr hvr-sweep-to-right">
           <button class="btn btn-link nav-link">
@@ -59,10 +58,11 @@
 </div>
 
 <app-footer class="pt-4"></app-footer>
-<button class="btn-back-to-top animate" data-aos="fade-up"><i class="fa fa-chevron-up symbol-btn-back-to-top"
-    (click)="backToTop()"></i></button>
-<div class="d-none d-md-block">
+<div class="d-flex w-100 back-to-top-wrapper">
+  <button class="btn btn-primary text-center" data-aos="fade-up"(click)="backToTop()"><i class="fa fa-chevron-up"></i></button>
+</div>
+<!-- <div class="d-none d-md-block">
   <ngx-newsticker id="messageTicker" [title]="'GST Updates'" [events]="sidebarHeaderMessages" [showCounter]="false"><i
       class="fa fa-user"></i></ngx-newsticker>
-</div>
+</div> -->
 <app-toasts></app-toasts>

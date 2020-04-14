@@ -5,12 +5,9 @@ import { HomeComponent } from './home/home.component';
 import { ContactComponent } from './contact/contact.component';
 import { FaqComponent } from './faq/faq.component';
 import { AboutComponent } from './about/about.component';
-import { StoreComponent } from './store/store.component';
-import { CheckoutComponent } from './checkout/checkout.component';
-import { UserCartComponent } from './shared/user-cart/user-cart.component';
-import { AccountComponent } from './account/account.component';
 import { ThankYouComponent } from './shared/thank-you/thank-you.component';
 import { AuthGuard } from './core/guards/auth.guard';
+import { CovidComponent } from './covid/covid.component';
 
 const routes: Routes = [
   {
@@ -31,16 +28,12 @@ const routes: Routes = [
     component: ContactComponent,
   },
   {
-    path: 'checkout',
-    component: CheckoutComponent,
-  },
-  {
-    path: 'cart',
-    component: UserCartComponent,
-  },
-  {
     path: 'thank-you',
     component: ThankYouComponent,
+  },
+  {
+    path: 'covid-updates',
+    component: CovidComponent,
   },
   {
     path: 'home',

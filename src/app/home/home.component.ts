@@ -1,11 +1,11 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-
+import { NgModel } from '@angular/forms';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { UserService } from '../core/user.service';
 import { ToastService } from '../core/toast.service';
-import { Products } from '../core/data/products';
 import { Divider, DIVIDERS } from './home.data';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -14,13 +14,11 @@ import { Divider, DIVIDERS } from './home.data';
 })
 export class HomeComponent implements OnInit {
   dividers: any[];
-  products = Products
-  // bannerRow1Products = Products.filter((item, idx) => idx <= 1);
-  // bannerRow2Products = Products.filter((item, idx) => idx >= 2 && idx <= 3);
-  // bannerRow3Products = Products.filter((item, idx) => idx === 4);
-
   newsletterSent = false;
   panelImages: any[];
+  subscriber = {
+    email: ''
+  }
   constructor(
     private userService: UserService,
     private router: Router,
@@ -30,19 +28,6 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.dividers = DIVIDERS;
-    this.getPanelImages();
-  }
-
-  getPanelImages() {
-    const dir = 'assets/images/masthead';
-    const imagePrefix = 'Smokiez_OM_CBD_';
-    const imageType = 'png';
-    this.panelImages = [
-      'Blackberry',
-      'Blue_Raspberry',
-      'Watermelon'
-    ].map(img => ({ id: `SMOKIEZ_GUMMIES_${img.toUpperCase()}`, src: `${dir}/${imagePrefix}${img}.${imageType}` }));
-    console.log(this.panelImages);
   }
 
   navigateTo(url: string, params?: any) {
@@ -50,16 +35,9 @@ export class HomeComponent implements OnInit {
   }
 
   async sendNewsletter(email: string) {
-    if (!email) {
-      this.showError('You must provide your email address!', {
-        type: 'danger',
-        dismissible: true,
-      });
-      return;
-    }
-    return await this.userService.addNewSubscriber(email).then(ref => {
-      return this.showSuccess(
-        'Thank you for subscribing! Check your email every month for MedTelPlus Newsletter',
+    await this.userService.addNewSubscriber(email).then(ref => {
+      this.showSuccess(
+        'Thank you for subscribing! Check your email for MedTelPlus updates.',
         {
           type: 'success',
           dismissible: true,

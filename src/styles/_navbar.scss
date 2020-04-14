@@ -9,8 +9,8 @@
     padding: 1rem .5rem !important;
     position: absolute;
     width: 100%;
-    z-index: 1000;
-    background: transparent !important;
+    z-index: 10000;
+    background: $light !important;
     transition: all 0.35s;
 
     .navbar-item.btn-link {
@@ -227,7 +227,7 @@
     background: #131313;
     border-radius: 0;
     opacity: 1;
-    left: 0;
+    right: 0;
     -webkit-transform: rotate(0deg);
     -moz-transform: rotate(0deg);
     -o-transform: rotate(0deg);
@@ -260,7 +260,7 @@
 
 #nav-icon1.open span:nth-child(2) {
     opacity: 0;
-    left: -60px;
+    right: -60px;
 }
 
 #nav-icon1.open span:nth-child(3) {

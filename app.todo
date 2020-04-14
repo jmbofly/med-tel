@@ -1,21 +1,8 @@
 TODO:
-  App:
-    ✔ toaster service @done(19-08-14 21:31)
-    ✔ sidebar open when screen size is 760px or more @low @done(19-08-14 21:31)
-    ☐ search service for site search/ filter
-    ☐ image / product sliders
-  Home:
-    ✔ style change for shop list item productname div @low @done(19-08-14 21:32)
-    ✔ store navigation to shop list items @low @done(19-08-14 21:32)
-  Store:
-    ☐ discount / promo code input
-  Checkout:
-    ☐ discount service or function to add discount based on input and reflect in subtotal
-    ☐ send email to admin, vendor, and customer on purchase verification
-    ✔ add payment service @today @done(19-08-14 21:32)
-    ✔ PaymentConfig: @today @done(19-08-14 21:32)
-
-  Navbar:
-    ☐ Add search feature
+  ✔ Change home content @critical @done(20-04-07 03:22)
+  ☐ Change about content @critical 
+  ☐ Change faq content @critical 
+  ☐ Change contact content @critical 
+  ☐ Change footer content @critical 
 
 
