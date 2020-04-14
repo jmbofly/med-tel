@@ -21,16 +21,23 @@
                 data-aos-delay="1500">
                 Learn more about <span class="text-secondary">MedTelPlus</span>
               </h5>
-              <form class="subscription-form" data-aos="fade-up" data-aos-delay="700">
+              <form #subscriberForm="ngForm" name="subscriberForm" class="subscription-form" data-aos="fade-up" data-aos-delay="700">
                 <div class="input-group p-0">
-                  <input #email type="email" name="email" placeholder="Enter Email" class="form-control" />
+                  <input [(ngModel)]="subscriber.email" #email="ngModel" type="email" name="email" placeholder="your@email.com"
+                    [pattern]="'[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+'" class="form-control" required>
                   <div class="input-group-append">
-                    <button [disabled]="!email.value && email.value.length < 3" type="button"
-                      class="btn border-0 btn-secondary" (click)="sendNewsletter(email.value)">
+                    <button [disabled]="email.errors || subscriber.email.length < 3" type="button"
+                      class="btn border-0 btn-secondary" (click)="sendNewsletter(subscriber.email)">
                       <i class="fa fa-paper-plane"></i> {{hero.clientWidth > 990 ? 'Subscribe': ''}}
                     </button>
                   </div>
                 </div>
+                <p class="form-text text-danger" *ngIf="email?.errors?.required && (email.touched || email.dirty)">
+                  Your Email is Required
+                </p>
+                <p class="form-text text-danger" *ngIf="email?.errors?.pattern && (email.touched || email.dirty)">
+                  Your Email is Not Valid
+                </p>
               </form>
             </div>
             <!-- <div class="panel-images">

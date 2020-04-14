@@ -16,6 +16,7 @@ import { FooterModule } from './footer/footer.module';
 import { NgxAnimatedGradientModule } from 'ngx-animated-gradient';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ToastsModule } from './toasts/toasts.module';
+import { CovidModule } from './covid/covid.module';
 
 @NgModule({
   declarations: [AppComponent, PageNotFoundComponent],
@@ -33,6 +34,7 @@ import { ToastsModule } from './toasts/toasts.module';
     FooterModule,
     NgxAnimatedGradientModule,
     ToastsModule,
+    CovidModule,
     AppRoutingModule,
   ],
   providers: [CookieService],

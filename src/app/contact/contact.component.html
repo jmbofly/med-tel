@@ -41,8 +41,7 @@
     </header>
     <div class="row align-items-center mt-5">
       <div class="col-lg-7">
-        <form #contactForm="ngForm" name="contactForm" class="contact-form text-left"
-          (change)="formStatus(contactForm)">
+        <form #contactForm="ngForm" name="contactForm" class="contact-form text-left">
           <div class="form-group mb-4">
             <label>Name<sup class="text-danger">&#10033;</sup></label>
             <input [(ngModel)]="contact.name" #name="ngModel" type="text" name="name" minLength="3" maxLength="30"

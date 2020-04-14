@@ -8,9 +8,6 @@ import { ParallaxModule } from 'ngx-parallax';
 import { NgxNewstickerAlbeModule } from 'ngx-newsticker-albe';
 import { NgxAnimatedGradientModule } from 'ngx-animated-gradient';
 import { CarouselComponent } from './carousel/carousel.component';
-import { TabberComponent } from './tabber/tabber.component';
-import { ContactComponent } from './contact/contact.component';
-import { PricingComponent } from './pricing/pricing.component';
 import { ModalComponent } from './modal/modal.component';
 import { DividerComponent } from './divider/divider.component';
 import { ThankYouComponent } from './thank-you/thank-you.component';
@@ -18,12 +15,11 @@ import { LoaderComponent } from './loader/loader.component';
 import { ParallaxDirective } from './directives/parallax.directive';
 import { BrandButtonComponent } from './brand-button/brand-button.component';
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
+import { ChartComponent } from './chart/chart.component';
+import { TableModule } from 'ngx-easy-table';
 @NgModule({
   declarations: [
     CarouselComponent,
-    TabberComponent,
-    ContactComponent,
-    PricingComponent,
     ModalComponent,
     DividerComponent,
     ThankYouComponent,
@@ -31,11 +27,13 @@ import { SafeHtmlPipe } from './pipes/safe-html.pipe';
     ParallaxDirective,
     BrandButtonComponent,
     SafeHtmlPipe,
+    ChartComponent,
   ],
   imports: [
     CommonModule,
     FormsModule,
     NgbModule,
+    TableModule,
     NgxSkeletonLoaderModule,
     CarouselModule,
     NgxNewstickerAlbeModule,
@@ -46,15 +44,13 @@ import { SafeHtmlPipe } from './pipes/safe-html.pipe';
     CommonModule,
     FormsModule,
     NgbModule,
+    TableModule,
     NgxSkeletonLoaderModule,
     NgxAnimatedGradientModule,
     CarouselModule,
     ParallaxModule,
     NgxNewstickerAlbeModule,
     CarouselComponent,
-    TabberComponent,
-    ContactComponent,
-    PricingComponent,
     ModalComponent,
     DividerComponent,
     ThankYouComponent,
@@ -62,17 +58,7 @@ import { SafeHtmlPipe } from './pipes/safe-html.pipe';
     ParallaxDirective,
     BrandButtonComponent,
     SafeHtmlPipe,
-  ],
-  entryComponents: [
-    CarouselComponent,
-    TabberComponent,
-    ContactComponent,
-    PricingComponent,
-    ModalComponent,
-    DividerComponent,
-    ThankYouComponent,
-    LoaderComponent,
-    BrandButtonComponent,
-  ],
+    ChartComponent,
+  ]
 })
 export class SharedModule {}

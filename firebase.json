@@ -10,16 +10,7 @@
     ]
   },
   "hosting": {
-    "rewrites": [
-      {
-        "source": "/med-tel-plus/us-central1/sendWelcomeEmail",
-        "function": "sendWelcomeEmail"
-      },
-      {
-        "source": "/med-tel-plus/us-central1/sendByeEmail",
-        "function": "sendByeEmail"
-      }
-    ],
+    "rewrites": [],
     "public": "dist",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
   },

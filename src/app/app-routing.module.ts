@@ -7,6 +7,7 @@ import { FaqComponent } from './faq/faq.component';
 import { AboutComponent } from './about/about.component';
 import { ThankYouComponent } from './shared/thank-you/thank-you.component';
 import { AuthGuard } from './core/guards/auth.guard';
+import { CovidComponent } from './covid/covid.component';
 
 const routes: Routes = [
   {
@@ -29,6 +30,10 @@ const routes: Routes = [
   {
     path: 'thank-you',
     component: ThankYouComponent,
+  },
+  {
+    path: 'covid-updates',
+    component: CovidComponent,
   },
   {
     path: 'home',

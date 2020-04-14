@@ -1,0 +1,64 @@
+<section class="hero img-fluid" #hero style="background-image: url(assets/images/masthead/masthead-bg_1.jpg);">
+    <div class="container text-center">
+        <nav aria-label="breadcrumb" class="d-flex justify-content-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="" class="animsition-link">Home</a>
+                </li>
+                <li aria-current="page" class="breadcrumb-item active">Covid-Updates</li>
+            </ol>
+        </nav>
+        <div class="row align-items-center justify-content-center">
+            <div class="col-lg-8 mb-5">
+                <h2 class="text-uppercase text-center mb-5 animate" data-aos="fade-up" data-aos-delay="1000">
+                    COVID-19 UPDATES
+                </h2>
+                <hr class="bg-secondary">
+                <div class="row">
+                    <div class="panel">
+                        <div class="panel-body">
+                            <h3 class="text-center text-default" data-aos="fade-left" data-aos-delay="500">MedTelPlus is commited to help supply the frontlines of the COVID-19 battle. It is imperative that every healthcare worker have access to the Personal Protective Equipment needed to keep them out of harms way, and prevent the spread of this deadly virus.   
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="downArrow bounce">
+                <i class="text-muted fa fa-chevron-down fa-2x"></i>
+            </div>
+        </div>
+    </div>
+</section>
+<section>
+    <div class="container">
+        <div class="row w-50 mx-auto">
+            <h3 class="text-center text-dark">
+                Updated {{currentDate | date: 'h:mm a, M/d/yy'}}<br>
+                <small style="font-size: 50%;"> Thanks to Chris Micheal for data api <a href="https://twitter.com/Chris5855M" target="_blank" rel="noopener noreferrer"><i class="fa fa-twitter"></i> @Chris5855M</a></small>
+            </h3>
+        </div>
+        <hr class="bg-secondary">
+        <div class="row w-100" style="min-height: 350px;">
+            <ngx-table #table [configuration]="configuration" [data]="apiData" [columns]="columns">
+            </ngx-table>
+        </div>
+        <!-- <div class="row">
+            <div class="container">
+                <form name="filterForm" class="w-100 mx-auto">
+                    <div class="form-group">
+                        <label for="dataFilter">Filter US State</label>
+                        <select #filter [(ngModel)]="selectedState" class="form-control form-control-lg" name="filter"
+                            id="filter" (change)="selectState(filter.value, apiData)">
+                            <option *ngFor="let opt of states; let i = index;" [value]="opt.name">{{opt.name}}</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <canvas data-aos="fade-up" class="w-75 mx-auto h-75" [id]="'chartWrapper'" width="300" height="300"></canvas>
+        </div> -->
+    </div>
+</section>

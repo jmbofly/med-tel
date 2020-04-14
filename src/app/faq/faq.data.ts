@@ -39,7 +39,7 @@ export const FAQS = [
     query: 'What products does MedTelPlus offer?',
     keywords: ['howto', 'catelog', 'products', 'medical-supplies'],
     answer: {
-      content: `We are currently working on an online catelog that can be accessed on <a href="https://www.medtelplus.com" target="_blank" >medtelplus.com</a>. Because of the changing prices in the market, we must make adjustments to pices on our end. Keep in mind that we are not a comapny that hikes up prices. In this time of need we are doing our best to help, and that means selling at just above our cost, covering shipping and overhead. Nothing else.`,
+      content: `We are currently working on an online catelog that can be accessed on <a href="https://www.medtelplus.com" target="_blank" >medtelplus.com</a>. Because of demand and changes in the market, we must make adjustments to prices on our end. Keep in mind that we are not a company that hikes up prices. In this time of need, we are doing our best to help, and that means selling at as close to cost as possible, covering shipping and overhead. Nothing else.`,
       id: '0002',
     },
   },
@@ -95,6 +95,14 @@ At the time of issue of the RA number, our customer service representative will 
     answer: {
       content: `Because the demand is so high for many of the medical supplies we offer, especially PPE, we are asking that orders have a 10,000 unit minimum. However, we are willing to look at orders on a case-by-case basis, depending on need, location, and product availability`,
       id: '0007',
+    },
+  },
+  {
+    query: 'How can I find the latest COVID-19 data?',
+    keywords: ['whatIs', 'covid-19', 'updates', 'help', 'api'],
+    answer: {
+      content: `We are monitoting data from a number of sources and make it available to our vistors. You can find COVID-19 updates for the United Staes <a href="https://medtelplus.com/faq" target="_blank">here</a>`,
+      id: '0008',
     },
   },
 ];
