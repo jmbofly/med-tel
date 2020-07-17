@@ -1,18 +1,21 @@
-  import { Component, OnInit, ViewChild, TemplateRef, ElementRef } from '@angular/core';
-import { CovidUpdateService } from './covid-update.service';
-import {Chart, ChartConfiguration, ChartData, ChartOptions} from 'chart.js';
-import { ChartComponent } from '../shared/chart/chart.component';
-import { STATES_HASH } from '../core/data/states';
-import { Observable } from 'rxjs';
-import { Columns, Config, DefaultConfig } from 'ngx-easy-table';
-import { APIData } from './covid.interface';
+  import { Component, OnInit, ViewChild, TemplateRef, ElementRef, HostListener, ChangeDetectionStrategy } from '@angular/core';
+  import { Observable } from 'rxjs';
+import { Columns, Config, DefaultConfig, API, APIDefinition } from 'ngx-easy-table';
+  import {Chart, ChartConfiguration, ChartData, ChartOptions} from 'chart.js';
+  import { STATES_HASH } from '../core/data/states';
+  import { APIData } from './covid.interface';
+  import { ChartComponent } from '../shared/chart/chart.component';
+  import { CovidUpdateService } from './covid-update.service';
 
 @Component({
   selector: 'app-covid',
   templateUrl: './covid.component.html',
-  styleUrls: ['./covid.component.scss']
+  styleUrls: ['./covid.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CovidComponent implements OnInit {
+  @ViewChild('table') table: APIDefinition;
+
   chart: Chart;
   showChart = true;
   states = STATES_HASH.sort();
@@ -40,9 +43,9 @@ export class CovidComponent implements OnInit {
       { key: 'NewDeaths', title: 'New Deaths' },
       { key: 'ActiveCases', title: 'Active Cases' },
       { key: 'TotalTests', title: 'Total Tests' },
-      { key: 'Tot_Cases_1M_Pop', title: 'Cases Pop. 1 million' },
+      /* { key: 'Tot_Cases_1M_Pop', title: 'Cases Pop. 1 million' },
       { key: 'Deaths_1M_Pop', title: 'Deaths Pop. 1 million' },
-      { key: 'NewDeaths', title: 'Tests Pop. 1 million' },
+      { key: 'NewDeaths', title: 'Tests Pop. 1 million' }, */
     ];
     this.covidUpdates.getData('CasesInAllUSStates')
       .subscribe((data: APIData[]) => {
@@ -90,17 +93,7 @@ export class CovidComponent implements OnInit {
         //   setTimeout(() => {
         //   this.chart = this.getChart();
         // }, 0)
-      
-    // USAState: "USA Total"
-    // TotalCases: "583,411"
-    // NewCases: "+23,111"
-    // TotalDeaths: "23,462"
-    // NewDeaths: "+1,357"
-    // ActiveCases: "525,285"
-    // TotalTests: "2,933,127"
-    // Tot_Cases_1M_Pop: "1,763"
-    // Deaths_1M_Pop: "71"
-    // Tests_1M_Pop: "8,861"
+
   }
 
   selectState(name: string, data?: APIData[]) {
@@ -128,7 +121,7 @@ export class CovidComponent implements OnInit {
 
   updateChartData(chart: Chart, data: any[], label?: string) {
     if (!chart || !data) return;
-    this.removeData(chart)
+    this.removeData(chart);
     if (label) { 
       chart.data.labels.push(label);
     } if (data) {
@@ -154,7 +147,7 @@ export class CovidComponent implements OnInit {
     }
   }
 
-  getChart(type = 'polarArea', data = this.defaultChartData, options = this.defaultChartOptions) {
+  initChart(type = 'polarArea', data = this.defaultChartData, options = this.defaultChartOptions) {
     return new Chart('chartWrapper', {
       data,
       type,

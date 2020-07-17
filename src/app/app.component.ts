@@ -60,7 +60,6 @@ export class AppComponent implements OnInit {
       behavior: 'smooth',
     })
   }
-
   colors(gradient?: any): RGBValue[] {
     // console.log('gradient', gradient)
     return gradient ? gradient : [
@@ -71,24 +70,5 @@ export class AppComponent implements OnInit {
       [115, 97, 174],
       [115, 97, 174],
     ];
-  }
-
-  generateHeaderMessage(username?: string) {
-    if (!username) {
-      return `Welcome!`;
-    } else {
-      return `Hey ${username}!`;
-    }
-  }
-
-  getAnimationData(outlet: RouterOutlet) {
-    // console.log(outlet);
-    return (
-      outlet && outlet.activatedRouteData && outlet.activatedRouteData.animation
-    );
-  }
-
-  outletData(event?: any) {
-    // console.log('evnt', event);
   }
 }

@@ -65,7 +65,7 @@ At the time of issue of the RA number, our customer service representative will 
     query: 'Payment Methods & Processing?',
     keywords: ['whatIs', 'wire-transfer','money-order', 'credit-card', 'payments', 'payment-methods', 'solutions', 'processing'],
     answer: {
-      content: `We accept payments by wire-transfer, money-order, or credit card.<br> Before your first purcahse, MedTelPlus requires a credit check. If there aren't any problems with the credit check, the buyer sends us a purchase order with the following information:<br>
+      content: `We accept payments by wire-transfer, money-order, or credit card.<br> Before your first purchase, MedTelPlus requires a credit check. If there aren't any problems with the credit check, the buyer sends us a purchase order with the following information:<br>
       <ul class="unstyled-list">
       <li class="group-list-item">Date <em>[Date of purchase]</em></li>
       <li class="group-list-item">Name <em>[Your Name or Company Name]</em></li>
@@ -101,7 +101,7 @@ At the time of issue of the RA number, our customer service representative will 
     query: 'How can I find the latest COVID-19 data?',
     keywords: ['whatIs', 'covid-19', 'updates', 'help', 'api'],
     answer: {
-      content: `We are monitoting data from a number of sources and make it available to our vistors. You can find COVID-19 updates for the United Staes <a href="https://medtelplus.com/faq" target="_blank">here</a>`,
+      content: `We are monitoting data from a number of sources then make it available to our vistors. You can find COVID-19 updates for the United Staes <a href="//medtelplus.com/covid" target="_blank">here</a>`,
       id: '0008',
     },
   },

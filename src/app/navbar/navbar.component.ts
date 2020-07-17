@@ -33,6 +33,7 @@ import {
   map,
   filter,
 } from 'rxjs/operators';
+import { getUrlScheme } from '@angular/compiler';
 
 @Component({
   selector: 'app-navbar',
@@ -118,8 +119,23 @@ export class NavbarComponent implements OnInit {
     this.navStart.subscribe(evt => {
       if (evt) {
         this.loader.load();
+        const url = evt.url !== '/' ? `${evt.url.slice(1)}` : 'home';
+        this.setActive(url);
       }
     });
     
+  }
+
+  setActive(id: string) {
+    const linkIds = [
+      'home',
+      'about',
+      'contact',
+      'faq',
+      'covid'
+    ].map(link => {
+      document.querySelector(`li#${link}-link`).classList.remove('active');
+    });
+    document.querySelector(`#${id}-link`).classList.add('active')
   }
 }

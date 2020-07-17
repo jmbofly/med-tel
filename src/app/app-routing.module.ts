@@ -32,7 +32,7 @@ const routes: Routes = [
     component: ThankYouComponent,
   },
   {
-    path: 'covid-updates',
+    path: 'covid',
     component: CovidComponent,
   },
   {

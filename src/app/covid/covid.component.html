@@ -33,16 +33,35 @@
 </section>
 <section>
     <div class="container">
-        <div class="row w-50 mx-auto">
-            <h3 class="text-center text-dark">
-                Updated {{currentDate | date: 'h:mm a, M/d/yy'}}<br>
-                <small style="font-size: 50%;"> Thanks to Chris Micheal for data api <a href="https://twitter.com/Chris5855M" target="_blank" rel="noopener noreferrer"><i class="fa fa-twitter"></i> @Chris5855M</a></small>
+        <div class="row w-100">
+            <h3 class="mx-auto text-dark">
+                COVID-19 Updates For United States
             </h3>
         </div>
         <hr class="bg-secondary">
-        <div class="row w-100" style="min-height: 350px;">
-            <ngx-table #table [configuration]="configuration" [data]="apiData" [columns]="columns">
+        <div class="row w-100 p-3" style="min-height: 350px;">
+            <ngx-table 
+            #table 
+            [configuration]="configuration" 
+            [data]="apiData" 
+            [columns]="columns" 
+            class="w-100"
+            [detailsTemplate]="detailsTemplate"
+            >
             </ngx-table>
+            <ng-template #detailsTemplate let-row>
+                <div>
+                    <h2>{{row.phone }}</h2>
+                    {{row.name }} - {{row.age}}
+                </div>
+            </ng-template>
+        </div>
+        <div class="row w-100 mx-auto text-center">
+            <p class="text-center text-dark">
+                Updated {{currentDate | date: 'h:mm a, M/d/yy'}}<br>
+                <small style="font-size: 75%;"> Thanks to Chris Micheal for api <a href="https://twitter.com/Chris5855M"
+                        target="_blank" rel="noopener noreferrer"><i class="fa fa-twitter"></i> @Chris5855M</a></small>
+            </p>
         </div>
         <!-- <div class="row">
             <div class="container">
