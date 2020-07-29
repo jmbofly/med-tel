@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { CarouselModule } from 'ngx-owl-carousel-o';
@@ -32,6 +32,7 @@ import { TableModule } from 'ngx-easy-table';
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     NgbModule,
     TableModule,
     NgxSkeletonLoaderModule,
@@ -43,6 +44,7 @@ import { TableModule } from 'ngx-easy-table';
   exports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     NgbModule,
     TableModule,
     NgxSkeletonLoaderModule,

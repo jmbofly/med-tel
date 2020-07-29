@@ -8,11 +8,7 @@ import { SharedModule } from '../shared/shared.module';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
-
-// import { AuthService } from './auth.service';
-// import { UserService } from './user.service';
-// import { ToastService } from './toast.service';
-
+import { AngularFireStorageModule } from '@angular/fire/storage';
 import { environment } from '../../environments/environment';
 
 @NgModule({
@@ -22,7 +18,7 @@ import { environment } from '../../environments/environment';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     AngularFirestoreModule,
+    AngularFireStorageModule,
   ],
-  // providers: [AuthService, UserService, ToastService, ShopService],
 })
 export class CoreModule {}

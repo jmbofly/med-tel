@@ -8,11 +8,16 @@ import { AboutComponent } from './about/about.component';
 import { ThankYouComponent } from './shared/thank-you/thank-you.component';
 import { AuthGuard } from './core/guards/auth.guard';
 import { CovidComponent } from './covid/covid.component';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
   },
   {
     path: 'about',

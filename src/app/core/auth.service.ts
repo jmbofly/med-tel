@@ -42,11 +42,11 @@ export class AuthService {
   }
 
   // Login with simple email and password
-  async loginWithEmail(email: string, password: string) {
-    return await this.afAuth.auth
+  loginWithEmail(email: string, password: string) {
+    return this.afAuth.auth
       .signInWithEmailAndPassword(email, password)
       .catch(error => {
-        // console.log(error);
+        console.log(error);
       });
   }
 

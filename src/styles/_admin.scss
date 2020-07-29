@@ -1,0 +1,25 @@
+#admin-dashboard-wrapper {
+  min-height: 100vh;
+  height: 100%;
+
+  // @include media-breakpoint-up(lg) {
+  //   padding-top: 0;
+  // }
+  .admin-nav {
+    position: absolute;
+    top: 84px;
+    width: 100vw;
+  }
+
+  .dashboard-header {
+    padding: 1.5rem;
+    margin-top: 40px;
+    height: 200px;
+  }
+}
+
+.admin-theme {
+  &.light {}
+
+  &.dark {}
+}

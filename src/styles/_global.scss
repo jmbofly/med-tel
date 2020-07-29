@@ -231,6 +231,12 @@ button {
 #page-content-wrapper {
     width: 100vw;
     overflow-x: hidden !important;
+    padding: 7rem 0;
+
+    @include media-breakpoint-down(sm) {
+        padding: 2rem 0;
+
+    }
 }
 
 @media (max-width: 990px) {
