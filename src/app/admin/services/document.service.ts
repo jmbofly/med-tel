@@ -67,4 +67,6 @@ export class DocumentService {
   update(type: string, id: string, data: AdminDocument) {
     return this.afs.doc(`${type}s/${id}`).update(data);
   }
+
+  
 }
