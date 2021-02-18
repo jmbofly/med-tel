@@ -18,7 +18,7 @@ import {
   NavigationEnd,
 } from '@angular/router';
 
-import { NgbModal, NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
+// import { NgbModal, NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 
 import { AuthService } from '../core/auth.service';
 import { STATES_HASH as states } from '../core/data/states';
@@ -52,7 +52,7 @@ export class NavbarComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private modalService: NgbModal,
+    // private modalService: NgbModal,
     private router: Router,
     public route: ActivatedRoute
   ) {
@@ -62,19 +62,19 @@ export class NavbarComponent implements OnInit {
     this.navAuthError = router.events.pipe(
       filter(evt => evt instanceof NavigationError)
     ) as Observable<NavigationError>;
-    const stateNames = states.map(state => state.name.toLowerCase());
-    this.search = (text$: Observable<string>) =>
-      text$.pipe(
-        debounceTime(200),
-        distinctUntilChanged(),
-        map(term =>
-          term.length < 2
-            ? []
-            : stateNames
-              .filter(v => v.indexOf(term.toLowerCase()) > -1)
-              .slice(0, 10)
-        )
-      );
+    // const stateNames = states.map(state => state.name.toLowerCase());
+    // this.search = (text$: Observable<string>) =>
+    //   text$.pipe(
+    //     debounceTime(200),
+    //     distinctUntilChanged(),
+    //     map(term =>
+    //       term.length < 2
+    //         ? []
+    //         : stateNames
+    //           .filter(v => v.indexOf(term.toLowerCase()) > -1)
+    //           .slice(0, 10)
+    //     )
+    //   );
   }
 
   animateLogo(): Observable<any> {
@@ -120,6 +120,6 @@ export class NavbarComponent implements OnInit {
         this.loader.load();
       }
     });
-    
+
   }
 }

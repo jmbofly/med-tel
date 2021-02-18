@@ -32,4 +32,9 @@ export class AdminService {
   setCookie(adminId: string) {
     this.cookieService.set('admin_id', adminId, 30);
   }
+
+  deleteCookie(name: string) {
+  console.log("AdminService -> deleteCookie -> name", name)
+    this.cookieService.delete(name);
+  }
 }

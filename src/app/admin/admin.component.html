@@ -1,20 +1,44 @@
 <div id="admin-dashboard-wrapper" class="admin-theme" [ngClass]="user?.preferences?.theme">
-  <nav class="navbar navbar-expand navbar-dark bg-dark admin-nav">
-      <div class="nav navbar-nav align-content-end">
-          <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
-          <a class="nav-item nav-link" href="#">Home</a>
+  <div class="dashboard-header py-2">
+    <div class="container mx-auto">
+      <div class="row">
+        <div class="text-center col-md-4">
+          <img class="img-thumbnail rounded-circle" width="150" [src]="user?.profileImg" alt="Profile image">
+          <p class="mb-0">{{user?.roles}}</p>
+          <p class="mb-0"><b>Start date:</b> {{user?.startDate | date}}</p>
+          <div class="row">
+            <div class="dashboard-controls">
+              <button type="button" class="btn btn-lg btn-link" title="Documents" (click)="navigateTo('documents')"><i
+                  class="fa fa-list"></i></button>
+              <button type="button" class="btn btn-lg btn-link" title="Orders" (click)="navigateTo('orders')"><i class="fa fa-truck"></i></button>
+              <button type="button" class="btn btn-lg btn-link" title="Users" (click)="navigateTo('users')"><i class="fa fa-users"></i></button>
+              <button type="button" class="btn btn-lg btn-link" title="Products" (click)="navigateTo('products')"><i class="fa fa-barcode"></i></button>
+              <div class="btn-group dropLeft" dropdown #dropdown="bs-dropdown" [autoClose]="true" [placement]="'left'">
+                <button dropdownToggle type="button" class="btn btn-link dropdown-toggle">
+                  <i class="fa fa-ellipsis-v"></i>
+                </button>
+                <ul *dropdownMenu class="dropdown-menu" role="menu">
+                  <li role="menuitem" class="list-group-item" (click)="getPreferences()">View preferences</li>
+                  <li role="menuitem" class="list-group-item" (click)="getPreferences('edit')">Edit preferences</li>
+                  <li role="menuitem" class="list-group-item" (click)="signOut()">Signout</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-8">
+            <div class="dashboard-data">
+              <h3 class="text-center">Available production data</h3>
+              <div id="dashboard-chart"><h1 class="text-center pt-5 bold text-white">No Data</h1></div>
+            </div>
+        </div>
       </div>
-  </nav>
-  <div class="dashboard-header d-flex">
-    <div class="profile-image-wrapper">
-      <img [src]="user?.profileImg" alt="">
-    </div>
-    <div class="profile-greeting-wrapper">
-      <h3 class="text-center">Hello, {{user?.firstName}}</h3>
     </div>
   </div>
-  <router-outlet></router-outlet>
 </div>
+<section class="admin-content-wrapper">
+  <router-outlet></router-outlet>
+</section>
 
 
 <!-- TODO:  Add Routes

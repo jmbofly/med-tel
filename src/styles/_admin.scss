@@ -1,21 +1,49 @@
 #admin-dashboard-wrapper {
-  min-height: 100vh;
-  height: 100%;
+  min-height: 30vh;
 
-  // @include media-breakpoint-up(lg) {
-  //   padding-top: 0;
-  // }
-  .admin-nav {
-    position: absolute;
-    top: 84px;
-    width: 100vw;
+
+  @include media-breakpoint-down(sm) {
+    margin-top: 5rem;
   }
 
   .dashboard-header {
-    padding: 1.5rem;
-    margin-top: 40px;
-    height: 200px;
+    border-bottom: 1px solid rgba(0, 0, 0, .3);
+
+    .dashboard-controls {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: center;
+
+      button {
+        text-align: center;
+        padding: 10px 20px;
+        margin: 0 4px;
+      }
+
+      .dropdown-menu {
+        width: 200px !important;
+        @include media-breakpoint-down(sm) {
+          &.show {
+            transform: translateX(-100px) !important;
+          }
+        }
+      }
+    }
+    .dashboard-data {
+      margin: auto;
+      #dashboard-chart {
+        width: 100%;
+        height: 200px;
+        background-color: $primary;
+      }
+    }
+
+
   }
+}
+
+.admin-content-wrapper {
+  min-height: 70vh;
 }
 
 .admin-theme {

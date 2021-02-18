@@ -6,16 +6,16 @@ import {
   ElementRef,
 } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import {
-  trigger,
-  animateChild,
-  group,
-  transition,
-  animate,
-  style,
-  query,
-} from '@angular/animations';
-import { Observable, BehaviorSubject } from 'rxjs';
+// import {
+//   trigger,
+//   animateChild,
+//   group,
+//   transition,
+//   animate,
+//   style,
+//   query,
+// } from '@angular/animations';
+// import { Observable, BehaviorSubject } from 'rxjs';
 
 import { NavbarComponent } from './navbar/navbar.component';
 import * as Aos from 'aos';

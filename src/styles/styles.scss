@@ -8,6 +8,7 @@
 @import '~aos/dist/aos.css';
 @import '~ngx-owl-carousel-o/lib/styles/scss/owl.carousel';
 @import '~ngx-owl-carousel-o/lib/styles/scss/owl.theme.default';
+@import "~ngx-easy-table/style.scss";
 @import 'footer';
 @import 'brand-button';
 @import 'navbar';
@@ -17,4 +18,8 @@
 @import 'global';
 @import 'login';
 @import 'admin';
-@import "~ngx-easy-table/style.scss";
+@import 'documents';
+@import 'forms';
+@import 'orders';
+@import 'users';
+@import 'products';

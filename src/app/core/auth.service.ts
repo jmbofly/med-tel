@@ -6,6 +6,7 @@ import { UserService } from '../core/user.service';
 import { UserModel } from '../core/interfaces/user';
 import { map, switchMap } from 'rxjs/operators';
 import 'firebase/firestore';
+import { CookieService } from 'ngx-cookie-service';
 @Injectable({
   providedIn: 'root',
 })
@@ -16,6 +17,7 @@ export class AuthService {
   errorMessage = '';
   constructor(
     public afAuth: AngularFireAuth,
+    private cookieService: CookieService,
     public userService: UserService
   ) { }
 

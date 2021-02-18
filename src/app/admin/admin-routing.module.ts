@@ -4,6 +4,10 @@ import { FormsComponent } from './forms/forms.component';
 import { AdminComponent } from './admin.component';
 import { AuthGuard } from '../core/guards/auth.guard';
 import { PreferencesComponent } from './preferences/preferences.component';
+import { OrdersComponent } from './orders/orders.component';
+import { UsersComponent } from './users/users.component';
+import { DocumentsComponent } from './documents/documents.component';
+import { ProductsComponent } from './products/products.component';
 
 
 const routes: Routes = [
@@ -12,9 +16,12 @@ const routes: Routes = [
         component: AdminComponent,
         canActivate: [AuthGuard],
         children: [
-          { path: 'forms', component: FormsComponent },
+          { path: 'orders', component: OrdersComponent },
+          { path: 'documents', component: DocumentsComponent },
+          { path: 'products', component: ProductsComponent },
+          { path: 'users', component: UsersComponent },
           { path: 'preferences/:action', component: PreferencesComponent },
-          { path: '', redirectTo: 'forms', pathMatch: 'full' },
+          { path: '', redirectTo: 'orders', pathMatch: 'full' },
         ]
     },
 

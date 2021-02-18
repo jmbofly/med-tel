@@ -14,7 +14,6 @@ import { environment } from '../../environments/environment';
 @NgModule({
   declarations: [],
   imports: [
-    SharedModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     AngularFirestoreModule,

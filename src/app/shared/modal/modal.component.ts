@@ -1,6 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { NgbModal, NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
-import { AuthService } from '../../core/auth.service';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map, filter, tap } from 'rxjs/operators';
 
@@ -10,13 +8,13 @@ import { map, filter, tap } from 'rxjs/operators';
   styleUrls: ['./modal.component.scss'],
 })
 export class ModalComponent implements OnInit {
-  @Input() loggedIn: Observable<boolean>;
-  @Input() status: string;
+  @Input() title: string;
+  @Input() bodyHTML: any;
 
-  constructor(
-    private authService: AuthService,
-    private modalService: NgbModal
-  ) {}
+  @Input() footer: any;
+
+  data: any;
+  constructor() {}
 
   ngOnInit() {}
 }

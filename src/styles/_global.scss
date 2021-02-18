@@ -50,7 +50,7 @@
 }
 
 section {
-    padding: 7rem 0;
+    padding: 7rem 0 0 0;
 
     .box-shadow {
         -moz-box-shadow: 0 3px 3px rgba(0, 0, 0, .23);
@@ -200,7 +200,7 @@ button {
 #sidebar-wrapper {
     min-height: calc(100vh + 64px);
     z-index: 9000;
-    top: 64px;
+    top: 80px;
     position: fixed;
     right: 0;
     background: darken($light, 20);
@@ -231,11 +231,10 @@ button {
 #page-content-wrapper {
     width: 100vw;
     overflow-x: hidden !important;
-    padding: 7rem 0;
+    padding: 7rem 0 0 0;
 
     @include media-breakpoint-down(sm) {
-        padding: 2rem 0;
-
+        padding: 2rem 0 0 0;
     }
 }
 

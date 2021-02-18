@@ -1,0 +1,11 @@
+.admin-documents-wrapper {
+}
+.documents-view-modal {
+  .modal-content {
+    min-height: 50vh;
+    top: 100px;
+    @include media-breakpoint-down(sm) {
+      height: 100vh;
+    }
+  }
+}

@@ -1,97 +1,13 @@
-<!-- <div [ngSwitch]="status">
-    <div *ngSwitchCase="'login'">
-      <div class="modal-header">
-        <h4 class="modal-title" id="modal-login-title">Login</h4>
-        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Please login with email and password</p>
-        <form class="text-left">
-          <div class="form-group mb-4">
-            <label>Email<sup class="text-primary">&#10033;</sup></label>
-            <input #email type="email" name="email" placeholder="Email" class="form-control" />
-          </div>
-          <div class="form-group mb-4">
-            <label>Password<sup class="text-primary">&#10033;</sup></label>
-            <input #password type="password" name="password" placeholder="Password" class="form-control" />
-          </div>
-        </form>
-        <div class="container m-auto">
-          <div class="row">
-            <div class="col-12">
-              <h5 class="lead text-center text-black-50 m-3">
-                One click Login with <br/>
-              </h5>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-6" title="Google Login">
-              <button class="btn btn-block btn-danger m-auto" (click)="googleLogin()">
-                <i class="fa fa-google">&nbsp; Google</i>
-              </button>
-            </div>
-            <div class="col-6" title="Facebook Login">
-              <button class="btn btn-block btn-info m-auto">
-                <i class="fa fa-facebook">&nbsp; Facebook</i>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-link" (click)="modal.close('Close click')">
-          Cancel
-        </button>
-        <button type="button" class="btn btn-outline-primary" (click)="login(email.value, password.value)">
-          SignIn
-        </button>
-      </div>
-    </div>
-    <div *ngSwitchDefault>
-      <div class="modal-header">
-        <h4 class="modal-title" id="modal-login-title">Register</h4>
-        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Please register with email and password</p>
-        <form class="text-left">
-          <div class="form-group mb-4">
-            <label>Name<sup class="text-primary">&#10033;</sup></label>
-            <input #name type="text" name="name" placeholder="e.g. John Smith" class="form-control" />
-          </div>
-          <div class="form-group mb-4">
-            <label>Email<sup class="text-primary">&#10033;</sup></label>
-            <input #email type="email" name="email" placeholder="Email" class="form-control" />
-          </div>
-          <div class="form-group mb-4">
-            <label>Password<sup class="text-primary">&#10033;</sup></label>
-            <input #password type="password" name="password" placeholder="Password" class="form-control" />
-          </div>
-        </form>
-        <div class="container m-auto">
-          <h5 class="lead text-center text-black-50 m-3">
-            One click Login with <br/>
-          </h5>
-            <button class="btn btn-danger ml-3" (click)="googleLogin()">
-               <i class="fa fa-google"></i> Google
-            </button>
-            <button class="btn btn-info ml-3">
-               <i class="fa fa-facebook"></i> Facebook
-            </button>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-link" (click)="modal.close('Close click')">
-          Cancel
-        </button>
-        <button type="button" class="btn btn-outline-primary"
-          (click)="createAccount(name.value, email.value, password.value)">
-          SignUp
-        </button>
-      </div>
-    </div>
-  </div> -->
+<ng-template #content let-modal ="bs-modal">
+  <div class="modal-header">
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="modal-title">{{title}}</h4>
+  </div>
+  <div class="modal-body" [innerHTML]="bodyHTML | safeHtml">
+  </div>
+  <div class="modal-footer" *ngIf="footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.close(data)">{{footer?.action}}</button>
+  </div>
+</ng-template>
